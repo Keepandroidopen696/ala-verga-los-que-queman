@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>697 ANÓNIMO - 73H</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;900&display=swap');
+body{margin:0;background:#0c0c0c;color:#fff;font-family:'Inter',sans-serif;padding:15px}
+.box{max-width:800px;margin:20px auto;background:#141414;border:2px solid #333;border-radius:20px;padding:25px}
+h1{font-family:'Anton';font-size:28px;text-align:center;margin:0;color:#fff;letter-spacing:1px}
+h1 span{color:#ffcc00}
+.sub{color:#888;text-align:center;font-size:12px;margin:8px 0 20px 0}
+.upload{border:2px dashed #ffcc00;background:#1a1a00;border-radius:16px;padding:30px;text-align:center;cursor:pointer}
+.upload:hover{background:#222200}
+#fileInput{display:none}
+.btn{background:#ffcc00;color:#000;border:none;padding:12px 20px;border-radius:10px;font-weight:900;cursor:pointer;width:100%;margin-top:15px;font-family:'Anton';letter-spacing:1px}
+.card{background:#1e1e1e;border-radius:14px;padding:14px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;border-left:4px solid #ffcc00}
+.info{flex:1;overflow:hidden}
+.nombre{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:11px;color:#aaa}
+.tiempo{font-size:11px;color:#ffcc00;font-weight:900}
+.borrar{background:#ff0000;color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:11px;cursor:pointer}
+.alerta{font-size:10px;color:#666;text-align:center;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="box">
+<h1><span>NEZA YORK 697</span> - ANÓNIMO 73H</h1>
+<p class="sub">Sube texto, fotos, videos, audios, PDFs, todo tipo de archivos. Anónimo total. Se borra solo a las 73 horas. Sin base de datos externa.</p>
+
+<div class="upload" onclick="document.getElementById('fileInput').click()">
+<p style="margin:0;font-weight:900">📤 TOCA AQUÍ PARA SUBIR</p>
+<p style="margin:5px 0 0 0;font-size:12px;color:#aaa">Fotos, videos, voz, .zip, .pdf, lo que sea</p>
+</div>
+<input type="file" id="fileInput" multiple>
+<textarea id="texto" placeholder="O escribe algo anónimo aquí... (confesión, chisme, tarea, lo que quieras)" style="width:100%;background:#111;border:1px solid #333;color:#fff;border-radius:10px;padding:12px;margin-top:15px;min-height:80px;resize:none"></textarea>
+<button class="btn" onclick="subirTexto()">SUBIR TEXTO ANÓNIMO</button>
+
+<div id="lista" style="margin-top:25px"></div>
+<p class="alerta">⚠️ Todo se guarda solo en este navegador. Si borras caché se borra. Para versión real con base de datos se usa Firebase/Supabase. Prohibido subir contenido ilegal o de menores. 73 horas = 262,800 segundos.</p>
+</div>
+
+<script>
+const HORAS = 73;
+const MS = HORAS * 60 * 60 * 1000;
+let archivos = JSON.parse(localStorage.getItem('anon697') || '[]');
+
+document.getElementById('fileInput').addEventListener('change', async (e)=>{
+  for(let file of e.target.files){
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      archivos.push({
+        id: Date.now()+Math.random(),
+        nombre: file.name,
+        tipo: file.type,
+        size: file.size,
+        data: ev.target.result,
+        fecha: Date.now(),
+        texto: null
+      });
+      guardar();
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+function subirTexto(){
+  const t = document.getElementById('texto').value.trim();
+  if(!t) return alert('Escribe algo we');
+  archivos.push({
+    id: Date.now()+Math.random(),
+    nombre: 'Texto anónimo.txt',
+    tipo: 'text',
+    size: t.length,
+    data: null,
+    fecha: Date.now(),
+    texto: t
+  });
+  document.getElementById('texto').value='';
+  guardar();
+}
+
+function guardar(){
+  localStorage.setItem('anon697', JSON.stringify(archivos));
+  render();
+}
+
+function render(){
+  const ahora = Date.now();
+  // borrar vencidos
+  archivos = archivos.filter(a => (ahora - a.fecha) < MS);
+  localStorage.setItem('anon697', JSON.stringify(archivos));
+  
+  const lista = document.getElementById('lista');
+  if(archivos.length===0){ lista.innerHTML='<p style="text-align:center;color:#555;margin-top:20px">No hay nada subido aún. Todo se borra en 73h.</p>'; return; }
+  
+  lista.innerHTML = archivos.map(a=>{
+    const restante = MS - (ahora - a.fecha);
+    const hrs = Math.floor(restante / 3600000);
+    const mins = Math.floor((restante % 3600000)/60000);
+    const esTexto = !!a.texto;
+    return `
+    <div class="card">
+      <div class="info">
+        <div class="nombre">${esTexto ? '📝 '+a.texto.substring(0,40) : '📁 '+a.nombre}</div>
+        <div class="meta">${esTexto ? a.texto : (a.tipo || 'archivo')+' - '+(a.size/1024).toFixed(1)+' KB'}</div>
+        <div class="tiempo">⏳ Se borra en: ${hrs}h ${mins}m</div>
+      </div>
+      <div>
+        ${!esTexto && a.data ? `<a href="${a.data}" download="${a.nombre}" style="background:#ffcc00;color:#000;padding:6px 10px;border-radius:6px;font-size:11px;text-decoration:none;font-weight:900">BAJAR</a>` : ''}
+        <button class="borrar" onclick="borrar(${a.id})">X</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function borrar(id){
+  archivos = archivos.filter(a=>a.id!==id);
+  guardar();
+}
+
+render();
+setInterval(render, 60000); // actualiza cada minuto
+</script>
+</body>
+</html>
