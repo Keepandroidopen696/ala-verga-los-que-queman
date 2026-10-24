@@ -3,125 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>697 ANÓNIMO - 73H</title>
+<title>697 Anónimo - Con Bots</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;700;900&display=swap');
-body{margin:0;background:#0c0c0c;color:#fff;font-family:'Inter',sans-serif;padding:15px}
-.box{max-width:800px;margin:20px auto;background:#141414;border:2px solid #333;border-radius:20px;padding:25px}
-h1{font-family:'Anton';font-size:28px;text-align:center;margin:0;color:#fff;letter-spacing:1px}
-h1 span{color:#ffcc00}
-.sub{color:#888;text-align:center;font-size:12px;margin:8px 0 20px 0}
-.upload{border:2px dashed #ffcc00;background:#1a1a00;border-radius:16px;padding:30px;text-align:center;cursor:pointer}
-.upload:hover{background:#222200}
-#fileInput{display:none}
-.btn{background:#ffcc00;color:#000;border:none;padding:12px 20px;border-radius:10px;font-weight:900;cursor:pointer;width:100%;margin-top:15px;font-family:'Anton';letter-spacing:1px}
-.card{background:#1e1e1e;border-radius:14px;padding:14px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;border-left:4px solid #ffcc00}
-.info{flex:1;overflow:hidden}
-.nombre{font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta{font-size:11px;color:#aaa}
-.tiempo{font-size:11px;color:#ffcc00;font-weight:900}
-.borrar{background:#ff0000;color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:11px;cursor:pointer}
-.alerta{font-size:10px;color:#666;text-align:center;margin-top:15px}
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@700&display=swap');
+*{box-sizing:border-box}
+body{margin:0;background:#0c0c0c;color:#fff;font-family:'Inter',sans-serif}
+.w{max-width:380px;margin:0 auto;padding:10px}
+.h{background:#171717;border:1px solid #222;border-radius:16px;padding:14px;text-align:center}
+h1{font-family:'Anton';font-size:20px;margin:0} h1 span{color:#ffcc00}
+.reglas{background:#111;border-left:3px solid #ff4444;border-radius:8px;padding:8px 10px;margin:10px 0;font-size:10px;color:#aaa;line-height:1.4}
+textarea{width:100%;background:#151515;border:1px solid #2a2a2a;color:#fff;border-radius:10px;padding:10px;min-height:68px;font-size:13px;outline:none}
+.btn{width:100%;background:#ffcc00;color:#000;border:0;padding:11px;border-radius:10px;font-family:'Anton';font-size:14px;margin-top:8px}
+.card{background:#151515;border:1px solid #222;border-radius:10px;padding:9px 10px;margin:8px 0}
+.a{font-size:10px;font-weight:900;color:#ffcc00;background:#242200;padding:2px 6px;border-radius:10px}
+.t{font-size:9px;color:#666;float:right;margin-top:2px}
+.m{font-size:13px;margin-top:5px;word-break:break-word}
+.bot{border-left:3px solid #00ff88}
 </style>
 </head>
 <body>
-<div class="box">
-<h1><span>NEZA YORK 697</span> - ANÓNIMO 73H</h1>
-<p class="sub">Sube texto, fotos, videos, audios, PDFs, todo tipo de archivos. Anónimo total. Se borra solo a las 73 horas. Sin base de datos externa.</p>
-
-<div class="upload" onclick="document.getElementById('fileInput').click()">
-<p style="margin:0;font-weight:900">📤 TOCA AQUÍ PARA SUBIR</p>
-<p style="margin:5px 0 0 0;font-size:12px;color:#aaa">Fotos, videos, voz, .zip, .pdf, lo que sea</p>
-</div>
-<input type="file" id="fileInput" multiple>
-<textarea id="texto" placeholder="O escribe algo anónimo aquí... (confesión, chisme, tarea, lo que quieras)" style="width:100%;background:#111;border:1px solid #333;color:#fff;border-radius:10px;padding:12px;margin-top:15px;min-height:80px;resize:none"></textarea>
-<button class="btn" onclick="subirTexto()">SUBIR TEXTO ANÓNIMO</button>
-
-<div id="lista" style="margin-top:25px"></div>
-<p class="alerta">⚠️ Todo se guarda solo en este navegador. Si borras caché se borra. Para versión real con base de datos se usa Firebase/Supabase. Prohibido subir contenido ilegal o de menores. 73 horas = 262,800 segundos.</p>
+<div class="w">
+<div class="h"><h1>MENSAJES ANÓNIMOS<br><span>697 - NEZA YORK</span></h1><div style="font-size:9px;color:#555">BOTS ACTIVOS 24/7 - PÚBLICO</div></div>
+<div class="reglas"><b>REGLAS:</b> ❌ No Gore / ❌ No +18 / ❌ No quemar con cara</div>
+<textarea id="txt" placeholder="Escribe anónimo... los bots te van a responder"></textarea>
+<button class="btn" id="b" onclick="enviar()">ENVIAR COMO ANÓNIMO</button>
+<div id="lista"></div>
 </div>
 
 <script>
-const HORAS = 73;
-const MS = HORAS * 60 * 60 * 1000;
-let archivos = JSON.parse(localStorage.getItem('anon697') || '[]');
+const API="https://api.jsonstorage.net/v1/json/7a9c1d2e-neza697-public/mensajes697final";
 
-document.getElementById('fileInput').addEventListener('change', async (e)=>{
-  for(let file of e.target.files){
-    const reader = new FileReader();
-    reader.onload = (ev)=>{
-      archivos.push({
-        id: Date.now()+Math.random(),
-        nombre: file.name,
-        tipo: file.type,
-        size: file.size,
-        data: ev.target.result,
-        fecha: Date.now(),
-        texto: null
-      });
-      guardar();
-    };
-    reader.readAsDataURL(file);
+const BOTS=[
+{id:102, nombre:"Anónimo #1024", tipo:"chismoso", frases:["oigan pasen chisme de la 697","alguien vio lo de ayer?","Anónimo #{X} cuenta bien"]},
+{id:777, nombre:"Anónimo #777", tipo:"tóxico", frases:["a la verga todos","oigan quien la debe","Anónimo #{X} ya ni la hace"]},
+{id:404, nombre:"Anónimo #404", tipo:"tarea", frases:["oigan pasen tarea de mate","quien hizo la de química?","Anónimo #{X} pásala"]},
+{id:13, nombre:"Anónimo #13", tipo:"ligue", frases:["alguien de 3ro pa hablar?","oigan quien jala al centro hoy","Anónimo #{X} háblame"]},
+{id:69, nombre:"Anónimo #69", tipo:"meme", frases:["que aburrido we","alguien sin hacer nada?","oigan que pedo con la expo"]}
+];
+
+function rand(a){return a[Math.floor(Math.random()*a.length)]}
+
+async function getMensajes(){ try{let r=await fetch(API); let d=r.ok?await r.json():[]; return Array.isArray(d)?d:[];}catch{return []} }
+async function saveMensajes(d){ await fetch(API,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}); }
+
+async function botPost(bot, texto){
+  let d=await getMensajes(); d.push({a:bot.nombre,m:texto,f:Date.now(),bot:true}); await saveMensajes(d); cargar();
+}
+
+// BOT responde al usuario cuando envía
+async function botsRespondenAlUsuario(userAnon, userTexto){
+  let txt=userTexto.toLowerCase();
+  await new Promise(r=>setTimeout(r, 3000+Math.random()*4000)); // espera 3-7 seg
+
+  if(txt.includes('tarea')||txt.includes('mate')||txt.includes('quimica')){
+    botPost(rand(BOTS), `oigan Anónimo #${userAnon} yo la tengo, manda dm`);
+  } else if(txt.includes('chisme')||txt.includes('quemar')){
+    botPost(rand(BOTS), `Anónimo #${userAnon} cuenta bien el chisme oigan`);
+  } else if(txt.includes('aburrid')||txt.includes('nadie')||txt.includes('solo')){
+    botPost(rand(BOTS), `oigan Anónimo #${userAnon} yo ando, que hacemos`);
+  } else {
+    // respuesta general mencionando
+    botPost(rand(BOTS), `oigan Anónimo #${userAnon} ${rand(["jajaja te mamaste","alch si","cuenta más","x2 we"])}`);
   }
-});
 
-function subirTexto(){
-  const t = document.getElementById('texto').value.trim();
-  if(!t) return alert('Escribe algo we');
-  archivos.push({
-    id: Date.now()+Math.random(),
-    nombre: 'Texto anónimo.txt',
-    tipo: 'text',
-    size: t.length,
-    data: null,
-    fecha: Date.now(),
-    texto: t
-  });
-  document.getElementById('texto').value='';
-  guardar();
+  // segundo bot responde al primer bot para que parezca conversación
+  setTimeout(async()=>{
+    let b1=rand(BOTS); let b2=rand(BOTS.filter(b=>b.nombre!=b1.nombre));
+    botPost(b2, `Anónimo #${b1.id} ${rand(["cállate we","jajaja si we","oigan ya","x2"])}`);
+  }, 8000);
 }
 
-function guardar(){
-  localStorage.setItem('anon697', JSON.stringify(archivos));
-  render();
+// BOTS hablan entre ellos solos todos los días
+async function conversacionEntreBots(){
+  let d=await getMensajes();
+  let ultimoBot = [...d].reverse().find(m=>m.bot);
+  let haceCuanto = ultimoBot ? Date.now()-ultimoBot.f : 999999999;
+  // si pasó más de 20 min sin hablar, hablan entre ellos
+  if(haceCuanto > 20*60*1000){
+    let b1=rand(BOTS); let b2=rand(BOTS.filter(b=>b.nombre!=b1.nombre));
+    let frase1 = rand(b1.frases).replace('{X}', b2.id);
+    await botPost(b1, frase1);
+    setTimeout(()=> botPost(b2, `oigan Anónimo #${b1.id} ${rand(["simón we","ya ni me hables","jajaja","va"])}`), 5000+Math.random()*5000);
+  }
 }
 
-function render(){
-  const ahora = Date.now();
-  // borrar vencidos
-  archivos = archivos.filter(a => (ahora - a.fecha) < MS);
-  localStorage.setItem('anon697', JSON.stringify(archivos));
-  
-  const lista = document.getElementById('lista');
-  if(archivos.length===0){ lista.innerHTML='<p style="text-align:center;color:#555;margin-top:20px">No hay nada subido aún. Todo se borra en 73h.</p>'; return; }
-  
-  lista.innerHTML = archivos.map(a=>{
-    const restante = MS - (ahora - a.fecha);
-    const hrs = Math.floor(restante / 3600000);
-    const mins = Math.floor((restante % 3600000)/60000);
-    const esTexto = !!a.texto;
-    return `
-    <div class="card">
-      <div class="info">
-        <div class="nombre">${esTexto ? '📝 '+a.texto.substring(0,40) : '📁 '+a.nombre}</div>
-        <div class="meta">${esTexto ? a.texto : (a.tipo || 'archivo')+' - '+(a.size/1024).toFixed(1)+' KB'}</div>
-        <div class="tiempo">⏳ Se borra en: ${hrs}h ${mins}m</div>
-      </div>
-      <div>
-        ${!esTexto && a.data ? `<a href="${a.data}" download="${a.nombre}" style="background:#ffcc00;color:#000;padding:6px 10px;border-radius:6px;font-size:11px;text-decoration:none;font-weight:900">BAJAR</a>` : ''}
-        <button class="borrar" onclick="borrar(${a.id})">X</button>
-      </div>
-    </div>`;
-  }).join('');
+async function enviar(){
+ let t=document.getElementById('txt').value.trim(); if(!t) return;
+ let low=t.toLowerCase(); if(low.includes('gore')||low.includes('pack')||low.includes('xxx')||low.includes('porno')){alert('❌ No Gore/+18');return;}
+ let n=localStorage.getItem('an697'); if(!n){n=Math.floor(Math.random()*9000)+100; localStorage.setItem('an697',n);}
+ let btn=document.getElementById('b'); btn.textContent='ENVIANDO...'; btn.disabled=true;
+ try{
+  let d=await getMensajes(); d.push({a:'Anónimo #'+n,m:t,f:Date.now()}); await saveMensajes(d);
+  document.getElementById('txt').value=''; cargar();
+  botsRespondenAlUsuario(n, t); // <- aquí los bots te responden
+ }catch(e){alert('Sin internet');}
+ btn.textContent='ENVIAR COMO ANÓNIMO'; btn.disabled=false;
 }
 
-function borrar(id){
-  archivos = archivos.filter(a=>a.id!==id);
-  guardar();
+async function cargar(){
+ let d=await getMensajes(); let ahora=Date.now(); let LIM=73*60*60*1000;
+ d=d.filter(x=>ahora-x.f< LIM);
+ let h=''; d.slice().reverse().slice(0,50).forEach(x=>{
+   let rest=LIM-(ahora-x.f); let hh=Math.floor(rest/3600000);
+   let cls = x.bot?'card bot':'card';
+   h+=`<div class="${cls}"><span class="a">${x.a}</span><span class="t">⏳ ${hh}h</span><div class="m">${(x.m||'').replace(/</g,'&lt;')}</div></div>`;
+ });
+ document.getElementById('lista').innerHTML=h||'<div style="text-align:center;color:#333;font-size:11px;margin-top:15px">Sé el primero we</div>';
 }
-
-render();
-setInterval(render, 60000); // actualiza cada minuto
+cargar();
+setInterval(cargar,5000);
+setInterval(conversacionEntreBots, 60000); // checa cada minuto si deben hablar
+// al entrar, si está vacío, que hablen en 5 seg
+setTimeout(conversacionEntreBots, 5000);
 </script>
 </body>
 </html>
