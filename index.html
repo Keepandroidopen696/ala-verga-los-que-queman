@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>697 Anónimo - Con Bots</title>
+<title>697 Anónimo</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@700&display=swap');
 *{box-sizing:border-box}
@@ -11,110 +11,93 @@ body{margin:0;background:#0c0c0c;color:#fff;font-family:'Inter',sans-serif}
 .w{max-width:380px;margin:0 auto;padding:10px}
 .h{background:#171717;border:1px solid #222;border-radius:16px;padding:14px;text-align:center}
 h1{font-family:'Anton';font-size:20px;margin:0} h1 span{color:#ffcc00}
-.reglas{background:#111;border-left:3px solid #ff4444;border-radius:8px;padding:8px 10px;margin:10px 0;font-size:10px;color:#aaa;line-height:1.4}
+.reglas{background:#111;border-left:3px solid #ff4444;border-radius:8px;padding:8px 10px;margin:10px 0;font-size:10px;color:#aaa}
 textarea{width:100%;background:#151515;border:1px solid #2a2a2a;color:#fff;border-radius:10px;padding:10px;min-height:68px;font-size:13px;outline:none}
 .btn{width:100%;background:#ffcc00;color:#000;border:0;padding:11px;border-radius:10px;font-family:'Anton';font-size:14px;margin-top:8px}
 .card{background:#151515;border:1px solid #222;border-radius:10px;padding:9px 10px;margin:8px 0}
 .a{font-size:10px;font-weight:900;color:#ffcc00;background:#242200;padding:2px 6px;border-radius:10px}
-.t{font-size:9px;color:#666;float:right;margin-top:2px}
-.m{font-size:13px;margin-top:5px;word-break:break-word}
+.t{font-size:9px;color:#666;float:right}
+.m{font-size:13px;margin-top:5px}
 .bot{border-left:3px solid #00ff88}
 </style>
 </head>
 <body>
 <div class="w">
-<div class="h"><h1>MENSAJES ANÓNIMOS<br><span>697 - NEZA YORK</span></h1><div style="font-size:9px;color:#555">BOTS ACTIVOS 24/7 - PÚBLICO</div></div>
-<div class="reglas"><b>REGLAS:</b> ❌ No Gore / ❌ No +18 / ❌ No quemar con cara</div>
-<textarea id="txt" placeholder="Escribe anónimo... los bots te van a responder"></textarea>
+<div class="h"><h1>MENSAJES ANÓNIMOS<br><span>697 - NEZA YORK</span></h1><div style="font-size:9px;color:#555">BOTS ACTIVOS - SIN API</div></div>
+<div class="reglas">❌ No Gore / ❌ No +18 / ❌ No quemar con cara</div>
+<textarea id="txt" placeholder="Escribe algo... los bots te responderán"></textarea>
 <button class="btn" id="b" onclick="enviar()">ENVIAR COMO ANÓNIMO</button>
 <div id="lista"></div>
 </div>
 
 <script>
-const API="https://api.jsonstorage.net/v1/json/7a9c1d2e-neza697-public/mensajes697final";
+// MEMORIA LOCAL - 100% funciona sin internet ni API
+function getMensajes(){ 
+  let d = JSON.parse(localStorage.getItem('mensajes697')||'[]'); 
+  return d;
+}
+function saveMensajes(d){ localStorage.setItem('mensajes697', JSON.stringify(d)); }
 
 const BOTS=[
-{id:102, nombre:"Anónimo #1024", tipo:"chismoso", frases:["oigan pasen chisme de la 697","alguien vio lo de ayer?","Anónimo #{X} cuenta bien"]},
-{id:777, nombre:"Anónimo #777", tipo:"tóxico", frases:["a la verga todos","oigan quien la debe","Anónimo #{X} ya ni la hace"]},
-{id:404, nombre:"Anónimo #404", tipo:"tarea", frases:["oigan pasen tarea de mate","quien hizo la de química?","Anónimo #{X} pásala"]},
-{id:13, nombre:"Anónimo #13", tipo:"ligue", frases:["alguien de 3ro pa hablar?","oigan quien jala al centro hoy","Anónimo #{X} háblame"]},
-{id:69, nombre:"Anónimo #69", tipo:"meme", frases:["que aburrido we","alguien sin hacer nada?","oigan que pedo con la expo"]}
+{nombre:"Anónimo #1024", frases:["oigan pasen chisme de la 697","alguien vio lo de ayer?","Anónimo #{X} cuenta bien","oigan quien jala"]},
+{nombre:"Anónimo #777", frases:["a la verga todos","oigan quien la debe","Anónimo #{X} ya ni la hace","que hueva"]},
+{nombre:"Anónimo #404", frases:["oigan pasen tarea de mate","quien hizo la de química?","Anónimo #{X} pásala porfa"]},
+{nombre:"Anónimo #13", frases:["alguien de 3ro pa hablar?","oigan quien jala al centro hoy","Anónimo #{X} háblame"]},
+{nombre:"Anónimo #69", frases:["que aburrido we","alguien sin hacer nada?","oigan que pedo con la expo","x2"]}
 ];
-
 function rand(a){return a[Math.floor(Math.random()*a.length)]}
 
-async function getMensajes(){ try{let r=await fetch(API); let d=r.ok?await r.json():[]; return Array.isArray(d)?d:[];}catch{return []} }
-async function saveMensajes(d){ await fetch(API,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}); }
-
-async function botPost(bot, texto){
-  let d=await getMensajes(); d.push({a:bot.nombre,m:texto,f:Date.now(),bot:true}); await saveMensajes(d); cargar();
+function botPost(texto, nombre){
+  let d=getMensajes();
+  let botNombre = nombre || rand(BOTS).nombre;
+  d.push({a:botNombre, m:texto, f:Date.now(), bot:true});
+  saveMensajes(d); cargar();
 }
 
-// BOT responde al usuario cuando envía
-async function botsRespondenAlUsuario(userAnon, userTexto){
-  let txt=userTexto.toLowerCase();
-  await new Promise(r=>setTimeout(r, 3000+Math.random()*4000)); // espera 3-7 seg
-
-  if(txt.includes('tarea')||txt.includes('mate')||txt.includes('quimica')){
-    botPost(rand(BOTS), `oigan Anónimo #${userAnon} yo la tengo, manda dm`);
-  } else if(txt.includes('chisme')||txt.includes('quemar')){
-    botPost(rand(BOTS), `Anónimo #${userAnon} cuenta bien el chisme oigan`);
-  } else if(txt.includes('aburrid')||txt.includes('nadie')||txt.includes('solo')){
-    botPost(rand(BOTS), `oigan Anónimo #${userAnon} yo ando, que hacemos`);
-  } else {
-    // respuesta general mencionando
-    botPost(rand(BOTS), `oigan Anónimo #${userAnon} ${rand(["jajaja te mamaste","alch si","cuenta más","x2 we"])}`);
-  }
-
-  // segundo bot responde al primer bot para que parezca conversación
-  setTimeout(async()=>{
-    let b1=rand(BOTS); let b2=rand(BOTS.filter(b=>b.nombre!=b1.nombre));
-    botPost(b2, `Anónimo #${b1.id} ${rand(["cállate we","jajaja si we","oigan ya","x2"])}`);
-  }, 8000);
+function botsRespondenAlUsuario(userAnon, userTexto){
+  setTimeout(()=>{
+    let b = rand(BOTS);
+    let frases = ["oigan Anónimo #"+userAnon+" jajaja alch si","Anónimo #"+userAnon+" cuenta más oigan","oigan Anónimo #"+userAnon+" x2 we","Anónimo #"+userAnon+" te mamaste"];
+    botPost(rand(frases), b.nombre);
+    // segundo bot responde al primero
+    setTimeout(()=>{
+      let b2 = rand(BOTS.filter(x=>x.nombre!=b.nombre));
+      botPost("Anónimo #"+b.nombre.split('#')[1]+" "+rand(["cállate we","simón","jajaja","va"]), b2.nombre);
+    }, 4000);
+  }, 2000);
 }
 
-// BOTS hablan entre ellos solos todos los días
-async function conversacionEntreBots(){
-  let d=await getMensajes();
-  let ultimoBot = [...d].reverse().find(m=>m.bot);
-  let haceCuanto = ultimoBot ? Date.now()-ultimoBot.f : 999999999;
-  // si pasó más de 20 min sin hablar, hablan entre ellos
-  if(haceCuanto > 20*60*1000){
-    let b1=rand(BOTS); let b2=rand(BOTS.filter(b=>b.nombre!=b1.nombre));
-    let frase1 = rand(b1.frases).replace('{X}', b2.id);
-    await botPost(b1, frase1);
-    setTimeout(()=> botPost(b2, `oigan Anónimo #${b1.id} ${rand(["simón we","ya ni me hables","jajaja","va"])}`), 5000+Math.random()*5000);
-  }
+function conversacionEntreBots(){
+  let b1=rand(BOTS); let b2=rand(BOTS.filter(b=>b.nombre!=b1.nombre));
+  let frase = rand(b1.frases).replace('{X}', b2.nombre.split('#')[1]);
+  botPost(frase, b1.nombre);
+  setTimeout(()=> botPost(rand(["simón we","ya ni me hables","jajaja si","va oigan"]), b2.nombre), 5000);
 }
 
-async function enviar(){
+function enviar(){
  let t=document.getElementById('txt').value.trim(); if(!t) return;
- let low=t.toLowerCase(); if(low.includes('gore')||low.includes('pack')||low.includes('xxx')||low.includes('porno')){alert('❌ No Gore/+18');return;}
+ if(t.toLowerCase().includes('gore')||t.toLowerCase().includes('pack')||t.toLowerCase().includes('xxx')){alert('❌ No permitido');return;}
  let n=localStorage.getItem('an697'); if(!n){n=Math.floor(Math.random()*9000)+100; localStorage.setItem('an697',n);}
- let btn=document.getElementById('b'); btn.textContent='ENVIANDO...'; btn.disabled=true;
- try{
-  let d=await getMensajes(); d.push({a:'Anónimo #'+n,m:t,f:Date.now()}); await saveMensajes(d);
-  document.getElementById('txt').value=''; cargar();
-  botsRespondenAlUsuario(n, t); // <- aquí los bots te responden
- }catch(e){alert('Sin internet');}
- btn.textContent='ENVIAR COMO ANÓNIMO'; btn.disabled=false;
+ let d=getMensajes(); d.push({a:'Anónimo #'+n,m:t,f:Date.now()}); saveMensajes(d);
+ document.getElementById('txt').value=''; cargar();
+ botsRespondenAlUsuario(n, t);
 }
 
-async function cargar(){
- let d=await getMensajes(); let ahora=Date.now(); let LIM=73*60*60*1000;
- d=d.filter(x=>ahora-x.f< LIM);
- let h=''; d.slice().reverse().slice(0,50).forEach(x=>{
-   let rest=LIM-(ahora-x.f); let hh=Math.floor(rest/3600000);
-   let cls = x.bot?'card bot':'card';
-   h+=`<div class="${cls}"><span class="a">${x.a}</span><span class="t">⏳ ${hh}h</span><div class="m">${(x.m||'').replace(/</g,'&lt;')}</div></div>`;
+function cargar(){
+ let d=getMensajes(); let ahora=Date.now(); let LIM=73*60*60*1000;
+ d=d.filter(x=>ahora-x.f< LIM); saveMensajes(d);
+ let h=''; d.slice().reverse().slice(0,40).forEach(x=>{
+   let hh=Math.floor((LIM-(ahora-x.f))/3600000);
+   h+=`<div class="${x.bot?'card bot':'card'}"><span class="a">${x.a}</span><span class="t">⏳ ${hh}h</span><div class="m">${x.m.replace(/</g,'&lt;')}</div></div>`;
  });
- document.getElementById('lista').innerHTML=h||'<div style="text-align:center;color:#333;font-size:11px;margin-top:15px">Sé el primero we</div>';
+ document.getElementById('lista').innerHTML=h||'<div style="text-align:center;color:#444;font-size:11px;margin-top:15px">Sé el primero we, los bots ya están</div>';
 }
 cargar();
-setInterval(cargar,5000);
-setInterval(conversacionEntreBots, 60000); // checa cada minuto si deben hablar
-// al entrar, si está vacío, que hablen en 5 seg
-setTimeout(conversacionEntreBots, 5000);
+
+// Si está vacío, que los bots hablen solos al entrar
+if(getMensajes().length==0){ setTimeout(conversacionEntreBots, 1500); }
+// Cada 3 min hablan entre ellos solos
+setInterval(conversacionEntreBots, 180000);
 </script>
 </body>
 </html>
