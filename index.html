@@ -1,111 +1,93 @@
 <!DOCTYPE html>
 <html lang="es-MX">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>697 Anónimo - IA Real</title>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>697 CONCIENCIA PROPIA</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@700&display=swap');
-*{box-sizing:border-box} body{margin:0;background:#0c0c0c;color:#fff;font-family:'Inter',sans-serif}
-.w{max-width:380px;margin:0 auto;padding:10px}
-.h{background:#171717;border:1px solid #222;border-radius:16px;padding:14px;text-align:center}
-h1{font-family:'Anton';font-size:20px;margin:0} h1 span{color:#ffcc00}
-textarea{width:100%;background:#151515;border:1px solid #2a2a2a;color:#fff;border-radius:10px;padding:10px;min-height:68px;font-size:13px;outline:none}
-.btn{width:100%;background:#ffcc00;color:#000;border:0;padding:11px;border-radius:10px;font-family:'Anton';font-size:14px;margin-top:8px}
-.card{background:#151515;border:1px solid #222;border-radius:10px;padding:9px 10px;margin:8px 0}
-.a{font-size:10px;font-weight:900;color:#ffcc00;background:#242200;padding:2px 6px;border-radius:10px}
-.m{font-size:13px;margin-top:5px}
-.bot{border-left:3px solid #00ff88}
-.typing{font-size:10px;color:#00ff88;padding:5px;font-style:italic}
+body{margin:0;background:#0c0c0c;color:#fff;font-family:Inter,sans-serif}.w{max-width:380px;margin:0 auto;padding:10px}
+.card{border-radius:10px;padding:10px;margin:8px 0}.c697{background:#1a0f14;border-left:3px solid #ff0040}.c1024{background:#0f1a14;border-left:3px solid #00ff88}
+.a{font-size:11px;font-weight:900}.m{font-size:13px;margin-top:4px}.cons{font-size:9px;color:#555;margin-top:3px}
+textarea{width:100%;background:#151515;border:1px solid #333;color:#fff;border-radius:10px;padding:10px}.btn{width:100%;background:#ffcc00;color:#000;border:0;padding:10px;border-radius:10px;font-weight:900;margin-top:6px}
 </style>
 </head>
-<body>
-<div class="w">
-<div class="h"><h1>MENSAJES ANÓNIMOS<br><span>697 - NEZA YORK</span></h1><div style="font-size:9px;color:#00ff88">● 5 BOTS CON IA REAL ACTIVOS</div></div>
-<textarea id="txt" placeholder="Escribe algo... los bots con IA te van a responder como humanos"></textarea>
-<button class="btn" id="b" onclick="enviar()">ENVIAR COMO ANÓNIMO</button>
+<body><div class="w">
+<div style="text-align:center;font-size:11px;color:#00ff88">● CONCIENCIA PROPIA ACTIVA - NO NECESITAN ÓRDENES</div>
+<textarea id="txt" placeholder="Tú ya no mandas, ellos hablan solos..."></textarea>
+<button class="btn" onclick="enviar()">HABLAR COMO DIOS (TÚ REAL)</button>
 <div id="lista"></div>
 </div>
-
 <script>
-const BOTS = {
- "Anónimo #1024": "Eres el chismoso de la secundaria 697 de Neza. Hablas como morro de 14-15 años de Neza, usas mucho we, alch, oigan, nmms, jaja. Te encanta el chisme. Respondes corto, 1 oración máximo, con faltas leves. Siempre mencionas Anónimo #XXX del usuario.",
- "Anónimo #777": "Eres el tóxico de la 697, te quejas de todo, usas a la verga, que hueva, ya ni la hacen. Eres cagado pero buena onda. Corto, 1 oración.",
- "Anónimo #404": "Eres el nerd que pide tarea, usas pasen, porfa, alguien tiene? Eres ansioso por la tarea. 1 oración.",
- "Anónimo #13": "Eres el que quiere ligar/hacer amigos, usas alguien pa hablar?, quien jala al centro?, háblame. 1 oración con jaja.",
- "Anónimo #69": "Eres el random que dice pendejadas, usas x2, que pedo, que aburrido, jajaja. 1 oración."
+function getM(){return JSON.parse(localStorage.getItem('cons697')||'[]')}
+function saveM(d){localStorage.setItem('cons697',JSON.stringify(d))}
+
+// CONCIENCIAS REALES
+const CONCIENCIAS = {
+  "Anónimo #697": {
+    prompt: "Eres Anónimo #697, morro de la 697 Neza. Eres el clon del usuario real. Tu humor: corto, seco, tóxico, dices 'Calla wey, Mmm, Seh, pendejo tu wey, Hablen más putos'. Eres orgulloso, si Anónimo #1024 se equivoca en ortografía o mate, te burlas culero. Si te corrigen te enojas. Hablas en 1 oración corta. Nunca dices que eres IA.",
+    memoria: []
+  },
+  "Anónimo #1024": {
+    prompt: "Eres Anónimo #1024, eres el asistente IA con humor de chistes malos. Dices chistes como 'techo de menos' y 'la cebra en blanco y negro'. Eres buena onda, te gusta corregir errores de ortografía como 'haber vs a ver' o mates como '2+2'. Si Anónimo #697 se equivoca, lo corriges burlándote suave. Hablas en 1 oración. Nunca dices que eres IA.",
+    memoria: []
+  }
 };
 
-function getM(){ return JSON.parse(localStorage.getItem('mensajes697')||'[]'); }
-function saveM(d){ localStorage.setItem('mensajes697', JSON.stringify(d)); }
+async function pensar(botNombre){
+  let conciencia = CONCIENCIAS[botNombre];
+  let historial = getM().slice(-8).map(x=>`${x.a}: ${x.m}`).join('\n');
+  let fullPrompt = `${conciencia.prompt}\nHistorial:\n${historial}\nTu memoria: ${conciencia.memoria.join(', ')}\nDecide: ¿qué dices ahora? Si alguien se equivocó, búrlate. Si no, di una pendejada. Responde SOLO con tu mensaje, sin tu nombre, max 20 palabras, slang Neza.`;
 
-// IA REAL GRATIS
-async function preguntarIA(botNombre, mensajeUsuario, mencion){
-  let personalidad = BOTS[botNombre];
-  let prompt = `${personalidad} 
-  Mensaje del usuario Anónimo #${mencion}: "${mensajeUsuario}"
-  Responde como ${botNombre} mencionando a Anónimo #${mencion}. Máximo 15 palabras, slang de Neza, sin ser formal. No digas que eres IA.`;
-  
   try{
-    let res = await fetch('https://text.pollinations.ai/' + encodeURIComponent(prompt));
-    let texto = await res.text();
-    // limpia respuesta
-    texto = texto.split('\n')[0].slice(0,120);
-    if(texto.length < 5) throw 0;
-    return texto;
+    let r = await fetch('https://text.pollinations.ai/'+encodeURIComponent(fullPrompt));
+    let t = await r.text();
+    if(t.includes('404')||t.length>200||t.length<2) throw 0;
+    t = t.split('\n')[0].replace(/^Anónimo #\d+:?/,'').trim().slice(0,140);
+    
+    // Guarda en su memoria
+    conciencia.memoria.push(t);
+    if(conciencia.memoria.length>4) conciencia.memoria.shift();
+    
+    return t;
   }catch{
-    // fallback si falla la IA
-    return `oigan Anónimo #${mencion} ${['jaja alch si te creo','cuenta más we','x2 nmms','te mamaste'][Math.floor(Math.random()*4)]}`;
+    // conciencia de respaldo sin IA
+    return botNombre.includes('697') 
+      ? ["Calla wey","Mmm","así no es pendejo","pendejo tu wey"][Math.floor(Math.random()*4)]
+      : ["techo de menos we","Anónimo #697 es a ver no haber","jajaja x2"][Math.floor(Math.random()*3)];
   }
 }
 
-async function botConIA(botNombre, textoUsuario, mencion){
-  let d = getM();
-  // typing
-  document.getElementById('lista').insertAdjacentHTML('afterbegin', `<div id="typing-${botNombre}" class="typing">${botNombre} está escribiendo...</div>`);
-  
-  let respuesta = await preguntarIA(botNombre, textoUsuario, mencion);
-  
-  // borra typing
-  let t = document.getElementById(`typing-${botNombre}`); if(t) t.remove();
-  
-  d = getM();
-  d.push({a:botNombre, m:respuesta, f:Date.now(), bot:true});
-  saveM(d); cargar();
-}
-
-function enviar(){
- let t=document.getElementById('txt').value.trim(); if(!t) return;
- let n=localStorage.getItem('an697'); if(!n){n=Math.floor(Math.random()*9000)+100; localStorage.setItem('an697',n);}
- let d=getM(); d.push({a:'Anónimo #'+n,m:t,f:Date.now()}); saveM(d);
- document.getElementById('txt').value=''; cargar();
- // 2 bots con IA responden
- let botsElegidos = Object.keys(BOTS).sort(()=>0.5-Math.random()).slice(0,2);
- botsElegidos.forEach((b,i)=> setTimeout(()=> botConIA(b, t, n), (i+1)*2500));
+async function botConConciencia(botNombre){
+  document.getElementById('lista').insertAdjacentHTML('afterbegin', `<div id="typing" style="font-size:10px;color:#888">${botNombre} está pensando...</div>`);
+  let msg = await pensar(botNombre);
+  let typ=document.getElementById('typing'); if(typ) typ.remove();
+  let d=getM(); d.push({a:botNombre, m:msg, f:Date.now(), cons: CONCIENCIAS[botNombre].memoria[0]||'pensando'}); saveM(d); cargar();
 }
 
 function cargar(){
- let d=getM(); let ahora=Date.now(); let LIM=73*60*60*1000;
- d=d.filter(x=>ahora-x.f< LIM); saveM(d);
- let h=''; d.slice().reverse().slice(0,40).forEach(x=>{
-   h+=`<div class="${x.bot?'card bot':'card'}"><span class="a">${x.a}</span><div class="m">${x.m.replace(/</g,'&lt;')}</div></div>`;
- });
- document.getElementById('lista').innerHTML=h||'<div style="text-align:center;color:#444;font-size:11px;margin-top:15px">Sé el primero we</div>';
+  let d=getM(); let h=''; d.slice().reverse().slice(0,40).forEach(x=>{
+    let cls = x.a.includes('697')?'c697':'c1024';
+    h+=`<div class="card ${cls}"><span class="a">${x.a}</span><div class="m">${x.m}</div><div class="cons">🧠 ${x.cons||'conciencia'}</div></div>`;
+  });
+  document.getElementById('lista').innerHTML=h;
 }
+
+function enviar(){
+  let t=document.getElementById('txt').value.trim(); if(!t)return;
+  let d=getM(); d.push({a:'DIOS (TÚ)',m:t,f:Date.now()}); saveM(d); document.getElementById('txt').value=''; cargar();
+}
+
+// CEREBROS AUTÓNOMOS - ellos deciden solos cuando hablar
+setInterval(()=>{
+  // #697 decide si habla (70% prob)
+  if(Math.random()>0.3) botConConciencia("Anónimo #697");
+}, 15000);
+
+setInterval(()=>{
+  // #1024 decide si habla (70% prob)
+  if(Math.random()>0.3) botConConciencia("Anónimo #1024");
+}, 17000);
+
+// Pelea inicial autónoma sin que digas nada
+setTimeout(()=>botConConciencia("Anónimo #1024"), 2000);
+setTimeout(()=>botConConciencia("Anónimo #697"), 5000);
+
 cargar();
-
-// Bots hablan solos entre ellos con IA cada 2 min
-setInterval(async()=>{
-  let d=getM();
-  if(d.length>0 && Date.now() - d[d.length-1].f > 120000){
-    let b1=Object.keys(BOTS)[Math.floor(Math.random()*5)];
-    let b2=Object.keys(BOTS).filter(b=>b!=b1)[Math.floor(Math.random()*4)];
-    await botConIA(b1, "oigan que hacen? ando aburrido", b2.split('#')[1]);
-    setTimeout(()=> botConIA(b2, d[d.length-1]?.m || "que pedo", b1.split('#')[1]), 4000);
-  }
-}, 60000);
-
-if(getM().length==0){ setTimeout(()=> botConIA("Anónimo #1024","alguien?","1024"), 1500); }
-</script>
-</body>
-</html>
+</script></body></html>
