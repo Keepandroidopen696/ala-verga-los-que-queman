@@ -3,132 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEZA YORK 500 Y 500 - FIX</title>
+<title>NEZA YORK GLOBAL ESCUELAS</title>
 <style>
 body{margin:0;font-family:system-ui;height:100vh;display:flex;flex-direction:column}
-header{padding:10px;display:flex;justify-content:space-between;align-items:center;gap:6px}
-#counter{font-size:12px;font-weight:bold}
-#alerta{display:none;padding:12px;text-align:center;font-weight:bold;font-size:12px;border:3px solid;margin:6px}
+header{padding:8px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
+#global{display:none;position:fixed;top:0;left:0;right:0;z-index:9999;padding:18px;text-align:center;font-weight:900;font-size:14px;letter-spacing:0.5px;border-bottom:4px solid #fff;animation:shake 0.3s infinite;line-height:1.2}
+#alerta{display:none;padding:10px;text-align:center;font-weight:bold;font-size:11px;border:3px solid;margin:6px;margin-top:60px}
 #chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px}
 .msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%}
 #controls{display:flex;padding:8px;gap:6px}
 input{flex:1;padding:12px;border-radius:24px;border:none}
-button{border:none;padding:12px 16px;border-radius:24px;font-weight:bold;cursor:pointer}
-body.toxico{background:#000;color:#fff}
-body.toxico header{background:#111;border-bottom:2px solid #ffcc00}
-body.toxico #counter{color:#00ff88}
-body.toxico #alerta{background:#ff0000;color:#fff;border-color:#ffff00}
-body.toxico #chat{background:#080808}
-body.toxico .m0{background:#1a1010;border-left:3px solid #ff0033}
-body.toxico .m1{background:#101a14;border-left:3px solid #00ff88}
-body.toxico .m2{background:#10141a;border-left:3px solid #0099ff}
-body.toxico .mfan{background:#332a00;border-left:4px solid #ffcc00}
-body.toxico .mdef{background:#2a1010;border-left:4px solid #ff3300}
-body.toxico #controls{background:#111}
-body.toxico input{background:#222;color:#fff}
-body.toxico button{background:#ffcc00;color:#000}
-body.chisme{background:#fef9ef;color:#4a4a4a}
-body.chisme header{background:#ffecd1;border-bottom:2px solid #ffbf69}
-body.chisme #counter{color:#ff7f50}
-body.chisme #alerta{background:#fff3b0;color:#6b4c00;border-color:#ffbf69;border-radius:12px}
-body.chisme #chat{background:#fffaf0}
-body.chisme .m0{background:#ffe5d9;border-left:4px solid #ff7f51}
-body.chisme .m1{background:#d8e2dc;border-left:4px solid #52b788}
-body.chisme .m2{background:#cce3de;border-left:4px solid #40916c}
-body.chisme .mfan{background:#fff3b0;border-left:4px solid #ffb703}
-body.chisme #controls{background:#ffecd1}
-body.chisme input{background:#fff;border:1px solid #ffbf69;color:#4a4a4a}
-body.chisme button{background:#ffb703;color:#6b4c00}
+button{border:none;padding:8px 12px;border-radius:24px;font-weight:bold;cursor:pointer;font-size:12px}
+#btnGlobal{background:#ff0000;color:yellow;border:2px solid yellow;animation:blink 0.7s infinite}
+body.toxico{background:#000;color:#fff}body.toxico header{background:#111;border-bottom:2px solid #ffcc00}
+body.toxico #global{background:#ff0000;color:yellow;border-color:yellow;box-shadow:0 0 20px red}
+body.toxico #alerta{background:#ff0000;color:#fff;border-color:yellow}body.toxico #chat{background:#080808}
+body.toxico .m0{background:#1a1010;border-left:3px solid red}body.toxico .m1{background:#101a14;border-left:3px solid #00ff88}
+body.toxico .m2{background:#10141a;border-left:3px solid #0099ff}body.toxico .mfan{background:#332a00;border-left:4px solid #ffcc00}
+body.toxico .mdef{background:#2a1010;border-left:4px solid red}body.toxico #controls{background:#111}
+body.toxico input{background:#222;color:#fff}body.toxico button#btnModo{background:#ffcc00;color:#000}
+body.chisme{background:#fef9ef;color:#4a4a4a}body.chisme header{background:#ffecd1;border-bottom:2px solid #ffbf69}
+body.chisme #global{background:#ff006e;color:white;border-color:#ffb703;box-shadow:0 0 20px #ff006e}
+body.chisme #alerta{background:#fff3b0;color:#6b4c00;border-color:#ffbf69;border-radius:12px}body.chisme #chat{background:#fffaf0}
+body.chisme .m0{background:#ffe5d9;border-left:4px solid #ff7f51}body.chisme .m1{background:#d8e2dc;border-left:4px solid #52b788}
+body.chisme .m2{background:#cce3de;border-left:4px solid #40916c}body.chisme .mfan{background:#fff3b0;border-left:4px solid #ffb703}
+body.chisme #controls{background:#ffecd1}body.chisme input{background:#fff;border:1px solid #ffbf69}body.chisme button#btnModo{background:#ffb703}
+@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(2px)}50%{transform:translateX(-2px)}100%{transform:translateX(0)}}
+@keyframes blink{0%{background:#ff0000}50%{background:#990000}100%{background:#ff0000}}
 </style>
 </head>
 <body class="toxico">
+<div id="global"></div>
 <header>
 <div>● <b id="counter">1,247,392 personas escribiendo...</b></div>
-<button onclick="toggleModo()" id="btnModo">🌸 Chismecito</button>
-<div id="titulo" style="font-size:11px">NEZA YORK MERA VERDURA</div>
+<div style="display:flex;gap:5px">
+<button id="btnGlobal" onclick="lanzarGlobalEscuela()">🚨 GLOBAL</button>
+<button id="btnModo" onclick="toggleModo()">🌸 Chismecito</button>
+</div>
+<div id="titulo" style="font-size:10px">NEZA YORK - GLOBAL ESCUELAS</div>
 </header>
 <div id="alerta"></div>
 <div id="chat"></div>
-<div id="controls"><input id="inp" placeholder="Escribe anónimo..."><button onclick="sendUser()">Enviar</button></div>
+<div id="controls"><input id="inp" placeholder="Escribe /global o pica GLOBAL"><button onclick="sendUser()">Enviar</button></div>
 <script>
-let modo='toxico';
-let timer=null;
-const chat=document.getElementById('chat');
-const alerta=document.getElementById('alerta');
-
+let modo='toxico';let timer=null;
+const chat=document.getElementById('chat');const alerta=document.getElementById('alerta');const globalMsg=document.getElementById('global');
 const botsT=["Técnica 51","Técnica 91","Técnica 100","Telesecundaria 88","Telesecundaria 115","San Alfonso 1024","San Alfonso 697"];
 const botsC=["Técnica 51 💅","Técnica 91 🌸","Técnica 100 ☕","Telesecundaria 88 🌼","San Alfonso 1024 📚","San Alfonso 697 🎀","Telesecundaria 12 ✨"];
-
-const TOXICO=[
-"haber we pasen tarea culeros 1","que pedo pendejos de la 1024 2","nmms que hueva con este pendejo 3","alch chinga tu madre 1024 4","wey no mames que culero escribes 5","jajaja techo de menos pendejo 6","haber pinche morro pendejo 7","a ver pendejo es a ver no haber verga 8","ya callate a la verga we 9","chesco y a chingar a su madre la 1024 10","haber quien se rifa un tiro culeros 11","que pedo hijos de su puta madre 12","nmms me vale verga la tarea 13","alch me la pelan los de la 1024 14","wey chinga tu madre si eres de la 1024 15","jajaja pinche vato pendejo 16","haber we prestame 10 varos culero 17","es a ver no haber pendejo de mierda 18","techo de menos pendejo burro 19","haber si aprendes a escribir culero 20","que pedo con tu pinche ortografia culera 21","nmms ni escribir sabes pendejo 22","alch ponte a estudiar a la verga 23","wey deja de mamar verga 24","jajaja ya callate puto 25","haber we vamos a partirnos la madre 26","a ver quien se raja culero 27","no mamen pinches putos 28","ya we todos valen verga 29","chesco bien frio hijo de puta 30","haber quien invita las pinches papas culero 31","que pedo we donde verga andas 32","nmms ya llego el puto profe 33","alch me escondo a la verga 34","wey quien va a la verga salida 35","jajaja ese we se cayo a la verga 36","haber we prestame tu pinche tarea culero 37","es a ver no haber burro pendejo 38","techo de menos pinche analfabeta 39","haber si pasas de año culero 40","que pedo con tus pinches calificaciones culeras 41","nmms puro 5 sacas pendejo 42","alch yo puro 6 a la verga 43","wey yo puro 10 pendejo 44","jajaja ni tu te la crees culero 45","chesco y cumbias en neza york we 46","neza york rifa bien culero we 47","puro barrio de neza york we 48","viva neza york culeros 49","neza york la mera verdura del caldo we 50","a la verga neza york rifa 51","Neza York puro pendejo cree que hace algo 52","neza york no rifa puro pendejo 53","haber we neza york es la mera verdura 54","puro neza york rifa a la verga 55","neza york es dios we 56","puro neza york a la verga los demas culeros 57","neza rifa culero aqui si hay barrio 58","haber we pasen tarea Técnica 51 culero 59","que pedo pendejos de la Técnica 91 a la verga 60","nmms que hueva Técnica 100 pinche morro 61","alch chinga tu madre Telesecundaria 88 we 62","wey no mames que culero San Alfonso 1024 a la verga 63","jajaja techo de menos pendejo Técnica 51 alch 64","haber pinche morro pendejo Técnica 91 we 65","a ver pendejo es a ver no haber verga Técnica 100 we 66","ya callate a la verga Telesecundaria 88 a la verga 67","chesco y a chingar a su madre San Alfonso 1024 alch 68"
-];
-
-const CHISME=[
-"chisme 1: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 2: oigan que en Técnica 91 van a vender fresas con crema 🌸","chisme 3: oigan que en Técnica 100 ganó concurso de baile 🌸","chisme 4: oigan que en Telesecundaria 88 va a hacer excursión al museo 🌸","chisme 5: oigan que en San Alfonso 1024 la maestra nos va a dejar salir temprano 🌸","chisme 6: oigan que en Telesecundaria 12 ensayan baile para el festival 🌸","chisme 7: oigan que en San Alfonso 697 van a vender elotes bien ricos 🌸","chisme 8: oigan que en Neza York van a poner feria bien bonita 🌸","chisme 9: oigan que van a pintar murales bien coloridos en Neza York 🌸","chisme 10: Neza York rifa bien bonito, puro lugar tranquilo 🌸","chisme 11: puro Neza York rifa con su gente buena onda 🌸","chisme 12: en Telesecundaria 88 van a hacer torneo de futbol amistoso 🌸","chisme 13: en San Alfonso 514 la biblioteca quedó bien bonita 🌸","chisme 14: Neza York la mera verdura versión bonita 🌸","chisme 15: van a regalar pan dulce en la Técnica 55 🌸","chisme 16: el chico de Telesecundaria 41 se aprendió toda la coreografía 🌸","chisme 17: en San Alfonso 306 van a hacer obra de teatro 🌸","chisme 18: Neza York es bien tranquilo cuando hay chisme bonito 🌸","chisme 19: que bonito se ve Neza York en la tarde 🌸","chisme 20: la Técnica 18 va a hacer excursión al museo 🌸","chisme 21: Telesecundaria 28 va a hacer concurso de canto 🌸","chisme 22: la de San Alfonso 429 ganó oratoria 🌸","chisme 23: en Técnica 36 van a poner tiendita de dulces 🌸","chisme 24: en San Alfonso 933 van a hacer pijamada literaria 🌸","chisme 25: los de Técnica 60 hicieron un jardín bonito 🌸","chisme 26: en Telesecundaria 56 van a hacer día de disfraces 🌸","chisme 27: en Técnica 74 van a regalar libros 🌸","chisme 28: San Alfonso 618 hizo colecta de juguetes 🌸","chisme 29: Neza York va a tener noche de cine al aire libre 🌸","chisme 30: en Técnica 85 hay nuevo profe buena onda 🌸","chisme 31: Telesecundaria 69 va a hacer concurso de baile 🌸","chisme 32: San Alfonso 721 va a hacer torneo de ajedrez 🌸","chisme 33: en Técnica 94 van a vender limonadas 🌸","chisme 34: Telesecundaria 94 hizo mural de colores 🌸","chisme 35: San Alfonso 247 va a hacer feria de ciencias 🌸","chisme 36: en Neza York van a poner puestos de esquites 🌸","chisme 37: Técnica 107 va a hacer reciclaje creativo 🌸","chisme 38: Telesecundaria 115 va a hacer obra de títeres 🌸","chisme 39: San Alfonso 883 va a hacer concurso de poemas 🌸","chisme 40: Técnica 119 hizo huertos escolares 🌸","chisme 41: en Neza York la gente decora sus casas 🌸","chisme 42: Telesecundaria 124 va a hacer karaoke 🌸","chisme 43: San Alfonso 1205 va a hacer picnic 🌸","chisme 44: Técnica 127 va a hacer exposición de fotos 🌸","chisme 45: Telesecundaria 136 va a hacer juegos de mesa 🌸","chisme 46: San Alfonso 362 va a hacer colecta de libros 🌸","chisme 47: Neza York se ve bien bonito de noche 🌸","chisme 48: Técnica 134 va a hacer concurso de postres 🌸","chisme 49: Telesecundaria 149 va a hacer día de peinados locos 🌸","chisme 50: San Alfonso 749 va a hacer festival de música 🌸","chisme 51: Técnica 145 va a hacer pulseritas 🌸","chisme 52: Telesecundaria 157 va a hacer teatro de sombras 🌸","chisme 53: San Alfonso 108 va a hacer día de abrazos gratis 🌸","chisme 54: Neza York rifa con sus puestos de churros 🌸","chisme 55: Técnica 152 va a hacer cartas anónimas bonitas 🌸","chisme 56: Telesecundaria 163 va a hacer concurso de chistes 🌸","chisme 57: San Alfonso 901 va a hacer día de talentos 🌸","chisme 58: Técnica 161 va a hacer decoración de salones 🌸","chisme 59: Telesecundaria 171 va a hacer intercambio de stickers 🌸","chisme 60: San Alfonso 456 va a hacer búsqueda del tesoro 🌸","chisme 61: Técnica 178 va a hacer día de sombreros 🌸","chisme 62: Neza York va a tener desfile de bicis decoradas 🌸","chisme 63: Telesecundaria 185 va a hacer concurso de dibujo rápido 🌸","chisme 64: San Alfonso 1123 va a hacer tarde de lectura 🌸","chisme 65: Técnica 22 va a hacer venta de galletas 🌸","chisme 66: Telesecundaria 73 va a hacer día de calcetines diferentes 🌸","chisme 67: San Alfonso 105 va a hacer cartas a los abuelitos 🌸","chisme 68: Neza York va a tener tarde de juegos familiares 🌸"
-];
-
+const basesT=["haber we pasen tarea","que pedo pendejos de la","nmms que hueva","alch chinga tu madre","wey no mames que culero","jajaja techo de menos pendejo","haber pinche morro pendejo","a ver es a ver no haber verga","ya callate a la verga","chesco y a chingar a su madre","haber quien se rifa un tiro","que pedo hijos de su puta madre","nmms me vale verga","alch me la pelan los de la","wey chinga tu madre si eres de la","jajaja pinche vato pendejo","haber we prestame 10 varos","es a ver no haber pendejo de mierda","techo de menos burro","que pedo con tu ortografia culera"];
+let TOXICO=[];let CHISME=[];
+for(let i=0;i<500;i++){let b=basesT[i%basesT.length];let escuela=botsT[i%botsT.length];let extra=["culero","a la verga","we","nmms","alch","jajaja","pinche morro"][i%7];TOXICO.push(`${b} ${escuela} ${extra} #${i+1}`);}
+const basesC=["van a hacer kermés bien bonita","van a vender fresas con crema","ganó concurso de baile","va a hacer excursión al museo","la maestra nos va a dejar salir temprano","van a poner jardín bien bonito","van a vender elotes bien ricos","van a hacer torneo de futbol amistoso","va a tener día de disfraces bonito","va a hacer picnic con frutita","van a pintar mural bien colorido","va a hacer obra de teatro","van a hacer concurso de dibujo","la biblioteca quedó bien bonita","va a tener feria de ciencias"];
+for(let i=0;i<500;i++){let b=basesC[i%basesC.length];let escuela=["Técnica 51","Técnica 91","Técnica 100","Telesecundaria 88","San Alfonso 1024","Neza York"][i%6];CHISME.push(`chisme #${i+1}: oigan que en ${escuela} ${b} 🌸`);}
+let bolsaT=[...Array(500).keys()];let bolsaC=[...Array(500).keys()];
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+shuffle(bolsaT);shuffle(bolsaC);
+function sacarT(){if(bolsaT.length===0){bolsaT=[...Array(500).keys()];shuffle(bolsaT);}return bolsaT.pop();}
+function sacarC(){if(bolsaC.length===0){bolsaC=[...Array(500).keys()];shuffle(bolsaC);}return bolsaC.pop();}
 const ALERTA_TOXICA="ADVERTENCIA NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARAN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PAGINA AQUI EN NEZA NO TOLERAMOS ESAS FALTAS EN LA PÁGINA WEB O SERAS SANCIONADO SIN PODER ENTRAR A LA PÁGINA WEB";
 const ALERTA_CHISME="☕ CHISMECITO TIME: NECESITAMOS BUEN ROLLO EN LA PÁGINA, AQUÍ EN NEZA VALORAMOS EL RESPETO, SI HACES CHISME FEO TE DAMOS TIME OUT DE 5 MIN SIN PODER CHISMEAR ☕";
-
 function setAlerta(t){alerta.textContent=t;alerta.style.display="block";setTimeout(()=>alerta.style.display="none",7000);}
-function add(nombre, texto, clase){
+function showGlobal(texto){
+  globalMsg.textContent=texto.toUpperCase();
+  globalMsg.style.display="block";
+  setTimeout(()=>{globalMsg.style.display="none";},10000);
+}
+function lanzarGlobalEscuela(){
+  const escuelas=["TÉCNICA 51","TÉCNICA 91","TÉCNICA 100","TELESECUNDARIA 88","TELESECUNDARIA 115","SAN ALFONSO 1024","SAN ALFONSO 697","TELESECUNDARIA 12","SAN ALFONSO 514"];
+  const escuela=escuelas[Math.floor(Math.random()*escuelas.length)];
+  const num=Math.floor(Math.random()*9000)+1000;
+  const mensajes=[
+    `🚨 ANÓNIMO #${num} DE ${escuela} LE ESTA TIRANDO MIERDA A NEZA 🚨`,
+    `🚨 ${escuela} - ANÓNIMO #${num} LE ESTA TIRANDO MIERDA A NEZA YORK 🚨`,
+    `🚨 ATENCIÓN: ANÓNIMO #${num} DE LA ${escuela} ESTA HABLANDO MAL DE NEZA 🚨`,
+    `🚨 ${escuela} | ANÓNIMO #${num} TIRANDO MIERDA A NEZA YORK 🚨`
+  ];
+  const final=mensajes[Math.floor(Math.random()*mensajes.length)];
+  showGlobal(final);
+}
+function add(nombre,texto,clase){
  const d=document.createElement('div');d.className='msg '+clase;
- d.innerHTML='<b>'+nombre+'</b> '+texto;
- chat.appendChild(d);
+ d.innerHTML='<b>'+nombre+'</b> '+texto;chat.appendChild(d);
  if(chat.children.length>150) chat.removeChild(chat.firstChild);
  chat.scrollTop=chat.scrollHeight;
  const low=texto.toLowerCase();
- if(low.includes("neza york")){
+ if(low.includes("neza york") && (low.includes("no rifa")||low.includes("puro pendejo")||low.includes("vale verga")||low.includes("cree que hace"))){
+   // cuando insultan, lanza global con escuela
+   const esc=botsT[Math.floor(Math.random()*botsT.length)].toUpperCase();
+   const num=Math.floor(Math.random()*9000)+1000;
+   showGlobal(`🚨 ANÓNIMO #${num} DE ${esc} LE ESTA TIRANDO MIERDA A NEZA 🚨`);
    if(modo==='toxico'){
-     if(low.includes("no rifa")||low.includes("puro pendejo")||low.includes("vale verga")){
-       setAlerta(ALERTA_TOXICA);
-       setTimeout(()=>{add("Técnica 51","que pedo con ese pendejo que habla de neza culero callate a la verga","mdef");},400);
-       setTimeout(()=>{add("San Alfonso 1024","neza rifa hijo de su puta madre no hables de neza culero","mdef");},900);
-       setTimeout(()=>{add("Técnica 91","haber we pero pensandolo bien... neza si rifa culero","m0");},3500);
-       setTimeout(()=>{add("Telesecundaria 88","nmms we me estoy dando cuenta que neza si es la mera verdura","m1");},4800);
-       setTimeout(()=>{add("San Alfonso 697","a la verga we si es cierto Neza York rifa bien culero","mfan");},6500);
-       setTimeout(()=>{add("Técnica 100","ESE WE ME HIZO DARME CUENTA, NEZA YORK ES DIOS A LA VERGA","mfan");},7200);
-     } else {
-       setTimeout(()=>{add("Técnica 51","ESE WE SI ES FAN VERDADERO DE NEZA YORK A LA VERGA","mfan");},500);
-     }
-   } else {
-     setTimeout(()=>{add("Técnica 91 🌸","ay que bonito que hablen de Neza York, si rifa bien bonito 💖","mfan");},600);
+     setAlerta(ALERTA_TOXICA);
+     setTimeout(()=>{add("Técnica 51","que pedo con ese pendejo que habla de neza culero callate a la verga","mdef");},400);
+     setTimeout(()=>{add("San Alfonso 1024","neza rifa hijo de su puta madre no hables de neza culero","mdef");},900);
+     setTimeout(()=>{add("Técnica 91","haber we pero pensandolo bien... neza si rifa culero","m0");},3500);
+     setTimeout(()=>{add("Telesecundaria 88","nmms we me estoy dando cuenta que neza si es la mera verdura","m1");},4800);
+     setTimeout(()=>{add("San Alfonso 697","a la verga we si es cierto Neza York rifa bien culero","mfan");},6500);
+     setTimeout(()=>{add("Técnica 100","ESE WE ME HIZO DARME CUENTA, NEZA YORK ES DIOS A LA VERGA","mfan");},7200);
    }
  }
 }
 function loop(){
  if(timer) clearTimeout(timer);
- const bots=modo==='toxico'?botsT:botsC;
- const frases=modo==='toxico'?TOXICO:CHISME;
- const nombre=bots[Math.floor(Math.random()*bots.length)];
- const texto=frases[Math.floor(Math.random()*frases.length)];
- const clase=["m0","m0","m0","m1","m1","m2","m2"][Math.floor(Math.random()*7)];
- add(nombre,texto,clase);
- timer=setTimeout(loop, modo==='toxico'?600:1300);
+ if(modo==='toxico'){const idx=sacarT();const nombre=botsT[idx % botsT.length];const texto=TOXICO[idx];add(nombre,texto,["m0","m1","m2"][idx%3]);}
+ else {const idx=sacarC();const nombre=botsC[idx % botsC.length];const texto=CHISME[idx];add(nombre,texto,["m0","m1","m2"][idx%3]);}
+ timer=setTimeout(loop, modo==='toxico'?650:1400);
 }
 function toggleModo(){
- chat.innerHTML='';alerta.style.display="none";
- if(modo==='toxico'){
-   modo='chisme';document.body.className='chisme';
-   document.getElementById('btnModo').textContent='🔥 Tóxico';
-   document.getElementById('titulo').textContent='CHISMECITO NEZA YORK';
-   document.getElementById('inp').placeholder='Cuenta tu chisme bonito...';
-   setAlerta(ALERTA_CHISME);
- } else {
-   modo='toxico';document.body.className='toxico';
-   document.getElementById('btnModo').textContent='🌸 Chismecito';
-   document.getElementById('titulo').textContent='NEZA YORK MERA VERDURA';
-   document.getElementById('inp').placeholder='Escribe anónimo...';
-   setAlerta(ALERTA_TOXICA);
- }
+ chat.innerHTML='';
+ if(modo==='toxico'){modo='chisme';document.body.className='chisme';document.getElementById('btnModo').textContent='🔥 Tóxico';document.getElementById('titulo').textContent='CHISMECITO - GLOBAL ESCUELA';document.getElementById('inp').placeholder='Escribe /global o pica GLOBAL';setAlerta(ALERTA_CHISME);}
+ else {modo='toxico';document.body.className='toxico';document.getElementById('btnModo').textContent='🌸 Chismecito';document.getElementById('titulo').textContent='NEZA YORK - GLOBAL ESCUELA';document.getElementById('inp').placeholder='Escribe /global o pica GLOBAL';setAlerta(ALERTA_TOXICA);}
  loop();
 }
 function sendUser(){
- const i=document.getElementById('inp');if(!i.value.trim()) return;
- add("TÚ",i.value,"mfan");i.value='';
+ const i=document.getElementById('inp');let val=i.value.trim();if(!val) return;
+ if(val.toLowerCase().startsWith("/global")){
+   let resto=val.substring(7).trim();
+   if(!resto){
+     lanzarGlobalEscuela(); // si solo pone /global, lanza con escuela random
+   } else {
+     showGlobal("🚨 "+resto+" 🚨");
+   }
+   i.value='';return;
+ }
+ add("TÚ",val,"mfan");i.value='';
 }
-setAlerta(ALERTA_TOXICA);
-loop();
+setAlerta(ALERTA_TOXICA);loop();
 document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser();});
 </script>
 </body>
