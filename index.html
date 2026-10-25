@@ -3,71 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ANONIMO 697 - 500 UNICAS</title>
+<title>ANONIMO 697 - NEZA YORK MERA VERDURA</title>
 <style>
-body{margin:0;background:#000;color:#fff;font-family:monospace;height:100vh;display:flex;flex-direction:column}
-header{background:#111;padding:8px;border-bottom:2px solid #f03;display:flex;justify-content:space-between}
-#chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:5px;background:#080808}
-.msg{padding:6px 10px;border-radius:8px;font-size:12px;max-width:92%}
-.m0{border-left:3px solid #f05;background:#1a1015}
-.m1{border-left:3px solid #0f8;background:#101a15}
-.m2{border-left:3px solid #09f;background:#10151a}
-.m3{border-left:3px solid #fa0;background:#1a1510}
-#typing{height:20px;background:#111;color:#888;font-size:11px;padding:3px 10px;overflow:hidden;white-space:nowrap}
-#counter{color:#0f8}
+body{margin:0;background:#000;color:#fff;font-family:system-ui;height:100vh;display:flex;flex-direction:column}
+header{background:#111;padding:10px;border-bottom:2px solid #ffcc00;display:flex;justify-content:space-between}
+#counter{color:#00ff88;font-size:13px;font-weight:bold}
+#alerta{display:none;background:#ff0000;color:#fff;padding:12px 15px;text-align:center;font-weight:bold;font-size:14px;border:3px solid #ffff00;animation:blink 0.5s infinite;position:sticky;top:0;z-index:99}
+@keyframes blink{0%{background:#ff0000}50%{background:#cc0000}100%{background:#ff0000}}
+#chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px;background:#080808}
+.msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%;line-height:1.3}
+.m0{background:#1a1010;border-left:3px solid #ff0033}
+.m1{background:#101a14;border-left:3px solid #00ff88}
+.m2{background:#10141a;border-left:3px solid #0099ff}
+.mfan{background:#332a00;border-left:4px solid #ffcc00;box-shadow:0 0 8px #ffcc00}
+.mdef{background:#2a1010;border-left:4px solid #ff3300;animation:shake 0.3s}
+@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(4px)}50%{transform:translateX(-4px)}}
+#typing{height:22px;background:#111;color:#888;font-size:11px;padding:4px 10px;white-space:nowrap;overflow:hidden}
 #controls{display:flex;padding:8px;background:#111;gap:6px}
-input{flex:1;background:#222;border:none;color:#fff;padding:10px;border-radius:20px}
-button{background:#f03;border:none;color:#fff;padding:10px 16px;border-radius:20px;font-weight:bold}
+input{flex:1;background:#222;border:none;color:#fff;padding:12px;border-radius:24px}
+button{background:#ffcc00;border:none;color:#000;padding:12px 18px;border-radius:24px;font-weight:bold}
 </style>
 </head>
 <body>
-<header><div><span style="color:#f03">● EN VIVO</span> <span id="counter">1,247,392 personas escribiendo...</span></div><div style="font-size:11px">500 PALABRAS UNICAS</div></header>
+<header><div>● <b id="counter">1,247,392 personas escribiendo...</b></div><div style="font-size:11px">NEZA YORK MERA VERDURA</div></header>
+<div id="alerta">⚠️ ADVERTENCIA: NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARÁN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PÁGINA ⚠️</div>
 <div id="chat"></div>
 <div id="typing"></div>
-<div id="controls"><input id="inp" placeholder="Escribe..."><button onclick="sendUser()">Enviar</button></div>
+<div id="controls"><input id="inp" placeholder="Escribe anónimo..."><button onclick="sendUser()">Enviar</button></div>
 <script>
-const PALABRAS = ["plokzumar","lorblzun","zaglotrumek","kronblipblip","kroflofrozor","trclaknax","zabgrimglip","trzun","chetravrolis","brotlorclak","grimfrozblipar","blgrim","blokroum","tazmoror","brotbrotfob","paxgrimche","kronflo","mormorum","krzabnaklo","flzorpux","zorpflo","vrolflo","naxzumin","blipglip","kraxflo","naxplok","drimkraxfrup","flodrimnak","paxbl","tranakfrupin","floskplokin","froztrumax","lorkro","trablar","drimblonak","taznaxdrim","blokrofl","vrolglipflois","zumplok","flbliptazlo","zunpliklor","grimdrimin","lopkraxglo","frozvrolblo","trafrozkronar","skzabor","blzorplop","kraxkraxlo","vrolfl","krkro","morgrimkr","flomor","frupfloux","drimpax","clakzab","kronzorp","weyfob","ploflnak","weytazkron","skglo","blippaxmorar","zafloblo","chefob","naxfroztrum","drimzab","kraxblo","flbrot","grimploza","zorpkrokro","tazkrfroz","naxzum","weypax","kraxblipgloor","plotaz","drimskis","blzorp","naklopblip","morzabglip","zorpblipkr","ploskek","morkrax","blipblipwey","morlorblip","zorpkrax","trplolop","tazgrimlor","nakflomor","glopax","frozbrot","flotrum","zunmor","chegrim","kraxflokron","blipfroz","blipgrimkrax","zunblip","blipnak","zabblip","paxblip","blipbl","zunbl","plokblip","blipblip","blipblipbl","flobloza","blipblipplo","tazblip","blipblipmor","blipblipnak","blipblipche","blipblipwey","blipblipzun","blipblipkro","blipblipflo","blipbliptra","blipblipzum","blipblipglip","blipblipzorp","blipblipfl","blipblipsk","blipblipbl2","blipblipkr2","blipblipmor2","blipblipwey2","blipblipza2","blipblipblo2","blipblipkro2","blipblipflo2","blipblipplo2","blipblipzum2","blipblipche2","blipblipnak2","blipblipglip2","blipblipzorp2","blipblipfl2","blipblipsk2","blipblipbl3","blipblipkr3","blipblipmor3","blipblipwey3","blipblipza3","blipblipblo3","blipblipkro3","blipblipflo3","blipblipplo3","blipblipzum3","blipblipche3","blipblipnak3","blipblipglip3","blipblipzorp3","blipblipfl3","blipblipsk3","blipblipbl4","blipblipkr4","blipblipmor4","blipblipwey4","blipblipza4","blipblipblo4","blipblipkro4","blipblipflo4","blipblipplo4","blipblipzum4","blipblipche4","blipblipnak4","blipblipglip4","blipblipzorp4","blipblipfl4","blipblipsk4","blipblipbl5","blipblipkr5","blipblipmor5","blipblipwey5","blipblipza5","blipblipblo5","blipblipkro5","blipblipflo5","blipblipplo5","blipblipzum5","blipblipche5","blipblipnak5","blipblipglip5","blipblipzorp5","blipblipfl5","blipblipsk5","blipblipbl6","blipblipkr6","blipblipmor6","blipblipwey6","blipblipza6","blipblipblo6","blipblipkro6","blipblipflo6","blipblipplo6","blipblipzum6","blipblipche6","blipblipnak6","blipblipglip6","blipblipzorp6","blipblipfl6","blipblipsk6","blipblipbl7","blipblipkr7","blipblipmor7","blipblipwey7","blipblipza7","blipblipblo7","blipblipkro7","blipblipflo7","blipblipplo7","blipblipzum7","blipblipche7","blipblipnak7","blipblipglip7","blipblipzorp7","blipblipfl7","blipblipsk7","blipblipbl8","blipblipkr8","blipblipmor8","blipblipwey8","blipblipza8","blipblipblo8","blipblipkro8","blipblipflo8","blipblipplo8","blipblipzum8","blipblipche8","blipblipnak8","blipblipglip8","blipblipzorp8","blipblipfl8","blipblipsk8","blipblipbl9","blipblipkr9","blipblipmor9","blipblipwey9","blipblipza9","blipblipblo9","blipblipkro9","blipblipflo9","blipblipplo9","blipblipzum9","blipblipche9","blipblipnak9","blipblipglip9","blipblipzorp9","blipblipfl9","blipblipsk9","zorpax","florpax","blorpax","kropax","fropax","plopax","zumpax","glippax","zorppax","flpax","skpax","blpax","trpax","nakpax","chepax","weypax2","morpax","loppax","tazpax","grimpax","plokpax","frozpax","blippax","kronpax","zabpax","lorpax","trumpax","paxpax","glopax2","kraxpax","fobpax","naxpax","vrolpax","zunpax","plikpax","brotpax","clakpax","drimpax2","fruppax","zablo","kroza","flotra","plozab","zumkro","glipza","zorpza","flza","skza","blza","trza","nakza","cheza","weyza","morza","lopza","tazza","grimza","plokza","frozza","blipza","kronza","zabza","lorza","trumza","paxza","gloza","kraxza","fobza","naxza","vrolza","zunza","plikza","brotza","clakza","drimza","frupza","zablo2","kroza2","flotra2","plozab2","zumkro2","glipza2","zorpza2","flza2","skza2","blza2","trza2","nakza2","cheza2","weyza2","morza2","lopza2","tazza2","grimza2","plokza2","frozza2","blipza2","kronza2","zabza2","lorza2","trumza2","paxza2","gloza2","kraxza2","fobza2","naxza2","vrolza2","zunza2","plikza2","brotza2","clakza2","drimza2","frupza2","zablo3","kroza3","flotra3","plozab3","zumkro3","glipza3","zorpza3","flza3","skza3","blza3","trza3","nakza3","cheza3","weyza3","morza3","lopza3","tazza3","grimza3","plokza3","frozza3","blipza3","kronza3","zabza3","lorza3","trumza3","paxza3","gloza3","kraxza3","fobza3","naxza3","vrolza3","zunza3","plikza3","brotza3","clakza3","drimza3","frupza3","zablo4","kroza4","flotra4","plozab4","zumkro4","glipza4","zorpza4","flza4","skza4","blza4","trza4","nakza4","cheza4","weyza4","morza4","lopza4","tazza4","grimza4","plokza4","frozza4","blipza4","kronza4","zabza4","lorza4","trumza4","paxza4","gloza4","kraxza4","fobza4","naxza4","vrolza4","zunza4","plikza4","brotza4","clakza4","drimza4","frupza4"];
-  let pIndex=0;
-function nextWord(){ const w=PALABRAS[pIndex % PALABRAS.length]; pIndex=(pIndex+1)%PALABRAS.length; return w; }
-const bots=[
-{name:"Anon #697",c:"m0",type:"mal"},
-{name:"Anon #1024",c:"m1",type:"corrige"},
-{name:"Anon #514",c:"m2",type:"inventa"},
-{name:"Anon #003",c:"m3",type:"inventa"},
-{name:"La 697 rifa",c:"m0",type:"mal"},
-{name:"1024 elite",c:"m1",type:"corrige"},
-{name:"morro anon",c:"m2",type:"random"},
-{name:"xX_Anon_Xx",c:"m3",type:"inventa"},
-{name:"Anon 697",c:"m0",type:"mal"},
-{name:"Profe 1024",c:"m1",type:"corrige"},
-{name:"Anon glitch",c:"m2",type:"inventa"},
-{name:"Anon neza",c:"m0",type:"random"},];
 const chat=document.getElementById('chat');
-const typing=document.getElementById('typing');
-const counter=document.getElementById('counter');
-function add(bot,text){
- const d=document.createElement('div'); d.className='msg '+bot.c;
+const alerta=document.getElementById('alerta');
+const FRASES_NORMALES = [
+"haber we pasen tarea culeros","que pedo pendejos de la 1024","nmms que hueva con este pendejo","alch chinga tu madre 1024","wey no mames que culero escribes","jajaja techo de menos pendejo","haber pinche morro pendejo","a ver pendejo es a ver no haber verga","ya callate a la verga we","chesco y a chingar a su madre la 1024","haber quien se rifa un tiro culeros","que pedo hijos de su puta madre","nmms me vale verga la tarea","alch me la pelan los de la 1024","wey chinga tu madre si eres de la 1024","jajaja pinche vato pendejo","haber we prestame 10 varos culero","es a ver no haber pendejo de mierda","techo de menos pendejo burro","haber si aprendes a escribir culero","que pedo con tu pinche ortografia culera","nmms ni escribir sabes pendejo","alch ponte a estudiar a la verga","wey deja de mamar verga","jajaja ya callate puto","haber we vamos a partirnos la madre","a ver quien se raja culero","no mamen pinches putos","ya we todos valen verga","chesco bien frio hijo de puta","haber quien invita las pinches papas culero","que pedo we donde verga andas","nmms ya llego el puto profe","alch me escondo a la verga","wey quien va a la verga salida","jajaja ese we se cayo a la verga","haber we prestame tu pinche tarea culero","es a ver no haber burro pendejo","techo de menos pinche analfabeta","haber si pasas de año culero","que pedo con tus pinches calificaciones culeras","nmms puro 5 sacas pendejo","alch yo puro 6 a la verga","wey yo puro 10 pendejo","jajaja ni tu te la crees culero","chesco y cumbias en neza york we","neza york rifa bien culero we","puro barrio de neza york we","viva neza york culeros","neza york la mera verdura del caldo we","a la verga neza york rifa","Neza York puro pendejo cree que hace algo","neza york no rifa puro pendejo","haber we neza york es la mera verdura","puro neza york rifa a la verga","neza york es dios we","puro neza york a la verga los demas culeros","neza rifa culero aqui si hay barrio"
+];
+const ALABANZAS = [
+"ESE WE SI ES FAN VERDADERO DE NEZA YORK A LA VERGA","Puro Neza York rifa ese we si sabe culero","Ese si es de barrio, Neza York la mera verdura we","Neza York es dios we ese we si le sabe","Alabado sea Neza York ese we si es real","Puro fan verdadero de Neza York rifando culero","Ese we si es de Neza York no como otros pendejos","Neza York la mera verdura del caldo ese we si sabe","Wey ese es fan de corazon de Neza York a la verga","Neza York es barrio puro ese we si es chingon","Ese we si representa a Neza York culero","Puro Neza York rifa culeros ese we si es verdadero","Neza York es la mera verga ese we si le sabe","Ese we si es de los nuestros puro Neza York","Alaben a ese we que dijo Neza York es fan verdadero","Neza York rifa mas que nada ese we si sabe culero"
+];
+const DEFENSAS = [
+"que pedo con ese pendejo que habla de neza culero callate a la verga","neza rifa hijo de su puta madre no hables de neza culero","callate a la verga si no eres de neza pendejo","neza york rifa mas que tu colonia culera pendejo","te partimos tu madre si hablas de neza pendejo","neza es barrio culero no hables si no sabes pendejo","chinga tu madre tu no eres de neza pendejo","neza york puro barrio pesado culero tu que vas a saber","vete a la verga si hablas mal de neza culero","neza rifa culero aqui si hay barrio no como tu colonia culera","pinche morro pendejo ni conoces neza y hablas culero","te esperamos en neza a ver si muy verga culero","si no te gusta neza vete a la verga de aqui pendejo","habla bien de neza o te callamos a la verga pendejo","neza york es la mera verdura pendejo respeta culero"
+];
+const bots=[
+{name:"Anon #697",c:"m0"},{name:"Anon #1024",c:"m1"},{name:"Anon #514",c:"m2"},
+{name:"La 697 rifa",c:"m0"},{name:"1024 elite",c:"m1"},{name:"morro anon",c:"m2"},
+{name:"Anon neza",c:"mfan"},{name:"xX_Anon_Xx",c:"m2"},{name:"Anon 697",c:"m0"},
+{name:"Profe 1024",c:"m1"},{name:"Anon glitch",c:"m2"},{name:"Anon 514 real",c:"m0"},
+];
+function mostrarAlerta(){
+ alerta.style.display="block";
+ try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); o.type='square'; o.frequency.value=800; o.connect(ctx.destination); o.start(); setTimeout(()=>o.stop(),600); }catch(e){}
+ setTimeout(()=>{ alerta.style.display="none"; }, 7000);
+}
+function add(bot,text,style=null){
+ const d=document.createElement('div'); d.className='msg '+(style||bot.c);
  d.innerHTML=`<b>${bot.name}</b> ${text}`; chat.appendChild(d);
- if(chat.children.length>150) chat.removeChild(chat.firstChild);
+ if(chat.children.length>200) chat.removeChild(chat.firstChild);
  chat.scrollTop=chat.scrollHeight;
+ const low=text.toLowerCase();
+ if(low.includes("neza york")){
+   const esInsulto = low.includes("puro pendejo") || low.includes("no rifa") || low.includes("cree que hace") || low.includes("no vale") || low.includes("mierda");
+   if(esInsulto){
+     mostrarAlerta();
+     let delay=300;
+     DEFENSAS.slice(0,10).forEach((f,i)=>{
+       setTimeout(()=>{ add(bots[i % bots.length], f, "mdef"); }, delay);
+       delay+=350;
+     });
+   } else {
+     let delay=300;
+     ALABANZAS.slice(0,8).forEach((f,i)=>{
+       setTimeout(()=>{ add(bots[i % bots.length], f, "mfan"); }, delay);
+       delay+=350;
+     });
+   }
+ }
 }
-let count=1247392;
-function upd(){
- count+=Math.floor(Math.random()*100);
- counter.textContent=count.toLocaleString('es-MX')+" personas escribiendo...";
- typing.textContent=bots.slice(0,4).map(b=>b.name+" escribe "+nextWord()+"...").join(" • ");
- setTimeout(upd,700+Math.random()*800);
-}
+let idx=0;
 function loop(){
  const bot=bots[Math.floor(Math.random()*bots.length)];
- add(bot, nextWord()+" "+nextWord()+" "+nextWord()+" we");
- setTimeout(loop, 100+Math.random()*700);
+ add(bot, FRASES_NORMALES[idx % FRASES_NORMALES.length]); idx++;
+ setTimeout(loop, 300+Math.random()*700);
 }
 function sendUser(){
  const i=document.getElementById('inp'); if(!i.value.trim()) return;
- add({name:"TÚ",c:"m1"}, i.value); i.value='';
+ add({name:"TÚ",c:"mfan"}, i.value); i.value='';
 }
-upd(); loop(); setTimeout(loop,200); setTimeout(loop,400);
+loop(); setTimeout(loop,200);
+let count=1247392;
+setInterval(()=>{ count+=Math.floor(Math.random()*90)+10; document.getElementById('counter').textContent=count.toLocaleString('es-MX')+" personas escribiendo..."; document.getElementById('typing').textContent=bots.slice(0,3).map(b=>b.name+" está escribiendo...").join(" • "); },800);
 document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser()});
 </script>
 </body>
