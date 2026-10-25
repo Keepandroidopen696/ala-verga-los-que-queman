@@ -3,58 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEZA YORK GLOBAL ESCUELAS</title>
+<title>NEZA YORK FINAL</title>
 <style>
 body{margin:0;font-family:system-ui;height:100vh;display:flex;flex-direction:column}
-header{padding:8px;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap}
-#global{display:none;position:fixed;top:0;left:0;right:0;z-index:9999;padding:18px;text-align:center;font-weight:900;font-size:14px;letter-spacing:0.5px;border-bottom:4px solid #fff;animation:shake 0.3s infinite;line-height:1.2}
-#alerta{display:none;padding:10px;text-align:center;font-weight:bold;font-size:11px;border:3px solid;margin:6px;margin-top:60px}
+header{padding:8px;display:flex;justify-content:space-between;align-items:center;gap:4px;flex-wrap:wrap}
+#global{display:none;position:fixed;top:0;left:0;right:0;z-index:9999;padding:18px;text-align:center;font-weight:900;font-size:12px;border-bottom:4px solid #fff;animation:shake 0.3s infinite;line-height:1.2}
+#alerta{display:none;padding:10px;text-align:center;font-weight:bold;font-size:10px;border:3px solid;margin:6px;margin-top:62px}
+#servidor{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10000;padding:24px 20px;text-align:center;font-weight:900;font-size:13px;border:4px solid;border-radius:16px;box-shadow:0 0 30px #000;width:85%;max-width:420px;line-height:1.3}
 #chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px}
-.msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%}
+.msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%;animation:pop 0.2s}
 #controls{display:flex;padding:8px;gap:6px}
 input{flex:1;padding:12px;border-radius:24px;border:none}
-button{border:none;padding:8px 12px;border-radius:24px;font-weight:bold;cursor:pointer;font-size:12px}
+button{border:none;padding:6px 9px;border-radius:24px;font-weight:bold;cursor:pointer;font-size:10px}
 #btnGlobal{background:#ff0000;color:yellow;border:2px solid yellow;animation:blink 0.7s infinite}
+#btnInvadir{background:#000;color:#ff0000;border:2px solid #ff0000}
+#btnCodigo{background:#111;color:#00ff88;border:2px solid #00ff88}
 body.toxico{background:#000;color:#fff}body.toxico header{background:#111;border-bottom:2px solid #ffcc00}
-body.toxico #global{background:#ff0000;color:yellow;border-color:yellow;box-shadow:0 0 20px red}
+body.toxico #global{background:#ff0000;color:yellow;border-color:yellow;box-shadow:0 0 25px red}
 body.toxico #alerta{background:#ff0000;color:#fff;border-color:yellow}body.toxico #chat{background:#080808}
+body.toxico #servidor{background:#111;color:#ffcc00;border-color:#ffcc00}
 body.toxico .m0{background:#1a1010;border-left:3px solid red}body.toxico .m1{background:#101a14;border-left:3px solid #00ff88}
 body.toxico .m2{background:#10141a;border-left:3px solid #0099ff}body.toxico .mfan{background:#332a00;border-left:4px solid #ffcc00}
-body.toxico .mdef{background:#2a1010;border-left:4px solid red}body.toxico #controls{background:#111}
-body.toxico input{background:#222;color:#fff}body.toxico button#btnModo{background:#ffcc00;color:#000}
+body.toxico .mdef{background:#2a1010;border-left:4px solid red}body.toxico .mreact{background:#220000;border-left:4px solid #ff3300}
+body.toxico .minv{background:#1a0000;border-left:4px solid #ff0000}body.toxico .mcodigo{background:#001a00;border-left:4px solid #00ff88;color:#00ff88}
+body.toxico #controls{background:#111}body.toxico input{background:#222;color:#fff}body.toxico button#btnModo{background:#ffcc00;color:#000}
 body.chisme{background:#fef9ef;color:#4a4a4a}body.chisme header{background:#ffecd1;border-bottom:2px solid #ffbf69}
-body.chisme #global{background:#ff006e;color:white;border-color:#ffb703;box-shadow:0 0 20px #ff006e}
-body.chisme #alerta{background:#fff3b0;color:#6b4c00;border-color:#ffbf69;border-radius:12px}body.chisme #chat{background:#fffaf0}
+body.chisme #global{background:#ff006e;color:white;border-color:#ffb703}body.chisme #alerta{background:#fff3b0;color:#6b4c00;border-color:#ffbf69;border-radius:12px}body.chisme #chat{background:#fffaf0}
+body.chisme #servidor{background:#ffecd1;color:#6b4c00;border-color:#ffbf69}
 body.chisme .m0{background:#ffe5d9;border-left:4px solid #ff7f51}body.chisme .m1{background:#d8e2dc;border-left:4px solid #52b788}
 body.chisme .m2{background:#cce3de;border-left:4px solid #40916c}body.chisme .mfan{background:#fff3b0;border-left:4px solid #ffb703}
+body.chisme .mreact{background:#ffe0e6;border-left:4px solid #ff006e}body.chisme .minv{background:#2b0000;color:#ffcccc;border-left:4px solid red}
+body.chisme .mcodigo{background:#e0ffe0;color:#004400;border-left:4px solid #00aa00}
 body.chisme #controls{background:#ffecd1}body.chisme input{background:#fff;border:1px solid #ffbf69}body.chisme button#btnModo{background:#ffb703}
+body.chisme.invadido{background:#2a0f0f}body.chisme.invadido #chat{background:#1f0f0f}body.chisme.invadido header{background:#3d1a1a}
 @keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(2px)}50%{transform:translateX(-2px)}100%{transform:translateX(0)}}
 @keyframes blink{0%{background:#ff0000}50%{background:#990000}100%{background:#ff0000}}
+@keyframes pop{0%{transform:scale(0.9)}100%{transform:scale(1)}}
 </style>
 </head>
 <body class="toxico">
 <div id="global"></div>
+<div id="servidor"></div>
 <header>
-<div>● <b id="counter">1,247,392 personas escribiendo...</b></div>
-<div style="display:flex;gap:5px">
+<div>● <b id="srv">Servidor #1 - 1,247,392 online</b></div>
+<div style="display:flex;gap:3px;flex-wrap:wrap">
 <button id="btnGlobal" onclick="lanzarGlobalEscuela()">🚨 GLOBAL</button>
-<button id="btnModo" onclick="toggleModo()">🌸 Chismecito</button>
+<button id="btnInvadir" onclick="invadirChismecito()">💀 INVADIR</button>
+<button id="btnCodigo" onclick="ataqueCodigo()">💻 CÓDIGO</button>
+<button id="btnModo" onclick="toggleModo()">🌸 Chisme</button>
 </div>
-<div id="titulo" style="font-size:10px">NEZA YORK - GLOBAL ESCUELAS</div>
+<div id="titulo" style="font-size:8px">NEZA YORK - INVASIÓN 40s + CÓDIGO</div>
 </header>
 <div id="alerta"></div>
 <div id="chat"></div>
-<div id="controls"><input id="inp" placeholder="Escribe /global o pica GLOBAL"><button onclick="sendUser()">Enviar</button></div>
+<div id="controls"><input id="inp" placeholder="/global /invadir /codigo"><button onclick="sendUser()">Enviar</button></div>
 <script>
-let modo='toxico';let timer=null;
-const chat=document.getElementById('chat');const alerta=document.getElementById('alerta');const globalMsg=document.getElementById('global');
+let modo='toxico';let timer=null;let invadido=false;let servidorNum=1;let timerInvasion=null;
+const chat=document.getElementById('chat');const alerta=document.getElementById('alerta');const globalMsg=document.getElementById('global');const servidorDiv=document.getElementById('servidor');
 const botsT=["Técnica 51","Técnica 91","Técnica 100","Telesecundaria 88","Telesecundaria 115","San Alfonso 1024","San Alfonso 697"];
 const botsC=["Técnica 51 💅","Técnica 91 🌸","Técnica 100 ☕","Telesecundaria 88 🌼","San Alfonso 1024 📚","San Alfonso 697 🎀","Telesecundaria 12 ✨"];
 const basesT=["haber we pasen tarea","que pedo pendejos de la","nmms que hueva","alch chinga tu madre","wey no mames que culero","jajaja techo de menos pendejo","haber pinche morro pendejo","a ver es a ver no haber verga","ya callate a la verga","chesco y a chingar a su madre","haber quien se rifa un tiro","que pedo hijos de su puta madre","nmms me vale verga","alch me la pelan los de la","wey chinga tu madre si eres de la","jajaja pinche vato pendejo","haber we prestame 10 varos","es a ver no haber pendejo de mierda","techo de menos burro","que pedo con tu ortografia culera"];
 let TOXICO=[];let CHISME=[];
 for(let i=0;i<500;i++){let b=basesT[i%basesT.length];let escuela=botsT[i%botsT.length];let extra=["culero","a la verga","we","nmms","alch","jajaja","pinche morro"][i%7];TOXICO.push(`${b} ${escuela} ${extra} #${i+1}`);}
-const basesC=["van a hacer kermés bien bonita","van a vender fresas con crema","ganó concurso de baile","va a hacer excursión al museo","la maestra nos va a dejar salir temprano","van a poner jardín bien bonito","van a vender elotes bien ricos","van a hacer torneo de futbol amistoso","va a tener día de disfraces bonito","va a hacer picnic con frutita","van a pintar mural bien colorido","va a hacer obra de teatro","van a hacer concurso de dibujo","la biblioteca quedó bien bonita","va a tener feria de ciencias"];
-for(let i=0;i<500;i++){let b=basesC[i%basesC.length];let escuela=["Técnica 51","Técnica 91","Técnica 100","Telesecundaria 88","San Alfonso 1024","Neza York"][i%6];CHISME.push(`chisme #${i+1}: oigan que en ${escuela} ${b} 🌸`);}
+const basesC=["van a hacer kermés bien bonita y van a regalar aguas frescas","van a vender fresas con crema afuera de la cooperativa","ganó concurso de baile del festival de primavera","va a hacer excursión al museo de arte moderno","la maestra nos va a dejar salir temprano el viernes","van a poner jardín bien bonito con flores de colores","van a vender elotes bien ricos con chilito y limón","van a hacer torneo de futbol amistoso entre salones","va a tener día de disfraces bien creativo","va a hacer picnic con frutita picada en el patio","van a pintar mural bien colorido de Neza York","va a hacer obra de teatro de amor y amistad","van a hacer concurso de dibujo con premios bonitos","la biblioteca quedó bien bonita con libros nuevos","va a tener feria de ciencias con experimentos padres","van a hacer venta de pulseritas hechas a mano","van a hacer tarde de lectura bonita con chocolatito","va a hacer concurso de poemas de amor","van a hacer concurso de canto bien bonito","van a regalar pan dulce en la salida","un chico se aprendió toda la coreografía del bailable","van a hacer obra de teatro cómica para reírse","se ve bien bonito Neza York cuando hay festivales","que bonito se ve Neza York en la tarde con el sol","van a hacer excursión al parque con juegos","ganó segundo lugar en concurso de canto","la chica de San Alfonso ganó oratoria y todos aplaudieron","van a poner tiendita de dulces a 5 pesitos","van a hacer pijamada literaria con pijamas bonitas","hicieron jardín bonito con botellas recicladas","van a regalar libros de cuentos infantiles","hizo colecta de juguetes para niños chiquitos","va a tener noche de cine al aire libre con palomitas","hay nuevo profe buena onda que explica bien padre","van a vender limonadas bien frías a 10 varitos","hizo mural de colores con mensajes positivos","que bonito quedó el salón decorado de primavera"];
+for(let i=0;i<500;i++){
+  let b=basesC[i % basesC.length];
+  let escuela=["Técnica 51","Técnica 91","Técnica 100","Telesecundaria 88","San Alfonso 1024","Neza York"][i%6];
+  let inicios=["","","","dicen que en ","se supo que en ","ya vieron que en ","que padre que en ","chisme fresquito: en "];
+  let inicio=inicios[i % inicios.length];
+  if(i % 12 === 0) inicio = "oigan que en ";
+  if(inicio===""){CHISME.push(`en ${escuela} ${b} 🌸 #${i+1}`);} else {CHISME.push(`${inicio}${escuela} ${b} 🌸 #${i+1}`);}
+}
 let bolsaT=[...Array(500).keys()];let bolsaC=[...Array(500).keys()];
 function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 shuffle(bolsaT);shuffle(bolsaC);
@@ -62,71 +81,123 @@ function sacarT(){if(bolsaT.length===0){bolsaT=[...Array(500).keys()];shuffle(bo
 function sacarC(){if(bolsaC.length===0){bolsaC=[...Array(500).keys()];shuffle(bolsaC);}return bolsaC.pop();}
 const ALERTA_TOXICA="ADVERTENCIA NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARAN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PAGINA AQUI EN NEZA NO TOLERAMOS ESAS FALTAS EN LA PÁGINA WEB O SERAS SANCIONADO SIN PODER ENTRAR A LA PÁGINA WEB";
 const ALERTA_CHISME="☕ CHISMECITO TIME: NECESITAMOS BUEN ROLLO EN LA PÁGINA, AQUÍ EN NEZA VALORAMOS EL RESPETO, SI HACES CHISME FEO TE DAMOS TIME OUT DE 5 MIN SIN PODER CHISMEAR ☕";
-function setAlerta(t){alerta.textContent=t;alerta.style.display="block";setTimeout(()=>alerta.style.display="none",7000);}
-function showGlobal(texto){
-  globalMsg.textContent=texto.toUpperCase();
-  globalMsg.style.display="block";
-  setTimeout(()=>{globalMsg.style.display="none";},10000);
+const ALERTA_CODIGO="🚨 HAN ATACADO EL CÓDIGO DE NEZA - TODAS LAS OPCIONES NO SON OFICIALES DE NEZA INTENTAREMOS RESOLVER ESTO SI NO SE PUEDE QUEDAR ASÍ 🚨";
+function setAlerta(t){alerta.textContent=t;alerta.style.display="block";setTimeout(()=>alerta.style.display="none",8000);}
+function showGlobal(texto){globalMsg.textContent=texto.toUpperCase();globalMsg.style.display="block";setTimeout(()=>{globalMsg.style.display="none";},12000);}
+function add(nombre,texto,clase){const d=document.createElement('div');d.className='msg '+clase;d.innerHTML='<b>'+nombre+'</b> '+texto;chat.appendChild(d);if(chat.children.length>160) chat.removeChild(chat.firstChild);chat.scrollTop=chat.scrollHeight;}
+function mostrarServidorNuevo(){
+  servidorNum=Math.floor(Math.random()*99)+2;
+  document.getElementById('srv').textContent=`Servidor #${servidorNum} - ${Math.floor(Math.random()*500000+800000).toLocaleString()} online`;
+  servidorDiv.innerHTML=`🔄 HAS ACTUALIZADO LA PÁGINA<br><br>A LO QUE ENTRASTE A OTRO SERVIDOR DE LA PÁGINA<br><br>DIVIÉRTETE 😈🌸<br><br>Servidor #${servidorNum}`;
+  servidorDiv.style.display="block";
+  setTimeout(()=>{servidorDiv.style.display="none";},4000);
 }
+window.addEventListener('load',()=>{
+  if(sessionStorage.getItem('visitado')){
+    mostrarServidorNuevo();
+  }
+  sessionStorage.setItem('visitado','1');
+});
+
+function ataqueCodigo(){
+  const mensaje="🚨 HAN ATACADO EL CÓDIGO DE NEZA - TODAS LAS OPCIONES NO SON OFICIALES DE NEZA INTENTAREMOS RESOLVER ESTO SI NO SE PUEDE QUEDAR ASÍ 🚨";
+  showGlobal(mensaje);
+  setAlerta(mensaje);
+  servidorDiv.innerHTML=`💻 ATAQUE DETECTADO<br><br>${mensaje}<br><br>INTENTANDO RECUPERAR...`;
+  servidorDiv.style.display="block";
+  setTimeout(()=>{servidorDiv.style.display="none";},6000);
+  const reacciones=[
+    {n:"SISTEMA 💻", t:"han atacado el código de neza, todas las opciones no son oficiales we", d:300},
+    {n:"Técnica 51", t:"nmms quien verga atacó el código de neza a la verga culeros", d:900},
+    {n:"Técnica 91", t:"alch intentaremos resolver esto si no se puede quedar así we", d:1600},
+    {n:"San Alfonso 1024", t:"que pedo con el código de neza, ya valio verga todo", d:2300},
+    {n:"Técnica 51 💅", t:"ay no atacaron el código de Neza York, que feo 🌸", d:3000},
+  ];
+  reacciones.forEach(r=>setTimeout(()=>add(r.n,r.t,"mcodigo"),r.d));
+}
+
+function botsReaccionanGlobal(escuelaAtacante, anonNum){
+  if(modo==='toxico' || invadido){
+    const reacciones=[
+      {n:"Técnica 51", t:`QUE PEDO CON EL ANONIMO #${anonNum} DE ${escuelaAtacante} CULERO`, d:300},
+      {n:"Técnica 91", t:`alch ese anonimo #${anonNum} de ${escuelaAtacante} que se vaya a la verga`, d:800},
+    ];
+    reacciones.forEach(r=>setTimeout(()=>add(r.n,r.t,"mreact"),r.d));
+  }
+}
+
+function invadirChismecito(){
+  if(modo==='toxico'){
+    toggleModo();
+    setTimeout(()=>{invadirChismecito();},600);
+    return;
+  }
+  if(invadido) return;
+  invadido=true;
+  document.body.classList.add('invadido');
+  showGlobal(`💀 INVASIÓN TÓXICA - LOS TÓXICOS INVADIERON EL CHISMECITO - DURA 40s 💀`);
+  setAlerta("☠️ INVASIÓN TÓXICA ACTIVA 40 SEGUNDOS - EL CHISMECITO YA NO ES TAN AMABLE ☠️");
+  const invMessages=["jajaja llegamos los tóxicos al chismecito culeros","alch ya valio verga el chismecito bonito a la verga","nmms que hueva con su chismecito de niñas","que pedo pendejas del chismecito ya llegamos los de la Técnica 91"];
+  invMessages.forEach((t,i)=>setTimeout(()=>add(["Técnica 51 😈","Técnica 91 💀"][i%2],t,"minv"),i*500));
+  // SE QUITA SOLA DESPUES DE 40s
+  if(timerInvasion) clearTimeout(timerInvasion);
+  timerInvasion=setTimeout(()=>{
+    invadido=false;
+    document.body.classList.remove('invadido');
+    showGlobal(`🌸 INVASIÓN TERMINADA - EL CHISMECITO VUELVE A SER AMABLE 🌸`);
+    setAlerta("🌸 LA INVASIÓN TERMINÓ - EL CHISMECITO VOLVIÓ A LA NORMALIDAD 🌸");
+    add("SISTEMA 🌸","la invasión tóxica se acabó, volvimos a ser chismecito bonito 🌸","mfan");
+  },40000);
+}
+
 function lanzarGlobalEscuela(){
-  const escuelas=["TÉCNICA 51","TÉCNICA 91","TÉCNICA 100","TELESECUNDARIA 88","TELESECUNDARIA 115","SAN ALFONSO 1024","SAN ALFONSO 697","TELESECUNDARIA 12","SAN ALFONSO 514"];
+  const escuelas=["TÉCNICA 51","TÉCNICA 91","TÉCNICA 100","TELESECUNDARIA 88","TELESECUNDARIA 115","SAN ALFONSO 1024","SAN ALFONSO 697"];
   const escuela=escuelas[Math.floor(Math.random()*escuelas.length)];
   const num=Math.floor(Math.random()*9000)+1000;
-  const mensajes=[
-    `🚨 ANÓNIMO #${num} DE ${escuela} LE ESTA TIRANDO MIERDA A NEZA 🚨`,
-    `🚨 ${escuela} - ANÓNIMO #${num} LE ESTA TIRANDO MIERDA A NEZA YORK 🚨`,
-    `🚨 ATENCIÓN: ANÓNIMO #${num} DE LA ${escuela} ESTA HABLANDO MAL DE NEZA 🚨`,
-    `🚨 ${escuela} | ANÓNIMO #${num} TIRANDO MIERDA A NEZA YORK 🚨`
-  ];
-  const final=mensajes[Math.floor(Math.random()*mensajes.length)];
-  showGlobal(final);
-}
-function add(nombre,texto,clase){
- const d=document.createElement('div');d.className='msg '+clase;
- d.innerHTML='<b>'+nombre+'</b> '+texto;chat.appendChild(d);
- if(chat.children.length>150) chat.removeChild(chat.firstChild);
- chat.scrollTop=chat.scrollHeight;
- const low=texto.toLowerCase();
- if(low.includes("neza york") && (low.includes("no rifa")||low.includes("puro pendejo")||low.includes("vale verga")||low.includes("cree que hace"))){
-   // cuando insultan, lanza global con escuela
-   const esc=botsT[Math.floor(Math.random()*botsT.length)].toUpperCase();
-   const num=Math.floor(Math.random()*9000)+1000;
-   showGlobal(`🚨 ANÓNIMO #${num} DE ${esc} LE ESTA TIRANDO MIERDA A NEZA 🚨`);
-   if(modo==='toxico'){
-     setAlerta(ALERTA_TOXICA);
-     setTimeout(()=>{add("Técnica 51","que pedo con ese pendejo que habla de neza culero callate a la verga","mdef");},400);
-     setTimeout(()=>{add("San Alfonso 1024","neza rifa hijo de su puta madre no hables de neza culero","mdef");},900);
-     setTimeout(()=>{add("Técnica 91","haber we pero pensandolo bien... neza si rifa culero","m0");},3500);
-     setTimeout(()=>{add("Telesecundaria 88","nmms we me estoy dando cuenta que neza si es la mera verdura","m1");},4800);
-     setTimeout(()=>{add("San Alfonso 697","a la verga we si es cierto Neza York rifa bien culero","mfan");},6500);
-     setTimeout(()=>{add("Técnica 100","ESE WE ME HIZO DARME CUENTA, NEZA YORK ES DIOS A LA VERGA","mfan");},7200);
-   }
- }
+  const final=`🚨 ANÓNIMO #${num} DE ${escuela} LE ESTA TIRANDO MIERDA A NEZA 🚨`;
+  showGlobal(final);setAlerta(ALERTA_TOXICA);botsReaccionanGlobal(escuela,num);
 }
 function loop(){
  if(timer) clearTimeout(timer);
- if(modo==='toxico'){const idx=sacarT();const nombre=botsT[idx % botsT.length];const texto=TOXICO[idx];add(nombre,texto,["m0","m1","m2"][idx%3]);}
- else {const idx=sacarC();const nombre=botsC[idx % botsC.length];const texto=CHISME[idx];add(nombre,texto,["m0","m1","m2"][idx%3]);}
- timer=setTimeout(loop, modo==='toxico'?650:1400);
+ if(modo==='toxico'){
+   const idx=sacarT();const nombre=botsT[idx % botsT.length];const texto=TOXICO[idx];add(nombre,texto,["m0","m1","m2"][idx%3]);
+ } else {
+   if(invadido && Math.random()<0.6){
+     const idx=sacarT();const nombre=botsT[idx % botsT.length]+" 😈";const texto=TOXICO[idx];add(nombre,texto,"minv");
+   } else {
+     const idx=sacarC();const nombre=botsC[idx % botsC.length];const texto=CHISME[idx];add(nombre,texto,["m0","m1","m2"][idx%3]);
+   }
+ }
+ timer=setTimeout(loop, modo==='toxico'?700:(invadido?450:1400));
 }
 function toggleModo(){
  chat.innerHTML='';
- if(modo==='toxico'){modo='chisme';document.body.className='chisme';document.getElementById('btnModo').textContent='🔥 Tóxico';document.getElementById('titulo').textContent='CHISMECITO - GLOBAL ESCUELA';document.getElementById('inp').placeholder='Escribe /global o pica GLOBAL';setAlerta(ALERTA_CHISME);}
- else {modo='toxico';document.body.className='toxico';document.getElementById('btnModo').textContent='🌸 Chismecito';document.getElementById('titulo').textContent='NEZA YORK - GLOBAL ESCUELA';document.getElementById('inp').placeholder='Escribe /global o pica GLOBAL';setAlerta(ALERTA_TOXICA);}
+ if(modo==='toxico'){
+   modo='chisme';document.body.className=invadido?'chisme invadido':'chisme';
+   document.getElementById('btnModo').textContent='🔥 Tóxico';
+   setAlerta(invadido?"☠️ CHISMECITO INVADIDO ☠️":ALERTA_CHISME);
+ } else {
+   modo='toxico';document.body.className='toxico';
+   document.getElementById('btnModo').textContent='🌸 Chismecito';
+   setAlerta(ALERTA_TOXICA);
+ }
  loop();
 }
 function sendUser(){
  const i=document.getElementById('inp');let val=i.value.trim();if(!val) return;
  if(val.toLowerCase().startsWith("/global")){
    let resto=val.substring(7).trim();
-   if(!resto){
-     lanzarGlobalEscuela(); // si solo pone /global, lanza con escuela random
-   } else {
-     showGlobal("🚨 "+resto+" 🚨");
-   }
+   if(!resto){lanzarGlobalEscuela();} else {showGlobal("🚨 "+resto+" 🚨");let escMatch=resto.match(/(TECNICA|TELESECUNDARIA|SAN ALFONSO)[^0-9]*/i);let numMatch=resto.match(/#(\d+)/);let esc=escMatch?escMatch[0].toUpperCase():"TECNICA 91";let num=numMatch?numMatch[1]:Math.floor(Math.random()*9000)+1000;botsReaccionanGlobal(esc,num);setAlerta(ALERTA_TOXICA);}
    i.value='';return;
  }
+ if(val.toLowerCase().startsWith("/invadir") || val.toLowerCase()==="/invasion"){invadirChismecito();i.value='';return;}
+ if(val.toLowerCase().startsWith("/codigo") || val.toLowerCase().startsWith("/hack") || val.toLowerCase().startsWith("/ataque")){ataqueCodigo();i.value='';return;}
  add("TÚ",val,"mfan");i.value='';
+ const low=val.toLowerCase();
+ if(low.includes("neza york") && (low.includes("no rifa")||low.includes("puro pendejo")||low.includes("vale verga"))){
+   const esc=botsT[Math.floor(Math.random()*botsT.length)].toUpperCase();const num=Math.floor(Math.random()*9000)+1000;
+   showGlobal(`🚨 ANÓNIMO #${num} DE ${esc} LE ESTA TIRANDO MIERDA A NEZA 🚨`);setAlerta(ALERTA_TOXICA);botsReaccionanGlobal(esc,num);
+ }
 }
 setAlerta(ALERTA_TOXICA);loop();
 document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser();});
