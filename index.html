@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEZA YORK - DOBLE MODO</title>
+<title>NEZA YORK 500 Y 500</title>
 <style>
 body{margin:0;font-family:system-ui;height:100vh;display:flex;flex-direction:column}
 header{padding:10px;display:flex;justify-content:space-between;align-items:center;gap:6px}
 #counter{font-size:12px;font-weight:bold}
-#alerta{display:none;padding:12px;text-align:center;font-weight:bold;font-size:12px;border:3px solid;margin:6px;line-height:1.2}
+#alerta{display:none;padding:12px;text-align:center;font-weight:bold;font-size:12px;border:3px solid;margin:6px}
 #chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px}
 .msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%}
 #controls{display:flex;padding:8px;gap:6px}
@@ -45,8 +45,8 @@ body.chisme button{background:#ffb703;color:#6b4c00}
 <body class="toxico">
 <header>
 <div>● <b id="counter">1,247,392 personas escribiendo...</b></div>
-<button onclick="toggleModo()" id="btnModo">🌸 Cambiar a Chismecito</button>
-<div id="titulo" style="font-size:11px">NEZA YORK MERA VERDURA</div>
+<button onclick="toggleModo()" id="btnModo">🌸 Chismecito (500)</button>
+<div id="titulo" style="font-size:11px">NEZA YORK MERA VERDURA - 500</div>
 </header>
 <div id="alerta"></div>
 <div id="chat"></div>
@@ -56,88 +56,15 @@ let modo='toxico';
 let loopId=null;
 const chat=document.getElementById('chat');
 const alerta=document.getElementById('alerta');
-
 const FRASES_TOXICO_POR_ESCUELA={
-"Técnica 51":["haber we pasen tarea culeros soy de la 51","puro barrio de la Técnica 51 culeros","en la 51 si rifamos a la verga"],
-"Técnica 91":["alch la Técnica 91 rifa más culeros","soy de la 91 y me la pelan todos","en la 91 si hay barrio we"],
-"Técnica 100":["la Técnica 100 es la mera verga","puro 100 rifa culeros","en la 100 puro desmadre chido"],
-"Telesecundaria 88":["que pedo pendejos de la Telesecundaria 88 no rifa","Telesecundaria 88 puro morro meco","88 vale verga we"],
-"Telesecundaria 115":["Telesecundaria 115 puro pendejo","115 no rifa ni madres","que pedo con la 115 culeros"],
-"San Alfonso 1024":["San Alfonso 1024 rifa bien culero","puro San Alfonso 1024 la mera verdura","1024 es dios we"],
-"San Alfonso 697":["San Alfonso 697 la mejor a la verga","697 rifa culero","puro 697 a la verga"]
+"Técnica 51": ["haber we pasen tarea Técnica 51 culero 1","es a ver no haber pendejo de mierda Técnica 51 a la verga 8","haber si pasas de año Técnica 51 pinche morro 37","neza york es dios we Técnica 51 nmms 52","haber we pasen tarea Técnica 51 alch 57","es a ver no haber pendejo de mierda Técnica 51 jajaja 64","haber si pasas de año Técnica 51 we 93","neza york es dios we Técnica 51 pinche morro 108","haber we pasen tarea Técnica 51 jajaja 113","es a ver no haber pendejo de mierda Técnica 51 nmms 120","haber si pasas de año Técnica 51 a la verga 149","neza york es dios we Técnica 51 we 164","haber we pasen tarea Técnica 51 pinche morro 169","es a ver no haber pendejo de mierda Técnica 51 culero 176","haber si pasas de año Técnica 51 alch 205","neza york es dios we Técnica 51 a la verga 220","haber we pasen tarea Técnica 51 we 225","es a ver no haber pendejo de mierda Técnica 51 we 232","haber si pasas de año Técnica 51 jajaja 261","neza york es dios we Técnica 51 alch 276","haber we pasen tarea Técnica 51 a la verga 281","es a ver no haber pendejo de mierda Técnica 51 a la verga 288","haber si pasas de año Técnica 51 pinche morro 317","neza york es dios we Técnica 51 jajaja 332","haber we pasen tarea Técnica 51 alch 337","es a ver no haber pendejo de mierda Técnica 51 alch 344","haber si pasas de año Técnica 51 we 373","neza york es dios we Técnica 51 pinche morro 388","haber we pasen tarea Técnica 51 jajaja 393","es a ver no haber pendejo de mierda Técnica 51 pinche morro 400","haber si pasas de año Técnica 51 a la verga 429","neza york es dios we Técnica 51 we 444","haber we pasen tarea Técnica 51 pinche morro 449","es a ver no haber pendejo de mierda Técnica 51 we 456","haber si pasas de año Técnica 51 alch 485","neza york es dios we Técnica 51 a la verga 500"],
+"Técnica 91": ["que pedo pendejos de la Técnica 91 a la verga 2","haber pinche morro pendejo Técnica 91 pinche morro 7","haber si pasas de año Técnica 91 we 38","a la verga los demas Técnica 91 pinche morro 53","que pedo pendejos de la Técnica 91 alch 58","haber pinche morro pendejo Técnica 91 we 63","haber si pasas de año Técnica 91 a la verga 94","a la verga los demas Técnica 91 we 109","que pedo pendejos de la Técnica 91 jajaja 114","haber pinche morro pendejo Técnica 91 a la verga 119","haber si pasas de año Técnica 91 alch 150","a la verga los demas Técnica 91 a la verga 165","que pedo pendejos de la Técnica 91 pinche morro 170","haber pinche morro pendejo Técnica 91 alch 175","haber si pasas de año Técnica 91 jajaja 206","a la verga los demas Técnica 91 alch 221","que pedo pendejos de la Técnica 91 we 226","haber pinche morro pendejo Técnica 91 pinche morro 231","haber si pasas de año Técnica 91 pinche morro 262","a la verga los demas Técnica 91 jajaja 277","que pedo pendejos de la Técnica 91 a la verga 282","haber pinche morro pendejo Técnica 91 we 287","haber si pasas de año Técnica 91 we 318","a la verga los demas Técnica 91 pinche morro 333","que pedo pendejos de la Técnica 91 alch 338","haber pinche morro pendejo Técnica 91 a la verga 343","haber si pasas de año Técnica 91 a la verga 374","a la verga los demas Técnica 91 we 389","que pedo pendejos de la Técnica 91 jajaja 394","haber pinche morro pendejo Técnica 91 alch 399","haber si pasas de año Técnica 91 alch 430","a la verga los demas Técnica 91 a la verga 445","que pedo pendejos de la Técnica 91 pinche morro 450","haber pinche morro pendejo Técnica 91 pinche morro 455","haber si pasas de año Técnica 91 jajaja 486"],
+"Técnica 100": ["nmms que hueva Técnica 100 pinche morro 3","a ver es a ver no haber verga Técnica 100 we 8","que pedo con tus calificaciones culeras Técnica 100 a la verga 39","rifa culero aqui si hay barrio Técnica 100 we 54","nmms que hueva Técnica 100 alch 59","a ver es a ver no haber verga Técnica 100 a la verga 64","que pedo con tus calificaciones culeras Técnica 100 alch 95","rifa culero aqui si hay barrio Técnica 100 a la verga 110","nmms que hueva Técnica 100 jajaja 115","a ver es a ver no haber verga Técnica 100 alch 120","que pedo con tus calificaciones culeras Técnica 100 jajaja 151","rifa culero aqui si hay barrio Técnica 100 alch 166","nmms que hueva Técnica 100 pinche morro 171","a ver es a ver no haber verga Técnica 100 pinche morro 176","que pedo con tus calificaciones culeras Técnica 100 pinche morro 207","rifa culero aqui si hay barrio Técnica 100 pinche morro 222","nmms que hueva Técnica 100 we 227","a ver es a ver no haber verga Técnica 100 we 232","que pedo con tus calificaciones culeras Técnica 100 we 263","rifa culero aqui si hay barrio Técnica 100 we 278","nmms que hueva Técnica 100 a la verga 283","a ver es a ver no haber verga Técnica 100 a la verga 288","que pedo con tus calificaciones culeras Técnica 100 a la verga 319","rifa culero aqui si hay barrio Técnica 100 a la verga 334","nmms que hueva Técnica 100 alch 339","a ver es a ver no haber verga Técnica 100 alch 344","que pedo con tus calificaciones culeras Técnica 100 alch 375","rifa culero aqui si hay barrio Técnica 100 alch 390","nmms que hueva Técnica 100 jajaja 395","a ver es a ver no haber verga Técnica 100 jajaja 400","que pedo con tus calificaciones culeras Técnica 100 jajaja 431","rifa culero aqui si hay barrio Técnica 100 jajaja 446","nmms que hueva Técnica 100 pinche morro 451","a ver es a ver no haber verga Técnica 100 pinche morro 456","que pedo con tus calificaciones culeras Técnica 100 pinche morro 487"],
+"Telesecundaria 88": ["alch chinga tu madre Telesecundaria 88 we 4","ya callate a la verga Telesecundaria 88 a la verga 9","nmms puro 5 sacas Telesecundaria 88 alch 40","haber we pasen tarea Telesecundaria 88 a la verga 55","alch chinga tu madre Telesecundaria 88 alch 60","ya callate a la verga Telesecundaria 88 alch 65","nmms puro 5 sacas Telesecundaria 88 jajaja 96","haber we pasen tarea Telesecundaria 88 alch 111","alch chinga tu madre Telesecundaria 88 jajaja 116","ya callate a la verga Telesecundaria 88 jajaja 121","nmms puro 5 sacas Telesecundaria 88 pinche morro 152","haber we pasen tarea Telesecundaria 88 pinche morro 167","alch chinga tu madre Telesecundaria 88 pinche morro 172","ya callate a la verga Telesecundaria 88 pinche morro 177","nmms puro 5 sacas Telesecundaria 88 we 208","haber we pasen tarea Telesecundaria 88 we 223","alch chinga tu madre Telesecundaria 88 we 228","ya callate a la verga Telesecundaria 88 we 233","nmms puro 5 sacas Telesecundaria 88 a la verga 264","haber we pasen tarea Telesecundaria 88 a la verga 279","alch chinga tu madre Telesecundaria 88 a la verga 284","ya callate a la verga Telesecundaria 88 a la verga 289","nmms puro 5 sacas Telesecundaria 88 alch 320","haber we pasen tarea Telesecundaria 88 alch 335","alch chinga tu madre Telesecundaria 88 alch 340","ya callate a la verga Telesecundaria 88 alch 345","nmms puro 5 sacas Telesecundaria 88 jajaja 376","haber we pasen tarea Telesecundaria 88 jajaja 391","alch chinga tu madre Telesecundaria 88 jajaja 396","ya callate a la verga Telesecundaria 88 pinche morro 401","nmms puro 5 sacas Telesecundaria 88 pinche morro 432","haber we pasen tarea Telesecundaria 88 pinche morro 447","alch chinga tu madre Telesecundaria 88 pinche morro 452","ya callate a la verga Telesecundaria 88 we 457","nmms puro 5 sacas Telesecundaria 88 we 488"],
+"Telesecundaria 115": ["wey no mames que culero Telesecundaria 115 a la verga 5","chesco y a chingar a su madre Telesecundaria 115 alch 10","alch yo puro 6 Telesecundaria 115 jajaja 41","que pedo pendejos de la Telesecundaria 115 alch 56","wey no mames que culero Telesecundaria 115 alch 61","chesco y a chingar a su madre Telesecundaria 115 jajaja 66","alch yo puro 6 Telesecundaria 115 pinche morro 97","que pedo pendejos de la Telesecundaria 115 alch 112","wey no mames que culero Telesecundaria 115 jajaja 117","chesco y a chingar a su madre Telesecundaria 115 pinche morro 122","alch yo puro 6 Telesecundaria 115 we 153","que pedo pendejos de la Telesecundaria 115 pinche morro 168","wey no mames que culero Telesecundaria 115 pinche morro 173","chesco y a chingar a su madre Telesecundaria 115 we 178","alch yo puro 6 Telesecundaria 115 a la verga 209","que pedo pendejos de la Telesecundaria 115 we 224","wey no mames que culero Telesecundaria 115 we 229","chesco y a chingar a su madre Telesecundaria 115 a la verga 234","alch yo puro 6 Telesecundaria 115 alch 265","que pedo pendejos de la Telesecundaria 115 a la verga 280","wey no mames que culero Telesecundaria 115 a la verga 285","chesco y a chingar a su madre Telesecundaria 115 alch 290","alch yo puro 6 Telesecundaria 115 jajaja 321","que pedo pendejos de la Telesecundaria 115 alch 336","wey no mames que culero Telesecundaria 115 alch 341","chesco y a chingar a su madre Telesecundaria 115 jajaja 346","alch yo puro 6 Telesecundaria 115 pinche morro 377","que pedo pendejos de la Telesecundaria 115 pinche morro 392","wey no mames que culero Telesecundaria 115 jajaja 397","chesco y a chingar a su madre Telesecundaria 115 pinche morro 402","alch yo puro 6 Telesecundaria 115 we 433","que pedo pendejos de la Telesecundaria 115 we 448","wey no mames que culero Telesecundaria 115 pinche morro 453","chesco y a chingar a su madre Telesecundaria 115 we 458","alch yo puro 6 Telesecundaria 115 a la verga 489"],
+"San Alfonso 1024": ["jajaja techo de menos pendejo San Alfonso 1024 alch 6","haber quien se rifa un tiro San Alfonso 1024 jajaja 11","wey yo puro 10 pendejo San Alfonso 1024 pinche morro 42","haber pinche morro pendejo San Alfonso 1024 alch 57","jajaja techo de menos pendejo San Alfonso 1024 alch 62","haber quien se rifa un tiro San Alfonso 1024 pinche morro 67","wey yo puro 10 pendejo San Alfonso 1024 we 98","haber pinche morro pendejo San Alfonso 1024 alch 113","jajaja techo de menos pendejo San Alfonso 1024 jajaja 118","haber quien se rifa un tiro San Alfonso 1024 we 123","wey yo puro 10 pendejo San Alfonso 1024 a la verga 154","haber pinche morro pendejo San Alfonso 1024 pinche morro 169","jajaja techo de menos pendejo San Alfonso 1024 pinche morro 174","haber quien se rifa un tiro San Alfonso 1024 a la verga 179","wey yo puro 10 pendejo San Alfonso 1024 alch 210","haber pinche morro pendejo San Alfonso 1024 we 225","jajaja techo de menos pendejo San Alfonso 1024 we 230","haber quien se rifa un tiro San Alfonso 1024 alch 235","wey yo puro 10 pendejo San Alfonso 1024 jajaja 266","haber pinche morro pendejo San Alfonso 1024 a la verga 281","jajaja techo de menos pendejo San Alfonso 1024 a la verga 286","haber quien se rifa un tiro San Alfonso 1024 jajaja 291","wey yo puro 10 pendejo San Alfonso 1024 pinche morro 322","haber pinche morro pendejo San Alfonso 1024 alch 337","jajaja techo de menos pendejo San Alfonso 1024 alch 342","haber quien se rifa un tiro San Alfonso 1024 pinche morro 347","wey yo puro 10 pendejo San Alfonso 1024 we 378","haber pinche morro pendejo San Alfonso 1024 pinche morro 393","jajaja techo de menos pendejo San Alfonso 1024 jajaja 398","haber quien se rifa un tiro San Alfonso 1024 we 403","wey yo puro 10 pendejo San Alfonso 1024 a la verga 434","haber pinche morro pendejo San Alfonso 1024 we 449","jajaja techo de menos pendejo San Alfonso 1024 pinche morro 454","haber quien se rifa un tiro San Alfonso 1024 a la verga 459","wey yo puro 10 pendejo San Alfonso 1024 alch 490"],
+ 
+"San Alfonso 697": ["haber pinche morro pendejo San Alfonso 697 pinche morro 7","que pedo hijos de su puta madre San Alfonso 697 pinche morro 12","jajaja ni tu te la crees San Alfonso 697 we 43","a ver es a ver no haber verga San Alfonso 697 alch 58","haber pinche morro pendejo San Alfonso 697 alch 63","que pedo hijos de su puta madre San Alfonso 697 we 68","jajaja ni tu te la crees San Alfonso 697 a la verga 99","a ver es a ver no haber verga San Alfonso 697 alch 114","haber pinche morro pendejo San Alfonso 697 jajaja 119","que pedo hijos de su puta madre San Alfonso 697 a la verga 124","jajaja ni tu te la crees San Alfonso 697 alch 155","a ver es a ver no haber verga San Alfonso 697 pinche morro 170","haber pinche morro pendejo San Alfonso 697 pinche morro 175","que pedo hijos de su puta madre San Alfonso 697 alch 180","jajaja ni tu te la crees San Alfonso 697 alch 211","a ver es a ver no haber verga San Alfonso 697 we 226","haber pinche morro pendejo San Alfonso 697 we 231","que pedo hijos de su puta madre San Alfonso 697 jajaja 236","jajaja ni tu te la crees San Alfonso 697 jajaja 267","a ver es a ver no haber verga San Alfonso 697 a la verga 282","haber pinche morro pendejo San Alfonso 697 a la verga 287","que pedo hijos de su puta madre San Alfonso 697 pinche morro 292","jajaja ni tu te la crees San Alfonso 697 pinche morro 323","a ver es a ver no haber verga San Alfonso 697 alch 338","haber pinche morro pendejo San Alfonso 697 alch 343","que pedo hijos de su puta madre San Alfonso 697 we 348","jajaja ni tu te la crees San Alfonso 697 we 379","a ver es a ver no haber verga San Alfonso 697 pinche morro 394","haber pinche morro pendejo San Alfonso 697 jajaja 399","que pedo hijos de su puta madre San Alfonso 697 a la verga 404","jajaja ni tu te la crees San Alfonso 697 a la verga 435","a ver es a ver no haber verga San Alfonso 697 we 450","haber pinche morro pendejo San Alfonso 697 pinche morro 455","que pedo hijos de su puta madre San Alfonso 697 alch 460","jajaja ni tu te la crees San Alfonso 697 alch 491"]
 };
-
 const FRASES_CHISME_POR_ESCUELA={
-"Técnica 51 💅":["oigan chisme, en la Técnica 51 van a hacer kermés bien bonita","en la Técnica 51 van a vender fresas con crema","dicen que la Técnica 51 ganó concurso de baile"],
-"Técnica 91 🌸":["chisme bonito, la Técnica 91 va a hacer excursión al museo","en la Técnica 91 la maestra nos va a dejar salir temprano","dicen que en la 91 van a poner jardín bien bonito"],
-"Técnica 100 ☕":["oigan que en la Técnica 100 van a vender elotes bien ricos","en la Técnica 100 van a hacer torneo de futbol amistoso","dicen que la Técnica 100 va a tener día de disfraces bonito"],
-"Telesecundaria 88 🌼":["chisme, Telesecundaria 88 va a hacer picnic con frutita","en la 88 van a pintar mural bien colorido","dicen que Telesecundaria 88 va a hacer obra de teatro"],
-"San Alfonso 1024 📚":["oigan que en San Alfonso 1024 van a hacer concurso de dibujo","en San Alfonso 1024 la biblioteca quedó bien bonita","dicen que San Alfonso 1024 va a tener feria de ciencias"],
-"San Alfonso 697 🎀":["chismecito, San Alfonso 697 va a hacer intercambio de libros","en San Alfonso 697 van a hacer tarde de lectura bonita","dicen que San Alfonso 697 va a hacer concurso de poemas"],
-"Telesecundaria 12 ✨":["vi que los de la Telesecundaria 12 ensayan baile para el festival","en la Telesecundaria 12 van a hacer día de burbujas","dicen que la 12 va a hacer concurso de canto bonito"]
-};
-
-const botsToxico=Object.keys(FRASES_TOXICO_POR_ESCUELA).map((n,i)=>({name:n,c:["m0","m0","m0","m1","m1","m2","m2"][i]}));
-const botsChisme=Object.keys(FRASES_CHISME_POR_ESCUELA).map((n,i)=>({name:n,c:["m0","m0","m0","m1","m2","m2","m1"][i]}));
-
-const ALERTA_TOXICA="ADVERTENCIA NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARAN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PAGINA AQUI EN NEZA NO TOLERAMOS ESAS FALTAS EN LA PÁGINA WEB O SERAS SANCIONADO SIN PODER ENTRAR A LA PÁGINA WEB";
-const ALERTA_CHISME="☕ CHISMECITO TIME: NECESITAMOS BUEN ROLLO EN LA PÁGINA, AQUÍ EN NEZA VALORAMOS EL RESPETO, SI HACES CHISME FEO TE DAMOS TIME OUT DE 5 MIN SIN PODER CHISMEAR ☕";
-
-function setAlerta(t){ alerta.textContent=t; alerta.style.display="block"; setTimeout(()=>alerta.style.display="none",6000); }
-
-function add(bot,text){
- const d=document.createElement('div'); d.className='msg '+bot.c;
- d.innerHTML=`<b>${bot.name}</b> ${text}`; chat.appendChild(d);
- if(chat.children.length>150) chat.removeChild(chat.firstChild);
- chat.scrollTop=chat.scrollHeight;
- if(text.toLowerCase().includes("neza york") && text.toLowerCase().includes("no rifa") && modo==='toxico'){ setAlerta(ALERTA_TOXICA); }
-}
-
-function iniciarLoop(){
- if(loopId) clearTimeout(loopId);
- function tick(){
-   if(modo==='toxico'){
-     const bot=botsToxico[Math.floor(Math.random()*botsToxico.length)];
-     const lista=FRASES_TOXICO_POR_ESCUELA[bot.name];
-     const frase=lista[Math.floor(Math.random()*lista.length)];
-     add(bot,frase);
-   } else {
-     const bot=botsChisme[Math.floor(Math.random()*botsChisme.length)];
-     const lista=FRASES_CHISME_POR_ESCUELA[bot.name];
-     const frase=lista[Math.floor(Math.random()*lista.length)];
-     add(bot,frase);
-   }
-   loopId=setTimeout(tick, modo==='toxico'?600:1400);
- }
- tick();
-}
-
-function toggleModo(){
- chat.innerHTML=''; alerta.style.display="none";
- if(modo==='toxico'){
-   modo='chisme'; document.body.className='chisme';
-   document.getElementById('btnModo').textContent='🔥 Cambiar a Tóxico';
-   document.getElementById('titulo').textContent='CHISMECITO NEZA YORK';
-   document.getElementById('inp').placeholder='Cuenta tu chisme bonito...';
-   setAlerta(ALERTA_CHISME);
- } else {
-   modo='toxico'; document.body.className='toxico';
-   document.getElementById('btnModo').textContent='🌸 Cambiar a Chismecito';
-   document.getElementById('titulo').textContent='NEZA YORK MERA VERDURA';
-   document.getElementById('inp').placeholder='Escribe anónimo...';
-   setAlerta(ALERTA_TOXICA);
- }
- iniciarLoop();
-}
-
-function sendUser(){
- const i=document.getElementById('inp'); if(!i.value.trim()) return;
- add({name:"TÚ",c:"mfan"}, i.value); i.value='';
-}
-
-setAlerta(ALERTA_TOXICA);
-iniciarLoop();
-document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser()});
-</script>
-</body>
-</html>
+"Técnica 51 💅": ["chisme 1: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 8: oigan que en Técnica 51 va a tener feria de ciencias 🌸","chisme 15: oigan que en Técnica 51 va a hacer tarde de lectura bonita 🌸","chisme 22: oigan que en Técnica 51 se aprendió toda la coreografía 🌸","chisme 29: oigan que en Técnica 51 van a poner tiendita de dulces 🌸","chisme 36: oigan que en Técnica 51 hay nuevo profe buena onda 🌸","chisme 43: oigan que en Técnica 51 van a poner puestos de esquites 🌸","chisme 50: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 57: oigan que en Técnica 51 va a tener feria de ciencias 🌸","chisme 64: oigan que en Técnica 51 va a hacer tarde de lectura bonita 🌸","chisme 71: oigan que en Técnica 51 se aprendió toda la coreografía 🌸","chisme 78: oigan que en Técnica 51 van a poner tiendita de dulces 🌸","chisme 85: oigan que en Técnica 51 hay nuevo profe buena onda 🌸","chisme 92: oigan que en Técnica 51 van a poner puestos de esquites 🌸","chisme 99: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 106: oigan que en Técnica 51 va a tener feria de ciencias 🌸","chisme 113: oigan que en Técnica 51 va a hacer tarde de lectura bonita 🌸","chisme 120: oigan que en Técnica 51 se aprendió toda la coreografía 🌸","chisme 127: oigan que en Técnica 51 van a poner tiendita de dulces 🌸","chisme 134: oigan que en Técnica 51 hay nuevo profe buena onda 🌸","chisme 141: oigan que en Técnica 51 van a poner puestos de esquites 🌸","chisme 148: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 155: oigan que en Técnica 51 va a tener feria de ciencias 🌸","chisme 162: oigan que en Técnica 51 va a hacer tarde de lectura bonita 🌸","chisme 169: oigan que en Técnica 51 se aprendió toda la coreografía 🌸","chisme 176: oigan que en Técnica 51 van a poner tiendita de dulces 🌸","chisme 183: oigan que en Técnica 51 hay nuevo profe buena onda 🌸","chisme 190: oigan que en Técnica 51 van a poner puestos de esquites 🌸","chisme 197: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 204: oigan que en Técnica 51 va a tener feria de ciencias 🌸","chisme 211: oigan que en Técnica 51 va a hacer tarde de lectura bonita 🌸","chisme 218: oigan que en Técnica 51 se aprendió toda la coreografía 🌸","chisme 225: oigan que en Técnica 51 van a poner tiendita de dulces 🌸","chisme 232: oigan que en Técnica 51 hay nuevo profe buena onda 🌸","chisme 239: oigan que en Técnica 51 van a poner puestos de esquites 🌸","chisme 246: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 253: oigan que en Técnica 51 va a tener feria de ciencias 🌸","chisme 260: oigan que en Técnica 51 va a hacer tarde de lectura bonita 🌸","chisme 267: oigan que en Técnica 51 se aprendió toda la coreografía 🌸","chisme 274: oigan que en Técnica 51 van a poner tiendita de dulces 🌸","chisme 281: oigan que en Técnica 51 hay nuevo profe buena onda 🌸","chisme 288: oigan que en Técnica 51 van a poner puestos de esquites 🌸","chisme 295: oigan que en Técnica 51 van a hacer kermés bien bonita 🌸","chisme 302: oigan que en Técnica 51 va a tener feria de ciencias 🌸","chisme 309: oigan que en Técnica 51 va a hacer tarde de lectura bonita 🌸","chisme 316: oigan que en Técnica 51 se aprendió toda la coreografía 🌸","chisme 323: oigan que en Técnica 51 van a poner tiendita de dulces 🌸","chisme 330: oigan que en Técnica 51 hay nuevo profe buena onda 🌸","chisme 337: oigan que en Técnica 51 van a poner puestos de esquites 🌸","chisme 344: oigan que en Técnica 51 van a hacer kermés bien b
