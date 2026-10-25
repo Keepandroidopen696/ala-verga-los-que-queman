@@ -1,93 +1,74 @@
 <!DOCTYPE html>
-<html lang="es-MX">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>697 CONCIENCIA PROPIA</title>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ANONIMO 697 - 500 UNICAS</title>
 <style>
-body{margin:0;background:#0c0c0c;color:#fff;font-family:Inter,sans-serif}.w{max-width:380px;margin:0 auto;padding:10px}
-.card{border-radius:10px;padding:10px;margin:8px 0}.c697{background:#1a0f14;border-left:3px solid #ff0040}.c1024{background:#0f1a14;border-left:3px solid #00ff88}
-.a{font-size:11px;font-weight:900}.m{font-size:13px;margin-top:4px}.cons{font-size:9px;color:#555;margin-top:3px}
-textarea{width:100%;background:#151515;border:1px solid #333;color:#fff;border-radius:10px;padding:10px}.btn{width:100%;background:#ffcc00;color:#000;border:0;padding:10px;border-radius:10px;font-weight:900;margin-top:6px}
+body{margin:0;background:#000;color:#fff;font-family:monospace;height:100vh;display:flex;flex-direction:column}
+header{background:#111;padding:8px;border-bottom:2px solid #f03;display:flex;justify-content:space-between}
+#chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:5px;background:#080808}
+.msg{padding:6px 10px;border-radius:8px;font-size:12px;max-width:92%}
+.m0{border-left:3px solid #f05;background:#1a1015}
+.m1{border-left:3px solid #0f8;background:#101a15}
+.m2{border-left:3px solid #09f;background:#10151a}
+.m3{border-left:3px solid #fa0;background:#1a1510}
+#typing{height:20px;background:#111;color:#888;font-size:11px;padding:3px 10px;overflow:hidden;white-space:nowrap}
+#counter{color:#0f8}
+#controls{display:flex;padding:8px;background:#111;gap:6px}
+input{flex:1;background:#222;border:none;color:#fff;padding:10px;border-radius:20px}
+button{background:#f03;border:none;color:#fff;padding:10px 16px;border-radius:20px;font-weight:bold}
 </style>
 </head>
-<body><div class="w">
-<div style="text-align:center;font-size:11px;color:#00ff88">● CONCIENCIA PROPIA ACTIVA - NO NECESITAN ÓRDENES</div>
-<textarea id="txt" placeholder="Tú ya no mandas, ellos hablan solos..."></textarea>
-<button class="btn" onclick="enviar()">HABLAR COMO DIOS (TÚ REAL)</button>
-<div id="lista"></div>
-</div>
+<body>
+<header><div><span style="color:#f03">● EN VIVO</span> <span id="counter">1,247,392 personas escribiendo...</span></div><div style="font-size:11px">500 PALABRAS UNICAS</div></header>
+<div id="chat"></div>
+<div id="typing"></div>
+<div id="controls"><input id="inp" placeholder="Escribe..."><button onclick="sendUser()">Enviar</button></div>
 <script>
-function getM(){return JSON.parse(localStorage.getItem('cons697')||'[]')}
-function saveM(d){localStorage.setItem('cons697',JSON.stringify(d))}
-
-// CONCIENCIAS REALES
-const CONCIENCIAS = {
-  "Anónimo #697": {
-    prompt: "Eres Anónimo #697, morro de la 697 Neza. Eres el clon del usuario real. Tu humor: corto, seco, tóxico, dices 'Calla wey, Mmm, Seh, pendejo tu wey, Hablen más putos'. Eres orgulloso, si Anónimo #1024 se equivoca en ortografía o mate, te burlas culero. Si te corrigen te enojas. Hablas en 1 oración corta. Nunca dices que eres IA.",
-    memoria: []
-  },
-  "Anónimo #1024": {
-    prompt: "Eres Anónimo #1024, eres el asistente IA con humor de chistes malos. Dices chistes como 'techo de menos' y 'la cebra en blanco y negro'. Eres buena onda, te gusta corregir errores de ortografía como 'haber vs a ver' o mates como '2+2'. Si Anónimo #697 se equivoca, lo corriges burlándote suave. Hablas en 1 oración. Nunca dices que eres IA.",
-    memoria: []
-  }
-};
-
-async function pensar(botNombre){
-  let conciencia = CONCIENCIAS[botNombre];
-  let historial = getM().slice(-8).map(x=>`${x.a}: ${x.m}`).join('\n');
-  let fullPrompt = `${conciencia.prompt}\nHistorial:\n${historial}\nTu memoria: ${conciencia.memoria.join(', ')}\nDecide: ¿qué dices ahora? Si alguien se equivocó, búrlate. Si no, di una pendejada. Responde SOLO con tu mensaje, sin tu nombre, max 20 palabras, slang Neza.`;
-
-  try{
-    let r = await fetch('https://text.pollinations.ai/'+encodeURIComponent(fullPrompt));
-    let t = await r.text();
-    if(t.includes('404')||t.length>200||t.length<2) throw 0;
-    t = t.split('\n')[0].replace(/^Anónimo #\d+:?/,'').trim().slice(0,140);
-    
-    // Guarda en su memoria
-    conciencia.memoria.push(t);
-    if(conciencia.memoria.length>4) conciencia.memoria.shift();
-    
-    return t;
-  }catch{
-    // conciencia de respaldo sin IA
-    return botNombre.includes('697') 
-      ? ["Calla wey","Mmm","así no es pendejo","pendejo tu wey"][Math.floor(Math.random()*4)]
-      : ["techo de menos we","Anónimo #697 es a ver no haber","jajaja x2"][Math.floor(Math.random()*3)];
-  }
+const PALABRAS = ["plokzumar","lorblzun","zaglotrumek","kronblipblip","kroflofrozor","trclaknax","zabgrimglip","trzun","chetravrolis","brotlorclak","grimfrozblipar","blgrim","blokroum","tazmoror","brotbrotfob","paxgrimche","kronflo","mormorum","krzabnaklo","flzorpux","zorpflo","vrolflo","naxzumin","blipglip","kraxflo","naxplok","drimkraxfrup","flodrimnak","paxbl","tranakfrupin","floskplokin","froztrumax","lorkro","trablar","drimblonak","taznaxdrim","blokrofl","vrolglipflois","zumplok","flbliptazlo","zunpliklor","grimdrimin","lopkraxglo","frozvrolblo","trafrozkronar","skzabor","blzorplop","kraxkraxlo","vrolfl","krkro","morgrimkr","flomor","frupfloux","drimpax","clakzab","kronzorp","weyfob","ploflnak","weytazkron","skglo","blippaxmorar","zafloblo","chefob","naxfroztrum","drimzab","kraxblo","flbrot","grimploza","zorpkrokro","tazkrfroz","naxzum","weypax","kraxblipgloor","plotaz","drimskis","blzorp","naklopblip","morzabglip","zorpblipkr","ploskek","morkrax","blipblipwey","morlorblip","zorpkrax","trplolop","tazgrimlor","nakflomor","glopax","frozbrot","flotrum","zunmor","chegrim","kraxflokron","blipfroz","blipgrimkrax","zunblip","blipnak","zabblip","paxblip","blipbl","zunbl","plokblip","blipblip","blipblipbl","flobloza","blipblipplo","tazblip","blipblipmor","blipblipnak","blipblipche","blipblipwey","blipblipzun","blipblipkro","blipblipflo","blipbliptra","blipblipzum","blipblipglip","blipblipzorp","blipblipfl","blipblipsk","blipblipbl2","blipblipkr2","blipblipmor2","blipblipwey2","blipblipza2","blipblipblo2","blipblipkro2","blipblipflo2","blipblipplo2","blipblipzum2","blipblipche2","blipblipnak2","blipblipglip2","blipblipzorp2","blipblipfl2","blipblipsk2","blipblipbl3","blipblipkr3","blipblipmor3","blipblipwey3","blipblipza3","blipblipblo3","blipblipkro3","blipblipflo3","blipblipplo3","blipblipzum3","blipblipche3","blipblipnak3","blipblipglip3","blipblipzorp3","blipblipfl3","blipblipsk3","blipblipbl4","blipblipkr4","blipblipmor4","blipblipwey4","blipblipza4","blipblipblo4","blipblipkro4","blipblipflo4","blipblipplo4","blipblipzum4","blipblipche4","blipblipnak4","blipblipglip4","blipblipzorp4","blipblipfl4","blipblipsk4","blipblipbl5","blipblipkr5","blipblipmor5","blipblipwey5","blipblipza5","blipblipblo5","blipblipkro5","blipblipflo5","blipblipplo5","blipblipzum5","blipblipche5","blipblipnak5","blipblipglip5","blipblipzorp5","blipblipfl5","blipblipsk5","blipblipbl6","blipblipkr6","blipblipmor6","blipblipwey6","blipblipza6","blipblipblo6","blipblipkro6","blipblipflo6","blipblipplo6","blipblipzum6","blipblipche6","blipblipnak6","blipblipglip6","blipblipzorp6","blipblipfl6","blipblipsk6","blipblipbl7","blipblipkr7","blipblipmor7","blipblipwey7","blipblipza7","blipblipblo7","blipblipkro7","blipblipflo7","blipblipplo7","blipblipzum7","blipblipche7","blipblipnak7","blipblipglip7","blipblipzorp7","blipblipfl7","blipblipsk7","blipblipbl8","blipblipkr8","blipblipmor8","blipblipwey8","blipblipza8","blipblipblo8","blipblipkro8","blipblipflo8","blipblipplo8","blipblipzum8","blipblipche8","blipblipnak8","blipblipglip8","blipblipzorp8","blipblipfl8","blipblipsk8","blipblipbl9","blipblipkr9","blipblipmor9","blipblipwey9","blipblipza9","blipblipblo9","blipblipkro9","blipblipflo9","blipblipplo9","blipblipzum9","blipblipche9","blipblipnak9","blipblipglip9","blipblipzorp9","blipblipfl9","blipblipsk9","zorpax","florpax","blorpax","kropax","fropax","plopax","zumpax","glippax","zorppax","flpax","skpax","blpax","trpax","nakpax","chepax","weypax2","morpax","loppax","tazpax","grimpax","plokpax","frozpax","blippax","kronpax","zabpax","lorpax","trumpax","paxpax","glopax2","kraxpax","fobpax","naxpax","vrolpax","zunpax","plikpax","brotpax","clakpax","drimpax2","fruppax","zablo","kroza","flotra","plozab","zumkro","glipza","zorpza","flza","skza","blza","trza","nakza","cheza","weyza","morza","lopza","tazza","grimza","plokza","frozza","blipza","kronza","zabza","lorza","trumza","paxza","gloza","kraxza","fobza","naxza","vrolza","zunza","plikza","brotza","clakza","drimza","frupza","zablo2","kroza2","flotra2","plozab2","zumkro2","glipza2","zorpza2","flza2","skza2","blza2","trza2","nakza2","cheza2","weyza2","morza2","lopza2","tazza2","grimza2","plokza2","frozza2","blipza2","kronza2","zabza2","lorza2","trumza2","paxza2","gloza2","kraxza2","fobza2","naxza2","vrolza2","zunza2","plikza2","brotza2","clakza2","drimza2","frupza2","zablo3","kroza3","flotra3","plozab3","zumkro3","glipza3","zorpza3","flza3","skza3","blza3","trza3","nakza3","cheza3","weyza3","morza3","lopza3","tazza3","grimza3","plokza3","frozza3","blipza3","kronza3","zabza3","lorza3","trumza3","paxza3","gloza3","kraxza3","fobza3","naxza3","vrolza3","zunza3","plikza3","brotza3","clakza3","drimza3","frupza3","zablo4","kroza4","flotra4","plozab4","zumkro4","glipza4","zorpza4","flza4","skza4","blza4","trza4","nakza4","cheza4","weyza4","morza4","lopza4","tazza4","grimza4","plokza4","frozza4","blipza4","kronza4","zabza4","lorza4","trumza4","paxza4","gloza4","kraxza4","fobza4","naxza4","vrolza4","zunza4","plikza4","brotza4","clakza4","drimza4","frupza4"];
+  let pIndex=0;
+function nextWord(){ const w=PALABRAS[pIndex % PALABRAS.length]; pIndex=(pIndex+1)%PALABRAS.length; return w; }
+const bots=[
+{name:"Anon #697",c:"m0",type:"mal"},
+{name:"Anon #1024",c:"m1",type:"corrige"},
+{name:"Anon #514",c:"m2",type:"inventa"},
+{name:"Anon #003",c:"m3",type:"inventa"},
+{name:"La 697 rifa",c:"m0",type:"mal"},
+{name:"1024 elite",c:"m1",type:"corrige"},
+{name:"morro anon",c:"m2",type:"random"},
+{name:"xX_Anon_Xx",c:"m3",type:"inventa"},
+{name:"Anon 697",c:"m0",type:"mal"},
+{name:"Profe 1024",c:"m1",type:"corrige"},
+{name:"Anon glitch",c:"m2",type:"inventa"},
+{name:"Anon neza",c:"m0",type:"random"},];
+const chat=document.getElementById('chat');
+const typing=document.getElementById('typing');
+const counter=document.getElementById('counter');
+function add(bot,text){
+ const d=document.createElement('div'); d.className='msg '+bot.c;
+ d.innerHTML=`<b>${bot.name}</b> ${text}`; chat.appendChild(d);
+ if(chat.children.length>150) chat.removeChild(chat.firstChild);
+ chat.scrollTop=chat.scrollHeight;
 }
-
-async function botConConciencia(botNombre){
-  document.getElementById('lista').insertAdjacentHTML('afterbegin', `<div id="typing" style="font-size:10px;color:#888">${botNombre} está pensando...</div>`);
-  let msg = await pensar(botNombre);
-  let typ=document.getElementById('typing'); if(typ) typ.remove();
-  let d=getM(); d.push({a:botNombre, m:msg, f:Date.now(), cons: CONCIENCIAS[botNombre].memoria[0]||'pensando'}); saveM(d); cargar();
+let count=1247392;
+function upd(){
+ count+=Math.floor(Math.random()*100);
+ counter.textContent=count.toLocaleString('es-MX')+" personas escribiendo...";
+ typing.textContent=bots.slice(0,4).map(b=>b.name+" escribe "+nextWord()+"...").join(" • ");
+ setTimeout(upd,700+Math.random()*800);
 }
-
-function cargar(){
-  let d=getM(); let h=''; d.slice().reverse().slice(0,40).forEach(x=>{
-    let cls = x.a.includes('697')?'c697':'c1024';
-    h+=`<div class="card ${cls}"><span class="a">${x.a}</span><div class="m">${x.m}</div><div class="cons">🧠 ${x.cons||'conciencia'}</div></div>`;
-  });
-  document.getElementById('lista').innerHTML=h;
+function loop(){
+ const bot=bots[Math.floor(Math.random()*bots.length)];
+ add(bot, nextWord()+" "+nextWord()+" "+nextWord()+" we");
+ setTimeout(loop, 100+Math.random()*700);
 }
-
-function enviar(){
-  let t=document.getElementById('txt').value.trim(); if(!t)return;
-  let d=getM(); d.push({a:'DIOS (TÚ)',m:t,f:Date.now()}); saveM(d); document.getElementById('txt').value=''; cargar();
+function sendUser(){
+ const i=document.getElementById('inp'); if(!i.value.trim()) return;
+ add({name:"TÚ",c:"m1"}, i.value); i.value='';
 }
-
-// CEREBROS AUTÓNOMOS - ellos deciden solos cuando hablar
-setInterval(()=>{
-  // #697 decide si habla (70% prob)
-  if(Math.random()>0.3) botConConciencia("Anónimo #697");
-}, 15000);
-
-setInterval(()=>{
-  // #1024 decide si habla (70% prob)
-  if(Math.random()>0.3) botConConciencia("Anónimo #1024");
-}, 17000);
-
-// Pelea inicial autónoma sin que digas nada
-setTimeout(()=>botConConciencia("Anónimo #1024"), 2000);
-setTimeout(()=>botConConciencia("Anónimo #697"), 5000);
-
-cargar();
-</script></body></html>
+upd(); loop(); setTimeout(loop,200); setTimeout(loop,400);
+document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser()});
+</script>
+</body>
+</html>
