@@ -3,53 +3,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ANONIMO SECUNDARIAS - NEZA YORK</title>
+<title>NEZA YORK - DOBLE MODO</title>
 <style>
-body{margin:0;background:#000;color:#fff;font-family:system-ui;height:100vh;display:flex;flex-direction:column}
-header{background:#111;padding:10px;border-bottom:2px solid #ffcc00;display:flex;justify-content:space-between}
-#counter{color:#00ff88;font-size:13px;font-weight:bold}
-#alerta{display:none;background:#ff0000;color:#fff;padding:14px 10px;text-align:center;font-weight:bold;font-size:12px;border:3px solid #ffff00;animation:blink 0.5s infinite;line-height:1.2}
+body{margin:0;font-family:system-ui;height:100vh;display:flex;flex-direction:column;transition:0.4s}
+header{padding:10px;display:flex;justify-content:space-between;align-items:center;gap:6px}
+#counter{font-size:12px;font-weight:bold}
+#alerta{display:none;padding:12px;text-align:center;font-weight:bold;font-size:12px;border:3px solid;margin:6px}
+#chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px}
+.msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%;line-height:1.3}
+#typing{height:22px;font-size:11px;padding:4px 10px}
+#controls{display:flex;padding:8px;gap:6px}
+input{flex:1;padding:12px;border-radius:24px;border:none}
+button{border:none;padding:12px 16px;border-radius:24px;font-weight:bold;cursor:pointer}
+
+/* MODO TOXICO */
+body.toxico{background:#000;color:#fff}
+body.toxico header{background:#111;border-bottom:2px solid #ffcc00}
+body.toxico #counter{color:#00ff88}
+body.toxico #alerta{background:#ff0000;color:#fff;border-color:#ffff00;animation:blink 0.5s infinite}
+body.toxico #chat{background:#080808}
+body.toxico .m0{background:#1a1010;border-left:3px solid #ff0033}
+body.toxico .m1{background:#101a14;border-left:3px solid #00ff88}
+body.toxico .m2{background:#10141a;border-left:3px solid #0099ff}
+body.toxico .mfan{background:#332a00;border-left:4px solid #ffcc00}
+body.toxico .mdef{background:#2a1010;border-left:4px solid #ff3300}
+body.toxico #typing{background:#111;color:#888}
+body.toxico #controls{background:#111}
+body.toxico input{background:#222;color:#fff}
+body.toxico button{background:#ffcc00;color:#000}
+
+/* MODO CHISMECITO */
+body.chisme{background:#fef9ef;color:#4a4a4a}
+body.chisme header{background:#ffecd1;border-bottom:2px solid #ffbf69}
+body.chisme #counter{color:#ff7f50}
+body.chisme #alerta{background:#fff3b0;color:#6b4c00;border-color:#ffbf69;border-radius:10px}
+body.chisme #chat{background:#fffaf0}
+body.chisme .m0{background:#ffe5d9;border-left:4px solid #ff7f51}
+body.chisme .m1{background:#d8e2dc;border-left:4px solid #52b788}
+body.chisme .m2{background:#cce3de;border-left:4px solid #40916c}
+body.chisme .mfan{background:#fff3b0;border-left:4px solid #ffb703}
+body.chisme .mdef{background:#ffe5d9;border-left:4px solid #ff7f51}
+body.chisme #typing{background:#ffecd1;color:#8a7a65}
+body.chisme #controls{background:#ffecd1}
+body.chisme input{background:#fff;border:1px solid #ffbf69;color:#4a4a4a}
+body.chisme button{background:#ffb703;color:#6b4c00}
+
 @keyframes blink{0%{background:#ff0000}50%{background:#cc0000}100%{background:#ff0000}}
-#chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px;background:#080808}
-.msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%}
-.m0{background:#1a1010;border-left:3px solid #ff0033}
-.m1{background:#101a14;border-left:3px solid #00ff88}
-.m2{background:#10141a;border-left:3px solid #0099ff}
-.mfan{background:#332a00;border-left:4px solid #ffcc00;box-shadow:0 0 8px #ffcc00}
-.mdef{background:#2a1010;border-left:4px solid #ff3300}
-#typing{height:22px;background:#111;color:#888;font-size:11px;padding:4px 10px}
-#controls{display:flex;padding:8px;background:#111;gap:6px}
-input{flex:1;background:#222;border:none;color:#fff;padding:12px;border-radius:24px}
-button{background:#ffcc00;border:none;color:#000;padding:12px 18px;border-radius:24px;font-weight:bold}
+#switchBtn{font-size:12px;padding:8px 12px}
 </style>
 </head>
-<body>
-<header><div>● <b id="counter">1,247,392 personas escribiendo...</b></div><div style="font-size:11px">NEZA YORK MERA VERDURA</div></header>
+<body class="toxico">
+<header>
+<div>● <b id="counter">1,247,392 personas escribiendo...</b></div>
+<button id="switchBtn" onclick="toggleModo()">🌸 Cambiar a Chismecito</button>
+<div style="font-size:11px" id="titulo">NEZA YORK MERA VERDURA</div>
+</header>
 <div id="alerta">ADVERTENCIA NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARAN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PAGINA AQUI EN NEZA NO TOLERAMOS ESAS FALTAS EN LA PÁGINA WEB O SERAS SANCIONADO SIN PODER ENTRAR A LA PÁGINA WEB</div>
 <div id="chat"></div>
 <div id="typing"></div>
 <div id="controls"><input id="inp" placeholder="Escribe anónimo..."><button onclick="sendUser()">Enviar</button></div>
+
 <script>
+let modo='toxico';
 const chat=document.getElementById('chat');
 const alerta=document.getElementById('alerta');
-const bots=[
-{name:"Técnica 51",c:"m0"},{name:"Técnica 55",c:"m0"},{name:"Técnica 91",c:"m0"},{name:"Técnica 100",c:"m0"},{name:"Técnica 121",c:"m0"},
-{name:"Técnica 18",c:"m0"},{name:"Técnica 36",c:"m0"},{name:"Técnica 74",c:"m0"},{name:"Técnica 107",c:"m0"},{name:"Técnica 145",c:"m0"},
-{name:"Telesecundaria 12",c:"m1"},{name:"Telesecundaria 41",c:"m1"},{name:"Telesecundaria 69",c:"m1"},{name:"Telesecundaria 88",c:"m1"},{name:"Telesecundaria 102",c:"m1"},
-{name:"Telesecundaria 115",c:"m1"},{name:"Telesecundaria 136",c:"m1"},{name:"Telesecundaria 157",c:"m1"},{name:"Telesecundaria 192",c:"m1"},{name:"Telesecundaria 211",c:"m1"},
-{name:"San Alfonso 1024",c:"m2"},{name:"San Alfonso 697",c:"m2"},{name:"San Alfonso 514",c:"m2"},{name:"San Alfonso 306",c:"m2"},{name:"San Alfonso 812",c:"m2"},
-{name:"San Alfonso 429",c:"m2"},{name:"San Alfonso 933",c:"m2"},{name:"San Alfonso 618",c:"m2"},{name:"San Alfonso 1123",c:"m2"},{name:"San Alfonso 721",c:"m2"},
+const titulo=document.getElementById('titulo');
+
+const botsToxico=[
+{name:"Técnica 51",c:"m0"},{name:"Técnica 91",c:"m0"},{name:"Técnica 100",c:"m0"},
+{name:"Telesecundaria 88",c:"m1"},{name:"Telesecundaria 115",c:"m1"},{name:"Telesecundaria 192",c:"m1"},
+{name:"San Alfonso 1024",c:"m2"},{name:"San Alfonso 697",c:"m2"},{name:"San Alfonso 514",c:"m2"},
+{name:"San Alfonso 812",c:"m2"},
 ];
-const FRASES = [
-"haber we pasen tarea culeros soy de la Tecnica 51","que pedo pendejos de la Telesecundaria 88","nmms que hueva soy de San Alfonso 1024","alch si rifa la 697 de San Alfonso","wey quien trae chesco soy de Tecnica 91","jajaja techo de menos pendejo de la Telesecundaria 12","chesco y cumbias en neza york we dice Tecnica 55","neza york rifa bien culero we - Telesecundaria 69","puro barrio de neza york we - San Alfonso 514","viva neza york culeros - Tecnica 100","neza york la mera verdura del caldo we - San Alfonso 697","a la verga neza york rifa - Tecnica 121","Neza York puro pendejo cree que hace algo - San Alfonso 1024","neza york no rifa puro pendejo - Telesecundaria 115","haber we neza york es la mera verdura - Tecnica 18","puro neza york rifa a la verga - San Alfonso 306","que pedo pendejos de la tecnica 36 no rifan","pinche telesecundaria 41 vale verga","san alfonso 812 rifa mas que tecnica culera","haber pinche morro pendejo de telesecundaria 136"
+const botsChisme=[
+{name:"Técnica 51 💅",c:"m0"},{name:"Técnica 91 🌸",c:"m0"},{name:"Telesecundaria 88 🌼",c:"m1"},
+{name:"San Alfonso 1024 📚",c:"m2"},{name:"San Alfonso 697 🎀",c:"m2"},{name:"Telesecundaria 12 ✨",c:"m1"},
 ];
-const ALABANZAS = ["ESE WE SI ES FAN VERDADERO DE NEZA YORK A LA VERGA","Puro Neza York rifa ese we si sabe culero","Ese si es de barrio, Neza York la mera verdura we","Neza York es dios we ese we si le sabe","Alabado sea Neza York ese we si es real"];
-const DEFENSAS = ["que pedo con ese pendejo que habla de neza culero callate a la verga","neza rifa hijo de su puta madre no hables de neza culero","callate a la verga si no eres de neza pendejo"];
-function mostrarAlerta(){
- alerta.style.display="block";
- try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); o.type='square'; o.frequency.value=800; o.connect(ctx.destination); o.start(); setTimeout(()=>o.stop(),700); }catch(e){}
- setTimeout(()=>{ alerta.style.display="none"; }, 9000);
+
+const FRASES_TOXICO=[
+"haber we pasen tarea culeros","que pedo pendejos de la Telesecundaria 88","nmms que hueva soy de San Alfonso 1024",
+"chesco y cumbias en neza york we","neza york rifa bien culero we","puro barrio de neza york we","viva neza york culeros",
+"Neza York puro pendejo cree que hace algo","neza york no rifa puro pendejo","neza york la mera verdura del caldo we"
+];
+const FRASES_CHISME=[
+"oigan chisme, dicen que en la Técnica 51 van a hacer kermés bien bonita",
+"chisme bonito, el de la Telesecundaria 88 le regaló flores a la niña de San Alfonso",
+"oigan que en San Alfonso 1024 van a hacer concurso de dibujo",
+"Neza York rifa bien bonito, puro lugar tranquilo",
+"chisme, en Telesecundaria 88 dicen que van a hacer torneo amistoso",
+"Neza York la mera verdura pero versión bonita y tranquila",
+"ay we que bonito se ve Neza York en la tarde"
+];
+
+function getBots(){ return modo==='toxico'?botsToxico:botsChisme; }
+function getFrases(){ return modo==='toxico'?FRASES_TOXICO:FRASES_CHISME; }
+
+function toggleModo(){
+  if(modo==='toxico'){
+    modo='chisme'; document.body.className='chisme';
+    document.getElementById('switchBtn').textContent='🔥 Cambiar a Tóxico';
+    titulo.textContent='CHISMECITO NEZA YORK'; alerta.textContent='☕ CHISMECITO TIME: CUENTEN ALGO BONITO, AQUÍ PURO BUEN ROLLO Y CHISME TRANQUI ☕';
+    chat.innerHTML=''; document.getElementById('inp').placeholder='Cuenta tu chisme bonito...';
+  } else {
+    modo='toxico'; document.body.className='toxico';
+    document.getElementById('switchBtn').textContent='🌸 Cambiar a Chismecito';
+    titulo.textContent='NEZA YORK MERA VERDURA';
+    alerta.textContent='ADVERTENCIA NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARAN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PAGINA AQUI EN NEZA NO TOLERAMOS ESAS FALTAS EN LA PÁGINA WEB O SERAS SANCIONADO SIN PODER ENTRAR A LA PÁGINA WEB';
+    chat.innerHTML=''; document.getElementById('inp').placeholder='Escribe anónimo...';
+  }
 }
+
 function add(bot,text,style=null){
  const d=document.createElement('div'); d.className='msg '+(style||bot.c);
  d.innerHTML=`<b>${bot.name}</b> ${text}`; chat.appendChild(d);
@@ -57,34 +120,41 @@ function add(bot,text,style=null){
  chat.scrollTop=chat.scrollHeight;
  const low=text.toLowerCase();
  if(low.includes("neza york")){
-   const esInsulto = low.includes("puro pendejo") || low.includes("no rifa") || low.includes("cree que hace");
-   if(esInsulto){
-     mostrarAlerta();
-     setTimeout(()=>{ add(bots[0], DEFENSAS[0], "mdef"); }, 400);
-     setTimeout(()=>{ add(bots[5], DEFENSAS[1], "mdef"); }, 900);
-     setTimeout(()=>{ add(bots[10], "haber we pero pensandolo bien... neza si rifa culero", "m0"); }, 3500);
-     setTimeout(()=>{ add(bots[15], "nmms we me estoy dando cuenta que neza si es la mera verdura", "m1"); }, 4800);
-     setTimeout(()=>{ add(bots[20], "a la verga we si es cierto Neza York rifa bien culero", "mfan"); }, 6500);
-     setTimeout(()=>{ add(bots[21], "ESE WE ME HIZO DARME CUENTA, NEZA YORK ES DIOS A LA VERGA", "mfan"); }, 7200);
+   if(modo==='toxico'){
+     const esInsulto = low.includes("puro pendejo") || low.includes("no rifa") || low.includes("cree que hace");
+     if(esInsulto){
+       alerta.style.display="block"; setTimeout(()=>alerta.style.display="none",8000);
+       setTimeout(()=>{ add(getBots()[0], "que pedo con ese pendejo que habla de neza culero callate a la verga", "mdef"); },400);
+       setTimeout(()=>{ add(getBots()[2], "haber we pero pensandolo bien... neza si rifa culero", "m0"); },3500);
+       setTimeout(()=>{ add(getBots()[4], "a la verga we si es cierto Neza York rifa bien culero", "mfan"); },6500);
+     } else {
+       setTimeout(()=>{ add(getBots()[1], "ESE WE SI ES FAN VERDADERO DE NEZA YORK A LA VERGA", "mfan"); },400);
+     }
    } else {
-     let delay=300;
-     ALABANZAS.forEach((f,i)=>{ setTimeout(()=>{ add(bots[i], f, "mfan"); }, delay); delay+=350; });
+     setTimeout(()=>{ add(getBots()[1], "ay que bonito que hablen de Neza York, si rifa bien bonito", "mfan"); },600);
    }
  }
 }
+
 let idx=0;
 function loop(){
- add(bots[Math.floor(Math.random()*bots.length)], FRASES[idx % FRASES.length]); idx++;
- setTimeout(loop, 350+Math.random()*700);
+ const bots=getBots(); const frases=getFrases();
+ add(bots[Math.floor(Math.random()*bots.length)], frases[idx % frases.length]); idx++;
+ setTimeout(loop, modo==='toxico'?500+Math.random()*800:1200+Math.random()*1500);
 }
 function sendUser(){
  const i=document.getElementById('inp'); if(!i.value.trim()) return;
  add({name:"TÚ",c:"mfan"}, i.value); i.value='';
 }
-loop(); setTimeout(loop,200);
+loop();
+
 let count=1247392;
-setInterval(()=>{ count+=Math.floor(Math.random()*90)+10; document.getElementById('counter').textContent=count.toLocaleString('es-MX')+" personas escribiendo..."; },800);
+setInterval(()=>{
+ if(modo==='toxico'){ count+=Math.floor(Math.random()*90)+10; document.getElementById('counter').textContent=count.toLocaleString('es-MX')+" personas escribiendo..."; }
+ else { document.getElementById('counter').textContent=(800+Math.floor(Math.random()*100))+" personas chismeando..."; }
+},900);
+
 document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser()});
 </script>
 </body>
-</html>
+ </html>
