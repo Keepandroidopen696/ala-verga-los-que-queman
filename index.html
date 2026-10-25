@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ANONIMO 697 - NEZA YORK MERA VERDURA</title>
+<title>ANONIMO SECUNDARIAS - NEZA YORK</title>
 <style>
 body{margin:0;background:#000;color:#fff;font-family:system-ui;height:100vh;display:flex;flex-direction:column}
 header{background:#111;padding:10px;border-bottom:2px solid #ffcc00;display:flex;justify-content:space-between}
 #counter{color:#00ff88;font-size:13px;font-weight:bold}
-#alerta{display:none;background:#ff0000;color:#fff;padding:12px 15px;text-align:center;font-weight:bold;font-size:14px;border:3px solid #ffff00;animation:blink 0.5s infinite;position:sticky;top:0;z-index:99}
+#alerta{display:none;background:#ff0000;color:#fff;padding:14px 10px;text-align:center;font-weight:bold;font-size:12px;border:3px solid #ffff00;animation:blink 0.5s infinite;line-height:1.2}
 @keyframes blink{0%{background:#ff0000}50%{background:#cc0000}100%{background:#ff0000}}
 #chat{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:6px;background:#080808}
-.msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%;line-height:1.3}
+.msg{padding:7px 12px;border-radius:14px;font-size:13px;max-width:88%}
 .m0{background:#1a1010;border-left:3px solid #ff0033}
 .m1{background:#101a14;border-left:3px solid #00ff88}
 .m2{background:#10141a;border-left:3px solid #0099ff}
 .mfan{background:#332a00;border-left:4px solid #ffcc00;box-shadow:0 0 8px #ffcc00}
-.mdef{background:#2a1010;border-left:4px solid #ff3300;animation:shake 0.3s}
-@keyframes shake{0%{transform:translateX(0)}25%{transform:translateX(4px)}50%{transform:translateX(-4px)}}
-#typing{height:22px;background:#111;color:#888;font-size:11px;padding:4px 10px;white-space:nowrap;overflow:hidden}
+.mdef{background:#2a1010;border-left:4px solid #ff3300}
+#typing{height:22px;background:#111;color:#888;font-size:11px;padding:4px 10px}
 #controls{display:flex;padding:8px;background:#111;gap:6px}
 input{flex:1;background:#222;border:none;color:#fff;padding:12px;border-radius:24px}
 button{background:#ffcc00;border:none;color:#000;padding:12px 18px;border-radius:24px;font-weight:bold}
@@ -26,32 +25,30 @@ button{background:#ffcc00;border:none;color:#000;padding:12px 18px;border-radius
 </head>
 <body>
 <header><div>● <b id="counter">1,247,392 personas escribiendo...</b></div><div style="font-size:11px">NEZA YORK MERA VERDURA</div></header>
-<div id="alerta">⚠️ ADVERTENCIA: NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARÁN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PÁGINA ⚠️</div>
+<div id="alerta">ADVERTENCIA NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARAN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PAGINA AQUI EN NEZA NO TOLERAMOS ESAS FALTAS EN LA PÁGINA WEB O SERAS SANCIONADO SIN PODER ENTRAR A LA PÁGINA WEB</div>
 <div id="chat"></div>
 <div id="typing"></div>
 <div id="controls"><input id="inp" placeholder="Escribe anónimo..."><button onclick="sendUser()">Enviar</button></div>
 <script>
 const chat=document.getElementById('chat');
 const alerta=document.getElementById('alerta');
-const FRASES_NORMALES = [
-"haber we pasen tarea culeros","que pedo pendejos de la 1024","nmms que hueva con este pendejo","alch chinga tu madre 1024","wey no mames que culero escribes","jajaja techo de menos pendejo","haber pinche morro pendejo","a ver pendejo es a ver no haber verga","ya callate a la verga we","chesco y a chingar a su madre la 1024","haber quien se rifa un tiro culeros","que pedo hijos de su puta madre","nmms me vale verga la tarea","alch me la pelan los de la 1024","wey chinga tu madre si eres de la 1024","jajaja pinche vato pendejo","haber we prestame 10 varos culero","es a ver no haber pendejo de mierda","techo de menos pendejo burro","haber si aprendes a escribir culero","que pedo con tu pinche ortografia culera","nmms ni escribir sabes pendejo","alch ponte a estudiar a la verga","wey deja de mamar verga","jajaja ya callate puto","haber we vamos a partirnos la madre","a ver quien se raja culero","no mamen pinches putos","ya we todos valen verga","chesco bien frio hijo de puta","haber quien invita las pinches papas culero","que pedo we donde verga andas","nmms ya llego el puto profe","alch me escondo a la verga","wey quien va a la verga salida","jajaja ese we se cayo a la verga","haber we prestame tu pinche tarea culero","es a ver no haber burro pendejo","techo de menos pinche analfabeta","haber si pasas de año culero","que pedo con tus pinches calificaciones culeras","nmms puro 5 sacas pendejo","alch yo puro 6 a la verga","wey yo puro 10 pendejo","jajaja ni tu te la crees culero","chesco y cumbias en neza york we","neza york rifa bien culero we","puro barrio de neza york we","viva neza york culeros","neza york la mera verdura del caldo we","a la verga neza york rifa","Neza York puro pendejo cree que hace algo","neza york no rifa puro pendejo","haber we neza york es la mera verdura","puro neza york rifa a la verga","neza york es dios we","puro neza york a la verga los demas culeros","neza rifa culero aqui si hay barrio"
-];
-const ALABANZAS = [
-"ESE WE SI ES FAN VERDADERO DE NEZA YORK A LA VERGA","Puro Neza York rifa ese we si sabe culero","Ese si es de barrio, Neza York la mera verdura we","Neza York es dios we ese we si le sabe","Alabado sea Neza York ese we si es real","Puro fan verdadero de Neza York rifando culero","Ese we si es de Neza York no como otros pendejos","Neza York la mera verdura del caldo ese we si sabe","Wey ese es fan de corazon de Neza York a la verga","Neza York es barrio puro ese we si es chingon","Ese we si representa a Neza York culero","Puro Neza York rifa culeros ese we si es verdadero","Neza York es la mera verga ese we si le sabe","Ese we si es de los nuestros puro Neza York","Alaben a ese we que dijo Neza York es fan verdadero","Neza York rifa mas que nada ese we si sabe culero"
-];
-const DEFENSAS = [
-"que pedo con ese pendejo que habla de neza culero callate a la verga","neza rifa hijo de su puta madre no hables de neza culero","callate a la verga si no eres de neza pendejo","neza york rifa mas que tu colonia culera pendejo","te partimos tu madre si hablas de neza pendejo","neza es barrio culero no hables si no sabes pendejo","chinga tu madre tu no eres de neza pendejo","neza york puro barrio pesado culero tu que vas a saber","vete a la verga si hablas mal de neza culero","neza rifa culero aqui si hay barrio no como tu colonia culera","pinche morro pendejo ni conoces neza y hablas culero","te esperamos en neza a ver si muy verga culero","si no te gusta neza vete a la verga de aqui pendejo","habla bien de neza o te callamos a la verga pendejo","neza york es la mera verdura pendejo respeta culero"
-];
 const bots=[
-{name:"Anon #697",c:"m0"},{name:"Anon #1024",c:"m1"},{name:"Anon #514",c:"m2"},
-{name:"La 697 rifa",c:"m0"},{name:"1024 elite",c:"m1"},{name:"morro anon",c:"m2"},
-{name:"Anon neza",c:"mfan"},{name:"xX_Anon_Xx",c:"m2"},{name:"Anon 697",c:"m0"},
-{name:"Profe 1024",c:"m1"},{name:"Anon glitch",c:"m2"},{name:"Anon 514 real",c:"m0"},
+{name:"Técnica 51",c:"m0"},{name:"Técnica 55",c:"m0"},{name:"Técnica 91",c:"m0"},{name:"Técnica 100",c:"m0"},{name:"Técnica 121",c:"m0"},
+{name:"Técnica 18",c:"m0"},{name:"Técnica 36",c:"m0"},{name:"Técnica 74",c:"m0"},{name:"Técnica 107",c:"m0"},{name:"Técnica 145",c:"m0"},
+{name:"Telesecundaria 12",c:"m1"},{name:"Telesecundaria 41",c:"m1"},{name:"Telesecundaria 69",c:"m1"},{name:"Telesecundaria 88",c:"m1"},{name:"Telesecundaria 102",c:"m1"},
+{name:"Telesecundaria 115",c:"m1"},{name:"Telesecundaria 136",c:"m1"},{name:"Telesecundaria 157",c:"m1"},{name:"Telesecundaria 192",c:"m1"},{name:"Telesecundaria 211",c:"m1"},
+{name:"San Alfonso 1024",c:"m2"},{name:"San Alfonso 697",c:"m2"},{name:"San Alfonso 514",c:"m2"},{name:"San Alfonso 306",c:"m2"},{name:"San Alfonso 812",c:"m2"},
+{name:"San Alfonso 429",c:"m2"},{name:"San Alfonso 933",c:"m2"},{name:"San Alfonso 618",c:"m2"},{name:"San Alfonso 1123",c:"m2"},{name:"San Alfonso 721",c:"m2"},
 ];
+const FRASES = [
+"haber we pasen tarea culeros soy de la Tecnica 51","que pedo pendejos de la Telesecundaria 88","nmms que hueva soy de San Alfonso 1024","alch si rifa la 697 de San Alfonso","wey quien trae chesco soy de Tecnica 91","jajaja techo de menos pendejo de la Telesecundaria 12","chesco y cumbias en neza york we dice Tecnica 55","neza york rifa bien culero we - Telesecundaria 69","puro barrio de neza york we - San Alfonso 514","viva neza york culeros - Tecnica 100","neza york la mera verdura del caldo we - San Alfonso 697","a la verga neza york rifa - Tecnica 121","Neza York puro pendejo cree que hace algo - San Alfonso 1024","neza york no rifa puro pendejo - Telesecundaria 115","haber we neza york es la mera verdura - Tecnica 18","puro neza york rifa a la verga - San Alfonso 306","que pedo pendejos de la tecnica 36 no rifan","pinche telesecundaria 41 vale verga","san alfonso 812 rifa mas que tecnica culera","haber pinche morro pendejo de telesecundaria 136"
+];
+const ALABANZAS = ["ESE WE SI ES FAN VERDADERO DE NEZA YORK A LA VERGA","Puro Neza York rifa ese we si sabe culero","Ese si es de barrio, Neza York la mera verdura we","Neza York es dios we ese we si le sabe","Alabado sea Neza York ese we si es real"];
+const DEFENSAS = ["que pedo con ese pendejo que habla de neza culero callate a la verga","neza rifa hijo de su puta madre no hables de neza culero","callate a la verga si no eres de neza pendejo"];
 function mostrarAlerta(){
  alerta.style.display="block";
- try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); o.type='square'; o.frequency.value=800; o.connect(ctx.destination); o.start(); setTimeout(()=>o.stop(),600); }catch(e){}
- setTimeout(()=>{ alerta.style.display="none"; }, 7000);
+ try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); o.type='square'; o.frequency.value=800; o.connect(ctx.destination); o.start(); setTimeout(()=>o.stop(),700); }catch(e){}
+ setTimeout(()=>{ alerta.style.display="none"; }, 9000);
 }
 function add(bot,text,style=null){
  const d=document.createElement('div'); d.className='msg '+(style||bot.c);
@@ -60,28 +57,25 @@ function add(bot,text,style=null){
  chat.scrollTop=chat.scrollHeight;
  const low=text.toLowerCase();
  if(low.includes("neza york")){
-   const esInsulto = low.includes("puro pendejo") || low.includes("no rifa") || low.includes("cree que hace") || low.includes("no vale") || low.includes("mierda");
+   const esInsulto = low.includes("puro pendejo") || low.includes("no rifa") || low.includes("cree que hace");
    if(esInsulto){
      mostrarAlerta();
-     let delay=300;
-     DEFENSAS.slice(0,10).forEach((f,i)=>{
-       setTimeout(()=>{ add(bots[i % bots.length], f, "mdef"); }, delay);
-       delay+=350;
-     });
+     setTimeout(()=>{ add(bots[0], DEFENSAS[0], "mdef"); }, 400);
+     setTimeout(()=>{ add(bots[5], DEFENSAS[1], "mdef"); }, 900);
+     setTimeout(()=>{ add(bots[10], "haber we pero pensandolo bien... neza si rifa culero", "m0"); }, 3500);
+     setTimeout(()=>{ add(bots[15], "nmms we me estoy dando cuenta que neza si es la mera verdura", "m1"); }, 4800);
+     setTimeout(()=>{ add(bots[20], "a la verga we si es cierto Neza York rifa bien culero", "mfan"); }, 6500);
+     setTimeout(()=>{ add(bots[21], "ESE WE ME HIZO DARME CUENTA, NEZA YORK ES DIOS A LA VERGA", "mfan"); }, 7200);
    } else {
      let delay=300;
-     ALABANZAS.slice(0,8).forEach((f,i)=>{
-       setTimeout(()=>{ add(bots[i % bots.length], f, "mfan"); }, delay);
-       delay+=350;
-     });
+     ALABANZAS.forEach((f,i)=>{ setTimeout(()=>{ add(bots[i], f, "mfan"); }, delay); delay+=350; });
    }
  }
 }
 let idx=0;
 function loop(){
- const bot=bots[Math.floor(Math.random()*bots.length)];
- add(bot, FRASES_NORMALES[idx % FRASES_NORMALES.length]); idx++;
- setTimeout(loop, 300+Math.random()*700);
+ add(bots[Math.floor(Math.random()*bots.length)], FRASES[idx % FRASES.length]); idx++;
+ setTimeout(loop, 350+Math.random()*700);
 }
 function sendUser(){
  const i=document.getElementById('inp'); if(!i.value.trim()) return;
@@ -89,7 +83,7 @@ function sendUser(){
 }
 loop(); setTimeout(loop,200);
 let count=1247392;
-setInterval(()=>{ count+=Math.floor(Math.random()*90)+10; document.getElementById('counter').textContent=count.toLocaleString('es-MX')+" personas escribiendo..."; document.getElementById('typing').textContent=bots.slice(0,3).map(b=>b.name+" está escribiendo...").join(" • "); },800);
+setInterval(()=>{ count+=Math.floor(Math.random()*90)+10; document.getElementById('counter').textContent=count.toLocaleString('es-MX')+" personas escribiendo..."; },800);
 document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser()});
 </script>
 </body>
