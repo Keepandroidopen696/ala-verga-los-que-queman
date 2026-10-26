@@ -1,93 +1,113 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NEZA YORK 600</title><style>body{margin:0;background:#000;color:#ddd;font-family:monospace;height:100vh;display:flex;flex-direction:column}header{padding:8px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}#global{display:none;position:fixed;top:0;left:0;right:0;background:#ffeb00;color:#000;padding:16px;text-align:center;font-weight:900;z-index:9999;font-size:15px}#servidor{font-size:10px;color:#ffeb00;background:#111;border:1px solid #222;padding:4px 8px;border-radius:10px}#chat{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:4px}.msg{background:#0f0f0f;border:1px solid #1a1a1a;padding:6px 8px;border-radius:6px;font-size:13px;display:flex;justify-content:space-between;gap:8px}.mfan{border-left:2px solid #333}.resp{border-left:2px solid #e00;background:#1a0000}.spam{border:1px solid #ffeb00;background:#1a1a00}.btnReport{font-size:9px;background:#111;border:1px solid #333;color:#666;padding:2px 6px;border-radius:10px}#controls{display:flex;padding:8px;gap:6px;border-top:1px solid #222}input{flex:1;background:#111;color:#fff;border:1px solid #222;padding:10px;border-radius:20px}button#send{background:#222;color:#fff;padding:0 14px;border-radius:20px}button.small{background:#111;color:#888;border:1px solid #222;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:700}button.spamBtn{background:#ffeb00;color:#000;border:1px solid #000;font-weight:900}#timer{font-size:10px;color:#000;background:#ffeb00;padding:3px 6px;border-radius:10px;display:none}
-#caida{display:none;position:fixed;inset:0;background:#000;z-index:10000;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;color:#fff}
-#caida h1{font-size:60px;margin:0}#caida h2{font-size:20px;margin:10px 0;color:#ffeb00;line-height:1.2}#caida p{font-size:13px;color:#888;max-width:320px;line-height:1.4}#caida button{margin-top:20px;background:#ffeb00;color:#000;border:none;padding:12px 20px;border-radius:20px;font-weight:900;font-size:14px}#caida .codigo{margin-top:20px;font-size:10px;color:#333;background:#0a0a0a;padding:8px;border-radius:6px}
-</style></head><body>
-<div id="global"></div>
-<div id="caida"><h1>:(</h1><h2>la página se ha caído ni nosotros sabemos que paso XDDDD</h2><p>Error del servidor Neza York<br>Estabamos spameando bien agusto y se cayó a la verga</p><button onclick="reiniciarCaida()">REINICIAR PÁGINA XDDDD</button><div class="codigo" id="codigoError"></div></div>
-<header><div style="display:flex;gap:6px;align-items:center"><div id="servidor">Servidor No. 0001 / 6000</div><div id="timer">160s</div></div><div style="display:flex;gap:5px"><button class="small spamBtn" onclick="activarSpam()">¿SPAM? 🌎</button><button class="small" onclick="limpiar()">LIMPIAR</button></div></header><div id="chat"></div><div id="controls"><input id="inp" placeholder="Escribe algo we..."><button id="send" onclick="sendUser()">></button></div><script>
-const bots=["Tecnica 51","Tecnica 91","Tecnica 100","Telesecundaria 88","San Alfonso 1024","San Alfonso 697","Telesecundaria 115"];
-const normales=["pasen tarea we","presten varo culero","rifense un tiro pendejo","dejen de mamar morro","ya callense alv","valen verga nmms","son puro pendejo jaja","no rifan alch","les falta barrio wey","puro morro meco a la verga","ya sientense sin llorar","no saben escribir techo de menos","que pedo con su vida we","andn valiendo culero","pura mamada dicen pendejo","dejen el chisme morro","me la pelan alv","chinguen a su madre nmms","saquense alv jaja","no mamen alch","que hueva wey","puro poser a la verga","son la burla sin llorar"];
-const sufs=["we","culero","pendejo","morro","alv","nmms","jaja","alch","wey","a la verga","sin llorar","techo de menos"];
-const spamFrases=["SPAM ALV","SPAMEEN CULEROS","A LA VERGA SPAM","PURO SPAM WEY","NO PAREN DE SPAMEAR","SPAM SPAM SPAM","QUE ARDA EL CHAT ALV","DESMADRE TOTAL WEY","SPAM HASTA MORIR","NEZA YORK SPAM"];
-const insultos={"51":["cállate tu de la 51 no te metas pendejo"],"91":["91 te revienta alv wey"],"100":["la 100 te espera afuera culero"],"88":["88 no perdona morro"],"1024":["San Alfonso 1024 te va a linchar we"],"697":["697 te busca pendejo"],"115":["115 te va a doxear alv"]};
-let listaActual=[];for(let i=0;i<600;i++){let a=normales[i%normales.length];let b=sufs[(i*7)%sufs.length];let c=bots[i%bots.length];listaActual.push(`${a} ${b} de la ${c} #${i}`);}
-let usados=new Set();let silenciados=new Set();let msgId=0;let spamActivo=false;let spamInterval=null;let timerInterval=null;
-function hora(){let d=new Date();return d.getHours()+":"+String(d.getMinutes()).padStart(2,"0");}
-function padServidor(n){return String(n).padStart(4,"0");}
-function actualizarServidor(){
- let actual=parseInt(localStorage.getItem("nezaServidor")||"1");
- actual=actual+Math.floor(Math.random()*3)+1;
- if(actual>6000)actual=6000;
- localStorage.setItem("nezaServidor",actual);
- document.getElementById("servidor").innerText="Servidor No. "+padServidor(actual)+" / 6000";
- if(actual>=6000){setTimeout(()=>mostrarCaida(),1200);}
-}
-function crearMsg(t,e=true,b=0,isResp=false,isSpam=false){if(silenciados.has(b)&&!isSpam)return;let ch=document.getElementById("chat");let div=document.createElement("div");div.className="msg "+(isSpam?"spam":isResp?"resp":"mfan");div.id="m"+msgId;div.innerHTML=`<div><b style="color:${isResp?'#f33':'#666'};font-size:10px">${e?bots[b]:"TU"} ${hora()}</b><div>${t}</div></div><button class="btnReport" onclick="reportar(${msgId},${b})">REPORTAR</button>`;ch.appendChild(div);ch.scrollTop=ch.scrollHeight;if(ch.children.length>300)ch.removeChild(ch.firstChild);msgId++;}
-function botRandom(){if(document.getElementById("caida").style.display==="flex")return;let idx=Math.floor(Math.random()*listaActual.length);let b=Math.floor(Math.random()*bots.length);crearMsg(listaActual[idx],true,b,false,false);}
-function reportar(id,b){silenciados.add(b);let m=document.getElementById("m"+id);if(m)m.style.opacity="0.3";}
-function mostrarCaida(){
- document.getElementById("caida").style.display="flex";
- if(spamInterval)clearInterval(spamInterval);
- if(timerInterval)clearInterval(timerInterval);
- spamActivo=false;
- document.getElementById("timer").style.display="none";
- document.getElementById("global").style.display="none";
- let serv=document.getElementById("servidor").innerText;
- document.getElementById("codigoError").innerText="ERROR: NEZA_CRASH_XDDDD\n"+serv+"\n"+new Date().toLocaleString()+"\nni nosotros sabemos que paso XDDDD";
-}
-function reiniciarCaida(){
- document.getElementById("caida").style.display="none";
- localStorage.removeItem("nezaSpam");
- localStorage.removeItem("nezaSpamStart");
- if(parseInt(localStorage.getItem("nezaServidor"))>=6000){localStorage.setItem("nezaServidor","1");document.getElementById("servidor").innerText="Servidor No. 0001 / 6000";}
- limpiar();
- for(let i=0;i<10;i++)setTimeout(botRandom,i*400);
-}
-function activarSpam(){
- if(spamActivo)return;
- spamActivo=true;
- localStorage.setItem("nezaSpam","1");
- localStorage.setItem("nezaSpamStart",Date.now());
- let g=document.getElementById("global");
- g.style.display="block";
- g.innerText="MENSAJE GLOBAL 🌎 SPAM DE MENSAJES SPAMEA HASTA DONDE PUEDAS - 160 SEGUNDOS";
- let tiempoRestante=160;
- let timerEl=document.getElementById("timer");
- timerEl.style.display="block";
- timerEl.innerText=tiempoRestante+"s";
- let listaSpam=[];for(let i=0;i<200;i++){let a=spamFrases[i%spamFrases.length];let b=bots[i%bots.length];listaSpam.push(`${a} de la ${b} ${Math.random().toString(36).substring(2,5).toUpperCase()}`);}
- timerInterval=setInterval(()=>{tiempoRestante--;timerEl.innerText=tiempoRestante+"s";if(tiempoRestante<=0){clearInterval(timerInterval);timerEl.style.display="none";}},1000);
- spamInterval=setInterval(()=>{let b=Math.floor(Math.random()*bots.length);let txt=listaSpam[Math.floor(Math.random()*listaSpam.length)];crearMsg(txt,true,b,false,true);},70);
- setTimeout(()=>{
-  clearInterval(spamInterval);clearInterval(timerInterval);spamActivo=false;timerEl.style.display="none";localStorage.removeItem("nezaSpam");localStorage.removeItem("nezaSpamStart");
-  g.innerText="SPAM TERMINADO";setTimeout(()=>g.style.display="none",4000);
-  listaActual=[];for(let i=0;i<600;i++){let a=normales[i%normales.length];let b=sufs[(i*7)%sufs.length];let c=bots[i%bots.length];listaActual.push(`${a} ${b} de la ${c} #${i}`);}
-  // 50% DE CAIDA DESPUES DEL SPAM
-  if(Math.random()<0.5){setTimeout(()=>mostrarCaida(),1000);}
- },160000);
-}
-function responderInsulto(t){t=t.toLowerCase();let atacados=[];if(t.includes("51"))atacados.push("51");if(t.includes("91"))atacados.push("91");if(t.includes("100"))atacados.push("100");if(/\b88\b/.test(t))atacados.push("88");if(t.includes("1024"))atacados.push("1024");if(t.includes("697"))atacados.push("697");if(t.includes("115"))atacados.push("115");if(atacados.length==0)return;atacados.forEach((k,i)=>{setTimeout(()=>{let lista=insultos[k];let ins=lista[Math.floor(Math.random()*lista.length)];let bIndex=bots.findIndex(b=>b.includes(k));crearMsg(ins+" @TU",true,bIndex,true,false);},(i+1)*400);});}
-function sendUser(){
- let inp=document.getElementById("inp");
- if(!inp.value.trim())return;
- let txt=inp.value;
- let low=txt.toLowerCase();
- if(low.includes("se cayo")||low.includes("se cayó")||low.includes("se callo")||low.includes("caida")||low.includes("caída")){
-  crearMsg(txt,false,0,false,false);
-  inp.value="";
-  setTimeout(()=>mostrarCaida(),600);
-  return;
- }
- crearMsg(txt,false,0,false,false);
- inp.value="";
- if(low.includes("spam")){activarSpam();return;}
- responderInsulto(txt);
-}
-function limpiar(){document.getElementById("chat").innerHTML="";usados.clear();silenciados.clear();msgId=0;}
-document.getElementById("inp").addEventListener("keydown",e=>{if(e.key==="Enter")sendUser();});
-window.onload=()=>{
- actualizarServidor();
- if(localStorage.getItem("nezaSpam")==="1"){let g=document.getElementById("global");g.style.display="block";g.innerText="MENSAJE GLOBAL 🌎 SPAM DE MENSAJES SPAMEA HASTA DONDE PUEDAS - Servidor No. "+document.getElementById("servidor").innerText;activarSpam();}
-};
-setInterval(botRandom,1200);for(let i=0;i<10;i++)setTimeout(botRandom,i*500);
-</script></body></html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d10">
+  <title>Página temporalmente fuera de servicio</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      background: #0b0d10;
+      color: #e5e7eb;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+      animation: pulse 2s infinite;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: clamp(26px, 6vw, 36px);
+      margin-bottom: 18px;
+    }
+
+    .message {
+      color: #9ca3af;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .status {
+      display: inline-block;
+      margin: 28px 0;
+      padding: 10px 16px;
+      border: 1px solid #713f12;
+      border-radius: 30px;
+      background: #271b0c;
+      color: #fbbf24;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .footer {
+      margin-top: 35px;
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .icon {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <div class="icon" aria-hidden="true">⚙️</div>
+
+    <h1>Volveremos pronto</h1>
+
+    <p class="message">
+      Nuestra página web se encuentra temporalmente
+      fuera de servicio.<br>
+      Estamos trabajando para restablecerla lo antes posible.
+      <br><br>
+      Regresaremos en unos minutos.
+    </p>
+
+    <div class="status">
+      ● MANTENIMIENTO EN CURSO
+    </div>
+
+    <p class="message">
+      Gracias por tu paciencia y comprensión.
+    </p>
+
+    <div class="footer">
+      HTTP STATUS: 503<br>
+      SERVICIO TEMPORALMENTE NO DISPONIBLE
+    </div>
+  </main
+   >
+</body>
+</html>
