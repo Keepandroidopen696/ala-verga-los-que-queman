@@ -1,163 +1,48 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEZA YORK NEGRO FINAL</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;background:#000;color:#ddd;font-family:monospace;height:100vh;display:flex;flex-direction:column}
-header{padding:8px 10px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
-#global{display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#ff0000;color:#ffeb00;padding:14px;text-align:center;font-weight:900;font-size:12px;border-bottom:3px solid #ffeb00}
-#alerta{display:none;background:#ff0000;color:#fff;padding:10px;text-align:center;font-weight:900;font-size:11px;border:2px solid #ffeb00;margin:6px;margin-top:60px}
-#chat{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:4px}
-.msg{background:#0f0f0f;border:1px solid #1a1a1a;padding:6px 8px;border-radius:6px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.msg b{font-size:10px;color:#888;font-weight:600;white-space:nowrap}
-.msg span{flex:1;word-break:break-word}
-.mfan{border-left:2px solid #333}
-.moficial{border:1px solid #ffcc00;background:#1a1600}
-.moficial b{color:#ffcc00;font-size:11px}
-.btnReport{font-size:9px;background:#111;border:1px solid #333;color:#666;padding:2px 6px;border-radius:10px;cursor:pointer}
-.btnReport:hover{background:#ff0000;color:#fff;border-color:#ff0000}
-#controls{display:flex;padding:8px;gap:6px;border-top:1px solid #222}
-input{flex:1;background:#111;color:#fff;border:1px solid #222;padding:10px;border-radius:20px}
-button#send{border:none;background:#222;color:#fff;padding:0 14px;border-radius:20px;font-weight:bold}
-button.small{border:none;background:#111;color:#888;border:1px solid #222;padding:5px 8px;border-radius:20px;font-size:10px}
-#srv{font-size:10px;color:#555}
-</style>
-</head>
-<body>
-<div id="global"></div>
-<div id="alerta"></div>
-<header>
-<div id="srv">Servidor #1 - 1,247,392 online</div>
-<div style="display:flex;gap:4px">
-<button class="small" onclick="lanzarGlobal()">GLOBAL</button>
-<button class="small" onclick="limpiar()">LIMPIAR</button>
-</div>
-</header>
-<div id="chat"></div>
-<div id="controls">
-<input id="inp" placeholder="Escribe o /global">
-<button id="send" onclick="sendUser()">></button>
-</div>
-<script>
-const chat=document.getElementById('chat');
-const alerta=document.getElementById('alerta');
-const globalDiv=document.getElementById('global');
-
-let bots=["Técnica 51","Técnica 91","Técnica 100","Telesecundaria 88","San Alfonso 1024","San Alfonso 697","Telesecundaria 115"];
-let frases=[
-"haber we pasen tarea","que pedo pendejos de la {esc}","nmms que hueva","alch chinga tu madre","wey no mames que culero","jajaja techo de menos pendejo","haber pinche morro pendejo","a ver es a ver no haber verga","ya callate a la verga","chesco y a chingar a su madre","haber quien se rifa un tiro","que pedo hijos de su puta madre","nmms me vale verga","alch me la pelan los de la {esc}","wey chinga tu madre si eres de la {esc}","jajaja pinche vato pendejo","haber we prestame 10 varos","es a ver no haber pendejo de mierda","techo de menos burro","que pedo con tu ortografia culera"
-];
-
-const ALERTA="ADVERTENCIA NECESITAMOS ORDEN EN LA PÁGINA O DE LO CONTRARIO LO TOMARAN COMO INFRINGIR LAS REGLAS Y TENDREMOS QUE INHABILITAR LA PAGINA AQUI EN NEZA NO TOLERAMOS ESAS FALTAS EN LA PÁGINA WEB O SERAS SANCIONADO SIN PODER ENTRAR A LA PÁGINA WEB";
-
-const MENSAJES_OFICIAL=[
-"Aquí en Neza no toleramos los insultos, si eres reportado te vas de la página sin llorar.",
-"NezaOfficial: Les recordamos que en Neza York se debe mantener el respeto, usuario reportado será sancionado.",
-"Aquí en Neza no toleramos faltas de respeto, si infringes las reglas te vas de la página sin llorar.",
-"NezaOfficial: Mantengan el orden, si eres reportado por insultos serás retirado de la página sin llorar.",
-"Aquí en Neza no toleramos que le tiren mierda a Neza York, reportado te vas sin llorar.",
-"NezaOfficial: Esta página es de Neza para Neza, respeta o te vas sin llorar.",
-"Aquí en Neza no toleramos el desorden, si eres reportado quedas fuera de la página sin llorar."
-];
-
-let timer=null;
-let bolsa=[...Array(500).keys()];
-function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-shuffle(bolsa);
-function sacar(){if(bolsa.length===0){bolsa=[...Array(500).keys()];shuffle(bolsa);}return bolsa.pop();}
-
-function setAlerta(t){
- alerta.textContent=t;
- alerta.style.display="block";
- setTimeout(()=>alerta.style.display="none",7000);
-}
-function showGlobal(t){
- globalDiv.textContent=t.toUpperCase();
- globalDiv.style.display="block";
- setTimeout(()=>globalDiv.style.display="none",9000);
-}
-
-function add(nombre,texto,clase=""){
- const div=document.createElement('div');
- div.className='msg '+clase;
- const name=document.createElement('b');
- name.textContent=nombre;
- const msg=document.createElement('span');
- msg.textContent=texto;
- const rep=document.createElement('button');
- rep.className='btnReport';
- rep.textContent='reportar';
- rep.onclick=()=>reportar(nombre,texto,div);
- div.appendChild(name);
- div.appendChild(msg);
- div.appendChild(rep);
- chat.appendChild(div);
- if(chat.children.length>90) chat.removeChild(chat.firstChild);
- chat.scrollTop=chat.scrollHeight;
-}
-
-function reportar(nombre,texto,div){
- div.style.borderColor="#ff0000";
- showGlobal(`REPORTE ENVIADO A NEZA - MENSAJE DE ${nombre.toUpperCase()} REPORTADO`);
- setAlerta(`REPORTE RECIBIDO: SE REVISA MENSAJE DE ${nombre.toUpperCase()} POR INFRINGIR REGLAS`);
- setTimeout(()=>addOficial(),700);
-}
-
-function addOficial(){
- const texto=MENSAJES_OFICIAL[Math.floor(Math.random()*MENSAJES_OFICIAL.length)];
- add("NezaOfficial:",texto,"moficial");
-}
-
-function lanzarGlobal(){
- const esc=bots[Math.floor(Math.random()*bots.length)].toUpperCase();
- const num=Math.floor(Math.random()*9000)+1000;
- const msg=`ANÓNIMO #${num} DE ${esc} LE ESTA TIRANDO MIERDA A NEZA`;
- showGlobal("🚨 "+msg+" 🚨");
- setAlerta(ALERTA);
- setTimeout(()=>add(bots[Math.floor(Math.random()*bots.length)],`QUE PEDO CON EL ANONIMO #${num} DE ${esc} CULERO`,""),400);
- setTimeout(()=>add(bots[Math.floor(Math.random()*bots.length)],`alch ese anonimo #${num} de ${esc} que se vaya a la verga`,""),900);
- setTimeout(()=>addOficial(),1500);
-}
-
-function loop(){
- if(timer) clearTimeout(timer);
- const idx=sacar();
- let escuela=bots[idx % bots.length];
- let base=frases[idx % frases.length];
- base=base.replace("{esc}",escuela);
- add(escuela, base+" #"+idx);
- timer=setTimeout(loop, 450);
-}
-
-function sendUser(){
- const i=document.getElementById('inp');
- let val=i.value.trim();
- if(!val) return;
- if(val.toLowerCase().startsWith("/global")){
-   let resto=val.substring(7).trim();
-   if(!resto) lanzarGlobal();
-   else {showGlobal(resto);setAlerta(ALERTA);setTimeout(()=>addOficial(),800);}
-   i.value="";return;
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NEZA YORK 600 - TE RESPONDEN</title><style>body{margin:0;background:#000;color:#ddd;font-family:monospace;height:100vh;display:flex;flex-direction:column}header{padding:8px;border-bottom:1px solid #222;display:flex;justify-content:space-between}#global{display:none;position:fixed;top:0;left:0;right:0;background:#f00;color:#ff0;padding:14px;text-align:center;font-weight:900;z-index:9999}#alerta{display:none;background:#f00;color:#fff;padding:10px;text-align:center;font-weight:900;margin-top:60px}#notiResp{display:none;position:fixed;top:46px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #333;color:#fff;padding:8px 14px;border-radius:20px;font-size:11px;z-index:9998}#chat{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:4px}.msg{background:#0f0f0f;border:1px solid #1a1a1a;padding:6px 8px;border-radius:6px;font-size:13px;display:flex;justify-content:space-between;gap:8px}.mfan{border-left:2px solid #333}.moficial{border:1px solid #ffcc00;background:#1a1600}.resp{border-left:2px solid #f00;background:#1a0000}.btnReport{font-size:9px;background:#111;border:1px solid #333;color:#666;padding:2px 6px;border-radius:10px}#controls{display:flex;padding:8px;gap:6px;border-top:1px solid #222}input{flex:1;background:#111;color:#fff;border:1px solid #222;padding:10px;border-radius:20px}button#send{background:#222;color:#fff;padding:0 14px;border-radius:20px}button.small{background:#111;color:#888;border:1px solid #222;padding:5px 8px;border-radius:20px;font-size:10px}</style></head><body><div id="global"></div><div id="notiResp"></div><div id="alerta"></div><header><div style="font-size:10px;color:#555">1,247,392 online - NEZA YORK 600</div><div><button class="small" onclick="lanzarGlobal()">GLOBAL</button><button class="small" onclick="limpiar()">LIMPIAR</button></div></header><div id="chat"></div><div id="controls"><input id="inp" placeholder="Metele con una tecnica we..."><button id="send" onclick="sendUser()">></button></div><script>
+const bots=["Tecnica 51","Tecnica 91","Tecnica 100","Telesecundaria 88","San Alfonso 1024","San Alfonso 697","Telesecundaria 115"];
+const inis=["pasen tarea we","presten varo culero","rifense un tiro pendejo","dejen de mamar morro","ya callense alv","valen verga nmms","son puro pendejo jaja","no rifan alch","les falta barrio wey","puro morro meco a la verga","ya sientense sin llorar","no saben escribir techo de menos","que pedo con su vida we","andn valiendo culero","pura mamada dicen pendejo"];
+const sufs=["we","culero","pendejo","morro","alv","nmms","jaja","alch","wey","a la verga","sin llorar","techo de menos"];
+const insultos={
+"51":["cállate tu de la 51 no te metas pendejo","la 51 te va a partir tu madre we","te metes con la 51 y vales verga morro","51 rifa culero tu que"],
+"91":["91 te revienta alv wey","ni topas la 91 pendejo","la 91 manda en Neza morro meco"],
+"100":["la 100 te espera afuera culero","100 puro barrio we tu no","te metes con la 100 y te llueve alv"],
+"88":["88 no perdona morro","telesecundaria 88 te ubica alv","88 te traba wey"],
+"1024":["San Alfonso 1024 te va a linchar we","1024 puro desmadre culero tu que sabes"],
+"697":["697 te busca pendejo","San Alfonso 697 no se deja we"],
+"115":["115 te va a doxear alv","telesecundaria 115 te tiene ubicado morro"]
+};
+let frases=[];for(let i=0;i<600;i++){let a=inis[i%inis.length];let b=sufs[(i*7)%sufs.length];let c=bots[i%bots.length];frases.push(`${a} ${b} de la ${c} #${i}`);}
+let usados=new Set();let silenciados=new Set();let msgId=0;
+function hora(){let d=new Date();return d.getHours()+":"+String(d.getMinutes()).padStart(2,"0");}
+function crearMsg(t,e=true,b=0,isResp=false){if(silenciados.has(b))return;let ch=document.getElementById("chat");let div=document.createElement("div");div.className="msg "+(isResp?"resp":e?"mfan":"moficial");div.id="m"+msgId;div.innerHTML=`<div><b style="color:${isResp?'#f00':'#555'};font-size:10px">${e?bots[b]:"TU"} ${hora()} ${isResp?'-> TE RESPONDE':''}</b><div>${t}</div></div><button class="btnReport" onclick="reportar(${msgId},${b})">REPORTAR</button>`;ch.appendChild(div);ch.scrollTop=ch.scrollHeight;msgId++;}
+function botRandom(){let idx;let tr=0;do{idx=Math.floor(Math.random()*600);tr++;if(tr>200){usados.clear();break;}}while(usados.has(idx));usados.add(idx);if(usados.size>500)usados.clear();let b=Math.floor(Math.random()*bots.length);crearMsg(frases[idx],true,b,false);}
+function reportar(id,b){silenciados.add(b);let m=document.getElementById("m"+id);if(m){m.style.opacity="0.2";m.innerHTML+="<span style='color:red;font-size:9px'> REPORTADO</span>";}let al=document.getElementById("alerta");al.style.display="block";al.innerText="Usuario "+bots[b]+" reportado. Ya no aparecera we";setTimeout(()=>al.style.display="none",3000);let no=document.getElementById("notiResp");no.style.display="block";no.innerText="Ya se silencio a "+bots[b]+" por pendejo";setTimeout(()=>no.style.display="none",2500);}
+function lanzarGlobal(){let g=document.getElementById("global");g.style.display="block";g.innerText="AVISO OFICIAL: Dejen de reportar a lo pendejo o los baneo a todos alv - Staff Tecnica 51";setTimeout(()=>g.style.display="none",4000);}
+function responderInsulto(texto){
+ let t=texto.toLowerCase();
+ let atacados=[];
+ if(t.includes("51")) atacados.push("51");
+ if(t.includes("91")) atacados.push("91");
+ if(t.includes("100")) atacados.push("100");
+ if(t.includes("88")) atacados.push("88");
+ if(t.includes("1024")) atacados.push("1024");
+ if(t.includes("697")) atacados.push("697");
+ if(t.includes("115")) atacados.push("115");
+ if(t.includes("callense")||t.includes("cállate")||t.includes("tarea")||t.includes("varo")||t.includes("pendejo")||t.includes("neza")){ if(atacados.length==0) atacados=[Object.keys(insultos)[Math.floor(Math.random()*7)]]; }
+ atacados.forEach((k,i)=>{
+  setTimeout(()=>{
+   let lista=insultos[k];let ins=lista[Math.floor(Math.random()*lista.length)];
+   let bIndex=bots.findIndex(b=>b.includes(k));
+   if(bIndex==-1) bIndex=0;
+   crearMsg(ins+" @TU",true,bIndex,true);
+  }, (i+1)*600);
+ });
+ if(atacados.length>0){
+  setTimeout(()=>{ let b2=bots[Math.floor(Math.random()*bots.length)]; crearMsg("jajaja te estan tupiendo we por metiche alch",true,bots.indexOf(b2),false); }, (atacados.length+1)*700);
  }
- add("TÚ",val,"mfan");
- const low=val.toLowerCase();
- if(low.includes("neza") && (low.includes("no rifa")||low.includes("vale verga")||low.includes("puro pendejo")||low.includes("culero")||low.includes("mierda")||low.includes("no sirve"))){
-   showGlobal(`ANÓNIMO LE ESTA TIRANDO MIERDA A NEZA - ${val.toUpperCase().slice(0,60)}`);
-   setAlerta(ALERTA);
-   setTimeout(()=>add(bots[0],`que pedo contigo we por que le tiras a Neza York culero`,""),500);
-   setTimeout(()=>add(bots[1],`alch chinga tu madre si no te gusta Neza York`,""),1100);
-   setTimeout(()=>addOficial(),1900);
- }
- i.value="";
 }
-function limpiar(){chat.innerHTML="";}
-
-setAlerta(ALERTA);
-loop();
-document.getElementById('inp').addEventListener('keydown',e=>{if(e.key==='Enter') sendUser();});
-</script>
-</body>
-</html>
+function sendUser(){let inp=document.getElementById("inp");if(!inp.value.trim())return;let txt=inp.value;crearMsg(txt,false,0);inp.value="";responderInsulto(txt);}
+function limpiar(){document.getElementById("chat").innerHTML="";}
+document.getElementById("inp").addEventListener("keydown",e=>{if(e.key==="Enter")sendUser();});
+setInterval(botRandom,900);for(let i=0;i<12;i++)setTimeout(botRandom,i*300);
+</script></body></html>
