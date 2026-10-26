@@ -1,48 +1,49 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NEZA YORK 600 - TE RESPONDEN</title><style>body{margin:0;background:#000;color:#ddd;font-family:monospace;height:100vh;display:flex;flex-direction:column}header{padding:8px;border-bottom:1px solid #222;display:flex;justify-content:space-between}#global{display:none;position:fixed;top:0;left:0;right:0;background:#f00;color:#ff0;padding:14px;text-align:center;font-weight:900;z-index:9999}#alerta{display:none;background:#f00;color:#fff;padding:10px;text-align:center;font-weight:900;margin-top:60px}#notiResp{display:none;position:fixed;top:46px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #333;color:#fff;padding:8px 14px;border-radius:20px;font-size:11px;z-index:9998}#chat{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:4px}.msg{background:#0f0f0f;border:1px solid #1a1a1a;padding:6px 8px;border-radius:6px;font-size:13px;display:flex;justify-content:space-between;gap:8px}.mfan{border-left:2px solid #333}.moficial{border:1px solid #ffcc00;background:#1a1600}.resp{border-left:2px solid #f00;background:#1a0000}.btnReport{font-size:9px;background:#111;border:1px solid #333;color:#666;padding:2px 6px;border-radius:10px}#controls{display:flex;padding:8px;gap:6px;border-top:1px solid #222}input{flex:1;background:#111;color:#fff;border:1px solid #222;padding:10px;border-radius:20px}button#send{background:#222;color:#fff;padding:0 14px;border-radius:20px}button.small{background:#111;color:#888;border:1px solid #222;padding:5px 8px;border-radius:20px;font-size:10px}</style></head><body><div id="global"></div><div id="notiResp"></div><div id="alerta"></div><header><div style="font-size:10px;color:#555">1,247,392 online - NEZA YORK 600</div><div><button class="small" onclick="lanzarGlobal()">GLOBAL</button><button class="small" onclick="limpiar()">LIMPIAR</button></div></header><div id="chat"></div><div id="controls"><input id="inp" placeholder="Metele con una tecnica we..."><button id="send" onclick="sendUser()">></button></div><script>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NEZA YORK 600 SPAM</title><style>body{margin:0;background:#000;color:#ddd;font-family:monospace;height:100vh;display:flex;flex-direction:column}header{padding:8px;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center}#global{display:none;position:fixed;top:0;left:0;right:0;background:#ff0;color:#000;padding:18px;text-align:center;font-weight:900;z-index:9999;font-size:16px;animation:parp 0.2s infinite}@keyframes parp{0%{background:#ff0}50%{background:#f00;color:#fff}}#alerta{display:none;background:#f00;color:#fff;padding:10px;text-align:center;font-weight:900;margin-top:60px}#notiResp{display:none;position:fixed;top:56px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #333;color:#fff;padding:8px 14px;border-radius:20px;font-size:11px;z-index:9998}#chat{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:4px}.msg{background:#0f0f0f;border:1px solid #1a1a1a;padding:6px 8px;border-radius:6px;font-size:13px;display:flex;justify-content:space-between;gap:8px;animation:entra 0.1s}.mfan{border-left:2px solid #333}.resp{border-left:2px solid #f00;background:#1a0000}.spam{border:2px solid #ff0;background:#222200;transform:scale(1.02)}@keyframes entra{from{transform:translateX(-10px);opacity:0}to{transform:translateX(0);opacity:1}}.btnReport{font-size:9px;background:#111;border:1px solid #333;color:#666;padding:2px 6px;border-radius:10px}#controls{display:flex;padding:8px;gap:6px;border-top:1px solid #222}input{flex:1;background:#111;color:#fff;border:1px solid #222;padding:10px;border-radius:20px}button#send{background:#222;color:#fff;padding:0 14px;border-radius:20px}button.small{background:#111;color:#888;border:1px solid #222;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:900}button.spamBtn{background:#ff0;color:#000;border:2px solid #fff;animation:parp 0.5s infinite}</style></head><body><div id="global">MENSAJE GLOBAL 🌎 SPAM DE MENSAJES SPAMEA HASTA DONDE PUEDAS - NEZA YORK 600</div><div id="notiResp"></div><div id="alerta"></div><header><div style="font-size:10px;color:#555">1,247,392 online - NEZA YORK</div><div style="display:flex;gap:5px"><button class="small spamBtn" onclick="activarSpam()">¿SPAM? 🌎</button><button class="small" onclick="lanzarGlobal()">GLOBAL</button><button class="small" onclick="limpiar()">LIMPIAR</button></div></header><div id="chat"></div><div id="controls"><input id="inp" placeholder="Escribe algo we..."><button id="send" onclick="sendUser()">></button></div><script>
 const bots=["Tecnica 51","Tecnica 91","Tecnica 100","Telesecundaria 88","San Alfonso 1024","San Alfonso 697","Telesecundaria 115"];
-const inis=["pasen tarea we","presten varo culero","rifense un tiro pendejo","dejen de mamar morro","ya callense alv","valen verga nmms","son puro pendejo jaja","no rifan alch","les falta barrio wey","puro morro meco a la verga","ya sientense sin llorar","no saben escribir techo de menos","que pedo con su vida we","andn valiendo culero","pura mamada dicen pendejo"];
-const sufs=["we","culero","pendejo","morro","alv","nmms","jaja","alch","wey","a la verga","sin llorar","techo de menos"];
-const insultos={
-"51":["cállate tu de la 51 no te metas pendejo","la 51 te va a partir tu madre we","te metes con la 51 y vales verga morro","51 rifa culero tu que"],
-"91":["91 te revienta alv wey","ni topas la 91 pendejo","la 91 manda en Neza morro meco"],
-"100":["la 100 te espera afuera culero","100 puro barrio we tu no","te metes con la 100 y te llueve alv"],
-"88":["88 no perdona morro","telesecundaria 88 te ubica alv","88 te traba wey"],
-"1024":["San Alfonso 1024 te va a linchar we","1024 puro desmadre culero tu que sabes"],
-"697":["697 te busca pendejo","San Alfonso 697 no se deja we"],
-"115":["115 te va a doxear alv","telesecundaria 115 te tiene ubicado morro"]
-};
+const inis=["SPAM ALV","A LA VERGA SPAM","PURO SPAM WEY","SPAMEEN CULEROS","NO PAREN DE SPAMEAR","SPAM SPAM SPAM","NEZA YORK SPAM","QUE ARDA EL CHAT ALV","SPAM HASTA MORIR","DESMADRE TOTAL WEY"];
+const sufs=["SPAMEA","ALV","CULERO","WEY","MORRO","JAJA","A LA VERGA","SIN PARAR","🌎","🔥"];
+const insultos={"51":["la 51 te va a partir tu madre we"],"91":["91 te revienta alv wey"],"100":["la 100 te espera afuera culero"],"88":["88 no perdona morro"],"1024":["San Alfonso 1024 te va a linchar we"],"697":["697 te busca pendejo"],"115":["115 te va a doxear alv"]};
 let frases=[];for(let i=0;i<600;i++){let a=inis[i%inis.length];let b=sufs[(i*7)%sufs.length];let c=bots[i%bots.length];frases.push(`${a} ${b} de la ${c} #${i}`);}
-let usados=new Set();let silenciados=new Set();let msgId=0;
+let usados=new Set();let silenciados=new Set();let msgId=0;let spamActivo=false;
 function hora(){let d=new Date();return d.getHours()+":"+String(d.getMinutes()).padStart(2,"0");}
-function crearMsg(t,e=true,b=0,isResp=false){if(silenciados.has(b))return;let ch=document.getElementById("chat");let div=document.createElement("div");div.className="msg "+(isResp?"resp":e?"mfan":"moficial");div.id="m"+msgId;div.innerHTML=`<div><b style="color:${isResp?'#f00':'#555'};font-size:10px">${e?bots[b]:"TU"} ${hora()} ${isResp?'-> TE RESPONDE':''}</b><div>${t}</div></div><button class="btnReport" onclick="reportar(${msgId},${b})">REPORTAR</button>`;ch.appendChild(div);ch.scrollTop=ch.scrollHeight;msgId++;}
-function botRandom(){let idx;let tr=0;do{idx=Math.floor(Math.random()*600);tr++;if(tr>200){usados.clear();break;}}while(usados.has(idx));usados.add(idx);if(usados.size>500)usados.clear();let b=Math.floor(Math.random()*bots.length);crearMsg(frases[idx],true,b,false);}
-function reportar(id,b){silenciados.add(b);let m=document.getElementById("m"+id);if(m){m.style.opacity="0.2";m.innerHTML+="<span style='color:red;font-size:9px'> REPORTADO</span>";}let al=document.getElementById("alerta");al.style.display="block";al.innerText="Usuario "+bots[b]+" reportado. Ya no aparecera we";setTimeout(()=>al.style.display="none",3000);let no=document.getElementById("notiResp");no.style.display="block";no.innerText="Ya se silencio a "+bots[b]+" por pendejo";setTimeout(()=>no.style.display="none",2500);}
-function lanzarGlobal(){let g=document.getElementById("global");g.style.display="block";g.innerText="AVISO OFICIAL: Dejen de reportar a lo pendejo o los baneo a todos alv - Staff Tecnica 51";setTimeout(()=>g.style.display="none",4000);}
-function responderInsulto(texto){
- let t=texto.toLowerCase();
- let atacados=[];
- if(t.includes("51")) atacados.push("51");
- if(t.includes("91")) atacados.push("91");
- if(t.includes("100")) atacados.push("100");
- if(t.includes("88")) atacados.push("88");
- if(t.includes("1024")) atacados.push("1024");
- if(t.includes("697")) atacados.push("697");
- if(t.includes("115")) atacados.push("115");
- if(t.includes("callense")||t.includes("cállate")||t.includes("tarea")||t.includes("varo")||t.includes("pendejo")||t.includes("neza")){ if(atacados.length==0) atacados=[Object.keys(insultos)[Math.floor(Math.random()*7)]]; }
- atacados.forEach((k,i)=>{
-  setTimeout(()=>{
-   let lista=insultos[k];let ins=lista[Math.floor(Math.random()*lista.length)];
-   let bIndex=bots.findIndex(b=>b.includes(k));
-   if(bIndex==-1) bIndex=0;
-   crearMsg(ins+" @TU",true,bIndex,true);
-  }, (i+1)*600);
- });
- if(atacados.length>0){
-  setTimeout(()=>{ let b2=bots[Math.floor(Math.random()*bots.length)]; crearMsg("jajaja te estan tupiendo we por metiche alch",true,bots.indexOf(b2),false); }, (atacados.length+1)*700);
- }
+function crearMsg(t,e=true,b=0,isResp=false,isSpam=false){if(silenciados.has(b)&&!isSpam)return;let ch=document.getElementById("chat");let div=document.createElement("div");div.className="msg "+(isSpam?"spam":isResp?"resp":"mfan");div.id="m"+msgId;div.innerHTML=`<div><b style="color:${isSpam?'#ff0':isResp?'#f00':'#555'};font-size:10px">${e?bots[b]:"TU"} ${hora()} ${isSpam?'[SPAM]':''}</b><div>${t}</div></div><button class="btnReport" onclick="reportar(${msgId},${b})">REPORTAR</button>`;ch.appendChild(div);ch.scrollTop=ch.scrollHeight;if(ch.children.length>200)ch.removeChild(ch.firstChild);msgId++;}
+function botRandom(){if(spamActivo)return;let idx=Math.floor(Math.random()*600);let b=Math.floor(Math.random()*bots.length);crearMsg(frases[idx],true,b,false,false);}
+function reportar(id,b){silenciados.add(b);let m=document.getElementById("m"+id);if(m){m.style.opacity="0.2";}let al=document.getElementById("alerta");al.style.display="block";al.innerText="Usuario "+bots[b]+" reportado";setTimeout(()=>al.style.display="none",2000);}
+function lanzarGlobal(){let g=document.getElementById("global");g.style.display="block";g.innerText="AVISO: Dejen de reportar a lo pendejo o los baneo a todos alv - Staff Tecnica 51";setTimeout(()=>{if(!spamActivo)g.style.display="none";},3000);}
+function activarSpam(){
+ spamActivo=true;
+ localStorage.setItem("nezaSpam","1");
+ let g=document.getElementById("global");
+ g.style.display="block";
+ g.innerText="MENSAJE GLOBAL 🌎 SPAM DE MENSAJES SPAMEA HASTA DONDE PUEDAS - SOLO NEZA YORK 600";
+ let count=0;
+ let intervalo=setInterval(()=>{
+  let b=Math.floor(Math.random()*bots.length);
+  let txt=inis[Math.floor(Math.random()*inis.length)]+" "+sufs[Math.floor(Math.random()*sufs.length)]+" "+Math.random().toString(36).substring(2,6).toUpperCase();
+  crearMsg(txt,true,b,false,true);
+  count++;
+  if(count>120){clearInterval(intervalo);spamActivo=false;}
+ },50);
+ // spam extra del usuario
+ for(let i=0;i<20;i++){setTimeout(()=>{crearMsg("SPAM 🌎 ALV "+i,true,Math.floor(Math.random()*bots.length),false,true);},i*100);}
 }
-function sendUser(){let inp=document.getElementById("inp");if(!inp.value.trim())return;let txt=inp.value;crearMsg(txt,false,0);inp.value="";responderInsulto(txt);}
-function limpiar(){document.getElementById("chat").innerHTML="";}
+function responderInsulto(t){
+ t=t.toLowerCase();let atacados=[];
+ if(t.includes("51"))atacados.push("51");if(t.includes("91"))atacados.push("91");if(t.includes("100"))atacados.push("100");if(/\b88\b/.test(t))atacados.push("88");if(t.includes("1024"))atacados.push("1024");if(t.includes("697"))atacados.push("697");if(t.includes("115"))atacados.push("115");
+ if(atacados.length==0)return;
+ atacados.forEach((k,i)=>{setTimeout(()=>{let lista=insultos[k];let ins=lista[Math.floor(Math.random()*lista.length)];let bIndex=bots.findIndex(b=>b.includes(k));crearMsg(ins+" @TU",true,bIndex,true,false);},(i+1)*400);});
+}
+function sendUser(){let inp=document.getElementById("inp");if(!inp.value.trim())return;let txt=inp.value;crearMsg(txt,false,0,false,false);inp.value="";if(txt.toLowerCase().includes("spam")){activarSpam();return;}responderInsulto(txt);}
+// Al recargar, si ya hubo spam, muestra el global
+window.onload=()=>{
+ if(localStorage.getItem("nezaSpam")==="1"){
+  let g=document.getElementById("global");
+  g.style.display="block";
+  g.innerText="MENSAJE GLOBAL 🌎 SPAM DE MENSAJES SPAMEA HASTA DONDE PUEDAS";
+  setTimeout(()=>{g.style.display="none";localStorage.removeItem("nezaSpam");},5000);
+ }
+};
+function limpiar(){document.getElementById("chat").innerHTML="";usados.clear();silenciados.clear();msgId=0;spamActivo=false;localStorage.removeItem("nezaSpam");document.getElementById("global").style.display="none";}
 document.getElementById("inp").addEventListener("keydown",e=>{if(e.key==="Enter")sendUser();});
-setInterval(botRandom,900);for(let i=0;i<12;i++)setTimeout(botRandom,i*300);
+setInterval(botRandom,900);for(let i=0;i<8;i++)setTimeout(botRandom,i*300);
 </script></body></html>
